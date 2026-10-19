@@ -53,7 +53,8 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
 .sheet .t{flex:1;min-width:0}
 .sheet li small{display:block;margin-top:2px;color:var(--mute);font-size:12px}
 .sheet .k{flex:0 0 38px;height:38px;border-radius:10px;background:#141110;display:grid;place-items:center;font:700 18px var(--display);color:var(--gold)}
-.sheet .go{width:100%;font-size:15px;padding:13px}
+.sheet .go.alt{background:transparent;border:1px solid #e8c46a88;color:var(--gold);padding:10px;font-size:13px}
+.sheet .go{display:block;box-sizing:border-box;width:100%;font-size:15px;padding:13px;text-align:center;text-decoration:none;margin-top:8px}
 .sheet .tip2{margin:6px 0 0;font-size:12px;color:var(--mute)}
 .sheet .later{display:block;margin:8px auto 0;background:none;border:0;color:var(--mute);font:600 13px var(--body);padding:6px 12px;cursor:pointer}
 .sheet .arrow{text-align:center;font-size:26px;color:var(--gold);animation:bob 1.2s ease-in-out infinite}
@@ -96,17 +97,19 @@ const sheet = document.getElementById("sheet"), steps = document.getElementById(
 const SHARE = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
 const PLUS = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f6f1ea" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
 let ev = null;
+// из встроенного окна Телеграма/Инстаграма значок не ставится; эти ссылки открывают страницу в настоящем браузере:
+// iPhone — схема x-safari-https:// (iOS 17+), Android — intent:// с пакетом Chrome
+const HERE = location.href.split("#")[0];
+const SAFARI = "x-safari-" + HERE, CHROME = "intent://" + HERE.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+const OPEN = IOS ? `<a class="go" href="${SAFARI}">Открыть в Safari</a>` : `<a class="go" href="${CHROME}">Открыть в Chrome</a>`;
 function render() {
-  if (INAPP) steps.innerHTML = `<ol>
-      <li><span class="k">⋯</span><span class="t">Нажмите меню в углу экрана</span></li>
-      <li><span class="k">↗</span><span class="t">Выберите «Открыть в ${IOS ? "Safari" : "браузере"}»</span></li>
-      <li><span class="k">✓</span><span class="t">Там появится кнопка добавления на экран</span></li></ol>
-      <p class="tip2">Из Телеграма и Инстаграма значок не ставится — только из ${IOS ? "Safari" : "Chrome"}.</p>`;
+  if (INAPP) steps.innerHTML = `<p class="tip2" style="margin:0 0 8px;font-size:14px;color:#f1e3c8">Вы открыли ссылку внутри приложения — отсюда значок не ставится. Откройте полку в ${IOS ? "Safari" : "Chrome"}, там появится подсказка:</p>${OPEN}
+      <p class="tip2">Не открылось? Нажмите «⋯» в углу экрана → «Открыть в ${IOS ? "Safari" : "браузере"}».</p>`;
   else if (IOS) steps.innerHTML = `<ol>
       <li><span class="k">${SHARE}</span><span class="t">Нажмите «Поделиться» внизу экрана<small>на новых iPhone сначала «⋯» внизу справа</small></span></li>
       <li><span class="k">${PLUS}</span><span class="t">Пролистайте и выберите «На экран Домой»</span></li>
       <li><span class="k">✓</span><span class="t">Нажмите «Добавить» вверху справа</span></li></ol>
-      <div class="arrow">↓</div>`;
+      <p class="tip2">Нет пункта «На экран Домой»? Значит, ссылка открыта в Телеграме или другом приложении:</p>${OPEN.replace('class="go"', 'class="go alt"')}`;
   else if (ev) steps.innerHTML = `<button class="go" id="go">Добавить на экран</button>`;
   else steps.innerHTML = `<ol>
       <li><span class="k">⋮</span><span class="t">Нажмите меню браузера вверху справа</span></li>
