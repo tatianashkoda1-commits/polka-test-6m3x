@@ -28,11 +28,12 @@ async function all(jobs, dry) {
     books[j.tag] = [d, j.urls.length]; done += d; total += j.urls.length; }
   const report = () => { const b = { ...books }; delete b.lite; tell({ type: "all", done, total, books: b }); };
   report(); if (dry) return;
-  let n = 0;
-  for (const [tag, u] of todo) {
+  // 6 загрузок одновременно: файлов сотни, мелких — медленно не из-за объёма, а из-за ожидания ответа на каждый
+  let n = 0, i = 0;
+  const worker = async () => { while (i < todo.length) { const [tag, u] = todo[i++];
     try { const r = await fetch(u); if (r.ok) { await c.put(u, r); done++; books[tag][0]++; } } catch (_) {}
-    if (++n % 4 === 0) report();
-  }
+    if (++n % 6 === 0) report(); } };
+  await Promise.all(Array.from({ length: 6 }, worker));
   report();
 }
 self.addEventListener("message", e => {
