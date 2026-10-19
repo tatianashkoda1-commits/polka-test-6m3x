@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Моя полка — HoolyFood Academy</title>
+<meta name="theme-color" content="#1b120c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Мои книги">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* полка: тёмный «переплёт», золото, как обложки книг */
+:root{--wood:#1b120c;--page:#f6f1ea;--ink:#141110;--red:#e8452a;--gold:#e8c46a;--mute:#b6a597;--display:"Oswald","Arial Narrow",sans-serif;--body:"Manrope","Segoe UI",system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--wood);color:var(--page);font:16px/1.5 var(--body);padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(28px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:1100px;margin:0 auto}
+header{display:flex;align-items:center;gap:14px;margin:6px 0 22px}
+header img{height:40px;width:auto}
+h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;background:linear-gradient(180deg,#f6dc9a,#d9a441 45%,#a8742a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mute);font-size:14px;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start}
+.book{position:relative;display:block;border-radius:14px;overflow:hidden;background:#2a1a10;text-decoration:none;color:var(--page);box-shadow:0 10px 30px #0008;transition:transform .2s}
+.book:active{transform:scale(.98)}
+.book img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.book .cap{padding:10px 12px 12px;background:#120c09}
+.book h2{font:700 19px/1.05 var(--display);text-transform:uppercase;margin:0 0 5px;color:var(--gold)}
+.book .who{font-size:12px;color:#f1e3c8;line-height:1.3}
+.book .n{display:inline-block;margin-top:6px;font:600 11px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.add{margin:26px 0 0;padding:14px 16px;border:1px solid #e8c46a55;border-radius:14px;color:#f1e3c8;font-size:14px}
+.add b{color:var(--gold)}
+.add button{margin-top:10px;border:0;border-radius:24px;padding:10px 16px;background:var(--red);color:#fff;font:600 13px var(--display);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.proto{margin-top:18px;color:#7d6c5e;font-size:12px}
+@media (min-width:700px){.grid{grid-template-columns:repeat(3,1fr);gap:22px} h1{font-size:56px} .book h2{font-size:24px}}
+@media (min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media (prefers-reduced-motion:reduce){.book{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="img/logo.png" alt="HoolyFood Academy"></header>
+  <h1>Моя полка</h1>
+  <p class="sub">Живые книги шефов: в каждом шаге видео, как это делается руками</p>
+  <div class="grid"><a class="book" href="kotlety/"><img src="img/kotlety.jpg" alt="" loading="lazy"><div class="cap"><h2>Котлеты по ГОСТу</h2><div class="who">Шеф Татьяна Травникова</div><span class="n">10 рецептов</span></div></a><a class="book" href="lenivaya/"><img src="img/lenivaya.jpg" alt="" loading="lazy"><div class="cap"><h2>Ленивая хозяйка. Том 1</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">20 рецептов</span></div></a><a class="book" href="rulety/"><img src="img/rulety.jpg" alt="" loading="lazy"><div class="cap"><h2>Мясные рулеты</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">9 рецептов</span></div></a><a class="book" href="novyi-god/"><img src="img/novyi-god.jpg" alt="" loading="lazy"><div class="cap"><h2>Новогодний стол</h2><div class="who">Команда шефов ХулиФуда</div><span class="n">16 рецептов</span></div></a><a class="book" href="kokteili/"><img src="img/kokteili.jpg" alt="" loading="lazy"><div class="cap"><h2>Коктейли</h2><div class="who">Леонид Жарков</div><span class="n">14 рецептов</span></div></a><a class="book" href="rozhdestvo/"><img src="img/rozhdestvo.jpg" alt="" loading="lazy"><div class="cap"><h2>Традиционная рождественская выпечка</h2><div class="who">Елена Уилкинсон · Ольга Андреева</div><span class="n">15 рецептов</span></div></a></div>
+  <div class="add" id="add">
+    <b>Одна полка — один значок.</b> Добавьте её на экран телефона: все книги будут здесь, новые появятся сами.
+    <div id="how"></div>
+  </div>
+  <p class="proto">Прототип полки</p>
+</div>
+<script>
+// установка: Android/Chrome — кнопка; iPhone — подсказка про «Поделиться → На экран Домой»
+const how = document.getElementById("how");
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+if (standalone) document.getElementById("add").style.display = "none";
+else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) how.innerHTML = "<p style='margin:8px 0 0'>Safari: «Поделиться» → «На экран Домой».</p>";
+let ev;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); ev = e;
+  how.innerHTML = "<button>Добавить на экран</button>";
+  how.querySelector("button").onclick = () => { ev.prompt(); ev = null; };
+});
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>

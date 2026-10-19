@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="ru">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Котлеты по ГОСТу — живая книга</title>
+<meta name="theme-color" content="#1b120c">
+
+<link rel="icon" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* Живая книга: тёмный «переплёт» + кремовые страницы; шаг = живая миниатюра + текст; на ноутбуке ингредиенты слева, шаги сеткой. */
+:root{
+  --wood:#1b120c; --page:#f6f1ea; --card:#fffdf9; --ink:#141110; --red:#e8452a; --gold:#d9a441; --mute:#8a7f76; --line:#e4dbcf;
+  --display:"Oswald","Arial Narrow",sans-serif; --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#5b3d28 #1b120c}
+body{margin:0;background:var(--wood);color:var(--ink);font:16px/1.5 var(--body)}
+.book{max-width:1180px;margin:0 auto;background:var(--page)}
+h1,h2,h3,h4{font-family:var(--display);text-transform:uppercase;margin:0;line-height:1.03;text-wrap:balance}
+h3{font-size:24px;margin:26px 0 12px} h3 em{font-style:normal;color:var(--red)}
+.kick{display:block;font:600 12px var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+/* обложка */
+.cover{position:relative;color:var(--page);background:var(--wood)}
+.cover video.cv{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.cover video.cv-w{display:none}
+.cover video.cv-w{display:none}
+.cover .ct{position:absolute;inset:0;padding:28px 20px;background:linear-gradient(180deg,#120c09f0 0%,#120c09d9 45%,#120c0900 72%)}
+.cover img.logo{height:44px;width:auto;aspect-ratio:auto}
+.cover h1{font-size:56px;margin:14px 0 8px;background:linear-gradient(180deg,#f6dc9a,#d9a441 45%,#a8742a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .tom{display:inline-block;margin:0 0 10px;padding:3px 12px 4px;font:600 15px var(--display);letter-spacing:.38em;text-transform:uppercase;color:#e8c46a;border-top:1px solid #e8c46a99;border-bottom:1px solid #e8c46a99}
+.cover .sub{color:#f1e3c8;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 18px;margin-top:18px;max-width:330px}
+.stats div{border-left:3px solid var(--gold);padding-left:9px;font-size:13px;color:#f1e3c8;line-height:1.15}
+.stats b{display:block;font:700 26px var(--display);color:#e8c46a}
+.by{position:absolute;left:20px;bottom:22px;font:600 12px var(--display);letter-spacing:.14em;text-transform:uppercase;color:#e8c46a;border:1px solid #e8c46a88;border-radius:8px;padding:6px 10px}
+.by span{display:block;font-size:10px;opacity:.8}
+/* шеф */
+.chef{display:grid;grid-template-columns:1fr;gap:0;background:var(--page)}
+.chef img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+.chef .tx{padding:22px 20px}
+.chef h2{font-size:34px} .chef h2 em{font-style:normal;color:var(--red)}
+ul.dots{list-style:none;padding:0;margin:14px 0}
+ul.dots li{position:relative;padding-left:18px;margin:6px 0}
+ul.dots li:before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+/* оглавление */
+.toc{padding:22px 20px;background:var(--card)}
+.toc h2{font-size:30px;margin-bottom:10px}
+.toc ol{list-style:none;padding:0;margin:0;columns:1}
+.toc a{display:block;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600}
+.toc .o{display:block;font:600 10px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.toc a:focus-visible,.toc a:hover{color:var(--red)}
+/* рецепт */
+.recipe{border-top:10px solid var(--wood)}
+.rhero{position:relative;background:var(--wood);color:var(--page)}
+.rhero img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.rhero .cap{position:absolute;inset:auto 0 0 0;padding:90px 20px 22px;background:linear-gradient(180deg,#1b120c00,#1b120ce6 55%,#1b120c)}
+.rhero h2{font-size:40px;margin:6px 0 10px;color:var(--page)}
+.rhero p{margin:0 0 12px;color:#efe6da;font-size:15px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{border:1px solid #f6f1ea55;border-radius:8px;padding:5px 9px;font:600 12px var(--display);color:var(--page)}
+.badge b{color:var(--gold)}
+.cols{padding:4px 20px 10px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child{text-align:right;font-weight:800;padding-left:10px;font-variant-numeric:tabular-nums}
+td{overflow-wrap:break-word} .toc li{break-inside:avoid}
+table.tools td:last-child{text-align:left;font-weight:400;font-size:14px;color:var(--mute)} table.tools td:first-child{font-weight:700;width:38%}
+tr.sub td{font:700 11px var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--red);border:0;padding-top:16px;text-align:left}
+.note{background:var(--ink);color:var(--page);border-radius:12px;padding:12px 14px;margin-top:14px;font-size:14px}
+.srow{display:grid;grid-template-columns:38% 1fr;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.clip{position:relative;border-radius:12px;overflow:hidden;background:#2a1a10}
+.clip video{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.noclip{aspect-ratio:3/4}
+.clip .n{position:absolute;left:8px;top:8px;background:var(--red);color:#fff;font:700 15px var(--display);padding:2px 8px;border-radius:7px}
+.srow .tx{min-width:0} .srow h4{font-size:18px;margin-bottom:4px} .srow p{margin:0;font-size:15px}
+.tip{border-left:5px solid var(--red);background:var(--card);border-radius:0 10px 10px 0;padding:11px 13px;margin-bottom:10px}
+.tip b{display:block;font:700 16px var(--display);text-transform:uppercase;margin-bottom:3px}
+.tip q{display:block;font-style:italic;color:#5b524c;margin-top:5px;quotes:"«" "»"}
+.qa{margin-bottom:14px}.qa .q{font-weight:800}.qa .a{color:#3d3733}
+.final{position:relative;margin:0}
+.final img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.final figcaption{position:absolute;inset:auto 0 0 0;padding:60px 20px 18px;background:linear-gradient(180deg,#1b120c00,#1b120cdd 60%);color:var(--page);font:700 26px var(--display);text-transform:uppercase}
+/* готово: живые разрезы */
+.done{background:var(--wood);color:var(--page);padding:22px 0 26px;text-align:center}
+.done .kick,.done h3{padding:0 20px} .done h3{font-size:28px;margin:6px 0 14px;color:var(--page)}
+.cuts{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 15vw;scrollbar-width:none}
+.cuts::-webkit-scrollbar{display:none}
+.cuts .clip{flex:0 0 70vw;scroll-snap-align:center}
+/* общие главы */
+.gen{padding:4px 20px 16px;border-top:10px solid var(--wood)}
+.gen h2{font-size:30px;margin:18px 0 12px} .gen h2 em{font-style:normal;color:var(--red)}
+.gen .kick{color:var(--red)}
+.gen table.diag td:first-child{font-weight:800;width:34%}
+.gen.dark,.gen:has(.diag){background:var(--card)}
+footer{padding:26px 20px 40px;text-align:center;color:var(--mute);font-size:13px;background:var(--page)}
+/* кнопки «наверх» и «содержание» */
+.fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;z-index:5}
+.fab a{background:var(--ink);color:var(--page);text-decoration:none;font:600 12px var(--display);letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border-radius:24px;box-shadow:0 6px 20px #0006}
+@media (min-width:900px){
+  .cover .tom{font-size:20px}
+  body{padding-block:28px}
+  .book{border-radius:18px;overflow:hidden;box-shadow:0 30px 80px #000a}
+  .cover video.cv{aspect-ratio:16/9} .cover video.cv-n{display:none} .cover video.cv-w{display:block}
+  .cover .ct{padding:56px 60px;background:linear-gradient(90deg,#120c09f2 0%,#120c09cc 38%,#120c0900 62%)}
+  .cover h1{font-size:88px}
+  .stats{grid-template-columns:repeat(3,auto);gap:14px 40px;max-width:420px;justify-content:start}
+  .stats b{font-size:36px}
+  .by{left:60px;bottom:44px}
+  .chef{grid-template-columns:420px 1fr}
+  .chef img{height:100%;aspect-ratio:auto}
+  .chef .tx{padding:48px 52px;align-self:center}
+  .toc{padding:40px 52px} .toc ol{columns:2;column-gap:48px}
+  .rhero{display:grid;grid-template-columns:1.1fr 1fr}
+  .rhero img{aspect-ratio:auto;height:100%;max-height:520px}
+  .rhero .cap{position:static;padding:48px 44px;display:flex;flex-direction:column;justify-content:center;background:var(--wood)}
+  .rhero h2{font-size:56px}
+  .cols{display:grid;grid-template-columns:330px 1fr;gap:34px;padding:10px 40px 24px}
+  .stick{position:sticky;top:18px}
+  .mainc{min-width:0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .srow{grid-template-columns:1fr;gap:10px;border:0;padding:0;align-content:start}
+  .final img{aspect-ratio:21/9;object-position:50% 62%}
+  .gen{padding:10px 52px 26px}
+  .done{padding:34px 40px 40px}
+  .done .kick,.done h3{padding:0} .done h3{font-size:36px}
+  .cuts{display:flex;justify-content:center;gap:18px;overflow:visible;padding:0;max-width:980px;margin:0 auto} .cuts .clip{flex:0 0 calc((100% - 36px)/3)}
+}
+@media (max-width:899px){
+  .rhero .cap{position:static;padding:18px 20px 22px;background:var(--wood)}  .cover video.cv{aspect-ratio:3/4.6;object-position:50% 100%}
+  .cover .ct{background:linear-gradient(180deg,#120c09 0%,#120c09ee 34%,#120c0900 50%)!important}
+  .cover .ct{background:linear-gradient(180deg,#120c09f2 0%,#120c09cc 30%,#120c0900 46%)}
+  .cover .stats{position:absolute;left:20px;right:20px;bottom:74px;max-width:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px;border-radius:12px;background:#120c09b8;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .cover .stats div{font-size:11px;padding-left:7px}
+  .cover .stats b{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.chef.nochef{grid-template-columns:1fr}
+.mute{color:var(--mute)} .gen p.lead{font-weight:600;font-size:17px}
+.gen img{display:block;width:100%;border-radius:12px;margin:8px 0}
+.gen .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gen table.ing{width:100%;border-collapse:collapse;margin:8px 0}.gen table.ing td{padding:6px 0;border-bottom:1px solid var(--line, #0001)}
+.gen table.diag{width:100%;border-collapse:collapse}.gen table.diag td{padding:8px 6px;border-bottom:1px solid #0001;vertical-align:top}
+.genhero{margin-top:0}
+.rhero .cap img.sign{display:block;align-self:flex-start;width:auto;height:44px;aspect-ratio:auto;object-fit:contain;margin:0 0 12px}
+.extra h2{font-size:26px;margin:22px 0 10px}.extra h2 em{font-style:normal;color:var(--red)}
+</style>
+</head>
+<body>
+<main class="book">
+  <section class="cover" id="top">
+    <video class="cv cv-n" src="img/cover.mp4" poster="img/cover.jpg" autoplay muted loop playsinline></video><video class="cv cv-w" src="img/cover-wide.mp4" poster="img/cover-wide.jpg" autoplay muted loop playsinline preload="none"></video>
+    <div class="ct">
+      <img class="logo" src="img/logo.png" alt="HoolyFood Academy">
+      <h1>Котлеты<br>по ГОСТу</h1>
+      <div class="sub">8 классических котлет и 2 бонуса · живая книга</div>
+      <div class="stats"><div><b>10</b>рецептов</div><div><b>67</b>живых шагов</div><div><b>120</b>советов шефа</div></div>
+    </div>
+    <div class="by">Шеф Татьяна Травникова<span>резидент ХулиФуда</span></div>
+  </section>
+
+  <section class="chef">
+    <img loading="lazy" src="img/chef.jpg" alt="Шеф Татьяна Травникова">
+    <div class="tx">
+      <span class="kick" style="color:var(--red)">Автор книги</span>
+      <h2>Татьяна <em>Травникова</em></h2>
+      <ul class="dots">
+        <li>Бренд-шеф компании «БалтикМастер»</li>
+        <li>Участница телепроектов с Константином Ивлевым и не только</li>
+        <li>Одна из «Ангелов» большого проекта Константина Ивлева «Ангелы Шефа»</li>
+        <li>Член Ассоциации шеф-поваров ChefsTeam Russia</li>
+        <li>Резидент ХулиФуда</li>
+      </ul>
+      <p>На «Адской кухне» Татьяна приготовила любимые котлеты своего папы — и с тех пор её котлеты знают очень многие. Вопрос «как же их так вкусно приготовить?» ей задают до сих пор. Ответ — в этой книге: граммовки по ГОСТу, приёмы шефа и всё, на чём обычно спотыкаются.</p>
+      <div class="tip"><b>От шефа</b><q>Давайте вместе делать мир кулинарии разнообразней, вкуснее и красочней</q></div>
+      <p style="color:var(--mute);font-size:14px">В каждом шаге — живой фрагмент: смотрите, как это делается руками.</p>
+    </div>
+  </section>
+
+  <section class="gen">
+    <span class="kick">Вместо предисловия</span>
+    <h2>Почему в столовой было <em>вкуснее</em>, чем у мамы</h2>
+    <p class="lead">Ответ на этот вопрос всегда в деталях: какой хлеб, сколько воды, на какой решётке смолоть мясо, сколько минут фарш отдыхает в холодильнике.</p>
+    <p>Здесь десять котлет: восемь классических по ГОСТу и два бонуса. К каждой — граммовка, шаги с живыми фрагментами, секреты шефа и её уточнения на всё, где обычно спотыкаются.</p>
+    <p>Граммовки здесь ГОСТовские. Шеф говорит об этом прямо:</p>
+    <div class="tip"><b>Про граммовки</b>Рецепт в книге — это ГОСТ. Хлеба кажется много, хочется шпика? Пробуйте по-своему, но сначала сделайте как написано.<q>Это ГОСТ, а в остальном ваши предпочтения</q></div>
+    <div class="tip"><b>Про вкус детства</b>Если котлета не совпала с воспоминанием, это не ошибка: ГОСТ в каждом регионе подстраивали под регион.<q>В каждом регионе ГОСТ адаптирован был к региону</q></div>
+    <p class="mute">И главное правило всех десяти рецептов:</p>
+    <p class="lead"><b>«Не жалейте своих сил и терпения. Результаты вас очень порадуют».</b></p>
+  </section>
+
+  <nav class="toc" id="toc">
+    <h2>Что <em style="font-style:normal;color:var(--red)">внутри</em></h2>
+    <ol><li><a href="#start"><span class="o">Основы</span>Перед тем как начать</a></li><li><a href="#base"><span class="o">Основы</span>Одна технология на все котлеты</a></li><li><a href="#crumbs"><span class="o">Основы</span>Сухари своими руками</a></li><li><a href="#r01"><span class="o">Рецепт 1</span>Домашние</a></li><li><a href="#r02"><span class="o">Рецепт 2</span>Бифштекс</a></li><li><a href="#r03"><span class="o">Рецепт 3</span>Зразы</a></li><li><a href="#r04"><span class="o">Рецепт 4</span>Бризоль</a></li><li><a href="#r05"><span class="o">Рецепт 5</span>Московские</a></li><li><a href="#r06"><span class="o">Рецепт 6</span>Столовские</a></li><li><a href="#r07"><span class="o">Рецепт 7</span>Пожарские</a></li><li><a href="#r08"><span class="o">Рецепт 8</span>По-киевски</a></li><li><a href="#r09"><span class="o">Бонус 1</span>Тефтели а-ля итальяно</a></li><li><a href="#r10"><span class="o">Бонус 2</span>Орловские</a></li><li><a href="#diag"><span class="o">Приложение</span>Почему не получилось</a></li><li><a href="#freeze"><span class="o">Приложение</span>Заготовки впрок и разогрев</a></li><li><a href="#swap"><span class="o">Приложение</span>Замены и варианты</a></li><li><a href="#garn"><span class="o">Приложение</span>С чем подавать</a></li></ol>
+  </nav>
+
+  <div id="base"><header class="rhero genhero" id="start"><img loading="lazy" src="img/gen/фарш-брикет-00-05.jpg" alt=""><div class="cap">
+    <span class="kick">Глава 1</span>
+    <h2>Перед тем как <em>начать</em></h2>
+    <p class="lead">Инвентарь, решётки, выбор мяса и четырнадцать правил, которые шеф просит сохранить или запомнить.</p>
+  </div></header><section class="gen">
+  
+  <h2>Что <em>понадобится</em></h2>
+  <ul class="dots">
+    <li>Мясорубка, нож, разделочная доска, одноразовые пакеты и перчатки</li>
+    <li>Плита, духовой шкаф, сковорода</li>
+    <li>Огнеупорные формы и противни</li>
+    <li>Гастроёмкости: миски, пиалы, глубокие тарелки</li>
+    <li>Лопатки, щипцы — чем удобно переворачивать</li>
+    <li>Блендер или тёрка</li>
+  </ul>
+  <h3>Решётки мясорубки</h3>
+  <table class="ing">
+    <tr><td><b>Крупная</b> · отверстия 6–8 мм, до 18 шт.</td><td>бифштекс</td></tr>
+    <tr><td><b>Средняя</b> · 4–5 мм, до 50 шт. Есть в комплекте любой мясорубки</td><td>домашние, бризоль, московские, столовские</td></tr>
+    <tr><td><b>Мелкая «паштетная»</b> · 2–3 мм, 100–120 шт.</td><td>зразы, пожарские</td></tr>
+  </table>
+  <div class="tip"><b>Нет нужной решётки</b>Нет средней — 70% мяса смелите на мелкой, 30% на крупной и смешайте. Есть только мелкая — не страшно, фарш выйдет более вязким. Для бифштекса без крупной решётки мясо лучше порубить острым ножом.<q>Лучше порубить, чем через эту среднюю решётку</q></div>
+  
+</section><section class="gen">
+  
+  <h2>Как выбрать <em>мясо</em></h2>
+  <div class="tip"><b>Проверка пальцем</b>Нажмите на кусок: волокна должны сразу восстановиться. Никакой плёнки, лишней влаги и заветренности.<q>При нажатии пальца волокна должны восстанавливаться сразу!!!</q></div>
+  <div class="tip"><b>Свинина</b>Берёте шею — шпик не нужен. К сухим частям вроде карбоната и вырезки шпик добавляют.</div>
+  <div class="tip"><b>Говядина</b>Лучше всего котлетная часть (обрезь с разных частей туши) плюс шпик или говяжий жир. Замена — лопатка, тонкий или толстый край: там уже есть прожилки жира.<q>Мякоть не берите, потому что это будет сухо</q></div>
+  <div class="tip"><b>Кусок, а не подложка</b>Кусок видно, когда покупаешь. Мясо в подложке — «ну так себе».</div>
+  <div class="tip"><b>Не держать три дня</b>Купленное мясо сразу расфасуйте и уберите в морозилку, а достаньте за ночь до готовки.</div>
+  
+</section><section class="gen">
+  
+  <h2>Если фарш <em>покупной</em></h2>
+  <p class="lead">Шеф фарш не покупает. Но если покупать — лучше развесной, особенно в фермерском магазине, чем запечатанный.</p>
+  <div class="tip"><b>Цена</b>Если фарш дешевле мяса, стоит задуматься, из чего он.<q>Килограмм фарша в теории не может стоить дешевле, чем килограмм мяса</q></div>
+  <div class="tip"><b>Тест тремя пальцами</b>Разотрите немного фарша. Блестит — жира больше, чем должно быть. Остаётся плотная масса — фарш неплохой.</div>
+  <div class="tip"><b>Цвет</b>Бледный «домашний» фарш — много жира. Чистая свинина в фарше розоватая.</div>
+  <div class="tip"><b>Липнет к рукам</b>Сильная клейкость — тоже признак лишнего жира: он становится вязким, как сало при комнатной температуре.</div>
+  <h3>Сроки хранения свежего мяса</h3>
+  <table class="ing">
+    <tr><td>Говядина, +7 °C</td><td>до 24 ч</td></tr>
+    <tr><td>Птица и кролик, +5 °C</td><td>до 12 ч</td></tr>
+    <tr><td>Фарш, +5 °C</td><td>портится через 24 ч</td></tr>
+    <tr><td>Любое мясо, 0…−3 °C</td><td>до 48 ч</td></tr>
+    <tr><td>Любое мясо, −3…−5 °C</td><td>72–96 ч</td></tr>
+  </table>
+  
+</section><section class="gen dark">
+  
+  <h2>14 правил <em>шефа</em></h2>
+  <p class="mute">«Важно! Сохранить или запомнить!!!»</p>
+  <div class="tip"><b>1 · Мясо — холодным</b>Прокручивайте мясо прямо из холодильника: так оно лучше проходит через мясорубку.</div>
+  <div class="tip"><b>2 · Мясо не моют</b>Максимум протирают влажной салфеткой или зачищают ножом. При мытье бактерии с одного места расходятся по всему куску.<q>Мы не моем мясо, мы его протираем</q></div>
+  <div class="tip"><b>3 · Всё заранее</b>Все ингредиенты подготовьте заблаговременно, «чтоб потом не бегать по кухне».</div>
+  <div class="tip"><b>4 · Духовка сразу</b>Как только решили жарить котлеты, включите духовку на 180 °C, если будете доводить в ней.</div>
+  <div class="tip"><b>5 · Сухари можно свои</b>Не обязательно покупные — как сделать, на стр. {стр:crumbs}.</div>
+  <div class="tip"><b>6 · Без мясорубки для хлеба и лука</b>Если фарш уже готовый, хлеб и лук пробейте в блендере, лук можно натереть. Хлеб перед замачиванием мелко покрошите.</div>
+  <div class="tip"><b>7 · Руки</b>Без перчаток — после сырого фарша мойте руки с мылом.</div>
+  
+</section><section class="gen dark">
+  
+  <div class="tip"><b>8 · Отбить до холодильника</b>Когда все ингредиенты в фарше, его надо хорошо отбить — и только потом убрать в холодильник.</div>
+  <div class="tip"><b>9 · Не тесно в сковороде</b>Между котлетами 3–6 см, чтобы они обжаривались, а не варились в выделившемся соке.</div>
+  <div class="tip"><b>10 · Мокрый фарш после разморозки</b>Выстелите сито тканевым полотенцем, выложите фарш, поставьте сито на весу над миской на 15–20 минут в холодильник. Лишняя влага стечёт.</div>
+  <div class="tip"><b>11 · Сухой чеснок</b>Не едите свежий — берите сухой или в гранулах, покупной или свой.</div>
+  <div class="tip"><b>12 · Другое мясо</b>Не едите какое-то мясо — его можно заменить (<a href="#swap">см. ниже</a>), но результат будет другим.</div>
+  <div class="tip"><b>13 · Сомневаетесь — не используйте</b>Если сомневаетесь в качестве продукта, лучше его не брать.</div>
+  <div class="tip"><b>14 · Нет мясорубки</b>Блендер справится, но текстура фарша будет очень отличаться. Тогда лучше взять покупной фарш в проверенном месте.</div>
+  
+</section><header class="rhero genhero" id="base"><img loading="lazy" src="img/gen/фарш-брикет-00-25.jpg" alt=""><div class="cap">
+    <span class="kick">Глава 2</span>
+    <h2>Одна технология на <em>все котлеты</em></h2>
+    <p class="lead">Фарш, хлеб, сухари, сковорода, духовка. Освоите это один раз, и дальше в рецептах меняются только продукты.</p>
+  </div></header><section class="gen">
+  
+  <h2>Фарш: <em>отбить</em> и дать постоять</h2>
+  <div class="tip"><b>Зачем отбивать</b>Чтобы вышел весь воздух, а сочность осталась внутри. Отбивают весь фарш в миске, а потом каждую котлету ещё раз об руку: тогда у неё не будет трещин и лохматых краёв.</div>
+  <div class="tip"><b>Не миксером</b>В миксере фарш наполняется воздухом и нагревается, котлеты выходят пористыми.<q>Это будет как суфле</q></div>
+  <div class="tip"><b>Сначала жидко — это нормально</b>По мере вымешивания и отбивания фарш густеет, а после холодильника становится ещё плотнее.</div>
+  <div class="tip"><b>20–30 минут в холодильнике</b>Под плёнкой или пакетом, обязательно до формовки. За это время продукты «поженятся», и при жарке почти не будет лишней жидкости.</div>
+  <div class="tip"><b>Липнет к рукам</b>Смочите руки водой или смажьте перчатки подсолнечным маслом. С мокрыми руками котлеты выходят глаже.</div>
+  <div class="tip"><b>Формуете прессом</b>Сначала хорошо отбейте котлету, потом прессуйте, а после пресса можно отбить ещё раз, чтобы внутри не осталось воздуха.</div>
+  
+</section><section class="gen">
+  
+  <h2>Хлеб, лук, <em>яйцо</em></h2>
+  <div class="tip"><b>Хлеб — по сухому весу</b>В рецептах хлеб взвешен сухим, незамоченным, вода идёт отдельно. Подойдёт любой белый, даже вчерашний.</div>
+  <div class="tip"><b>Не отжимать</b>Хлеб с водой — это пропорция, его не отжимают. Сколько он стоит в воде, не важно: всё разойдётся в фарше, пока тот отстаивается. Местами не промок — сильно перемешайте его, «как обминают тесто».</div>
+  <div class="tip"><b>Лук на тёрке</b>У тёртого лука отожмите сок и кладите только пюре: жидкий фарш часто получается из-за лукового сока.</div>
+  <div class="tip"><b>Яйцо</b>В общепите яйцо кладут из-за большого количества хлеба: белок сворачивается и держит форму. Дома его можно не добавлять. Сама шеф кладёт только желток: белок делает котлету жестковатой.</div>
+  <div class="tip"><b>Совет шефа: лук пассеровать</b>Сырой лук она в фарше не любит и советует попробовать вместо него лук, пассерованный на сливочном масле.<q>Это оооочень вкусно</q></div>
+  <div class="tip"><b>Без хлеба</b>Хлеб внутри котлеты можно заменить картофелем, натёртым на самой мелкой тёрке и хорошо отжатым.</div>
+  
+</section><section class="gen" id="crumbs">
+  
+  <h2>Сухари <em>своими руками</em></h2>
+  <div class="two">
+    <img src="img/gen/сухари-01-05.jpg" alt=""><img src="img/gen/сухари-01-45.jpg" alt="">
+  </div>
+  <p>Корочки и горбушки любого белого хлеба разложите на противне и подсушите в духовке при 180–190 °C до румяности — долго не нужно. Пробейте в блендере импульсами до нужной крошки.</p>
+  <div class="tip"><b>Крупнее — хрустче</b>Шеф любит крошку покрупнее: при жарке на котлете будут «хрустиночки».</div>
+  <div class="tip"><b>Покупные или свои?</b>Правила нет. Покупные обычно грубоватого помола, свои чуть румянее.<q>Как по мне, так они ничем не отличаются</q></div>
+  
+</section><section class="gen">
+  
+  <h2>Сухари и <em>панировка</em></h2>
+  <div class="tip"><b>Зачем сухари</b>Они покрывают котлету корочкой и не выпускают влагу. Поэтому котлету сначала обжаривают, а потом доводят до готовности.<q>Сухари закупоривают соки внутри котлет</q></div>
+  <div class="tip"><b>Сколько сухарей</b>Чем больше влаги в котлете, тем больше сухарей она возьмёт. Берите только панировочные, без добавок.</div>
+  <div class="tip"><b>Как панировать</b>В глубокой ёмкости, «вбивающими» движениями, сразу придавая форму.</div>
+  <div class="tip"><b>Остатки</b>Сухари после сырого мяса шеф выбрасывает. Отсыпайте для панировки порцию в отдельную миску.</div>
+  <div class="tip"><b>Панко</b>Подходит в основном для фритюра и быстрой обжарки. Для плотной панировки: мука → яйцо → мука → яйцо → панко.</div>
+  
+</section><section class="gen">
+  
+  <h2>Обжарить <em>≠</em> жарить</h2>
+  <p class="lead">Обжаривают ради цвета. Жарят до готовности. В этой книге котлеты обжаривают, а доводят в духовке.</p>
+  <div class="tip"><b>Сковорода</b>Сухую сковороду прогрейте на максимуме, убавьте до среднего или чуть выше, налейте масло, дайте ему прогреться — и только потом котлеты. Масла немного, это не фритюр.</div>
+  <div class="tip"><b>По 3–4 минуты</b>С каждой стороны, до золотистого цвета. Шеф жарит на подсолнечном масле, на 7-м уровне индукции.</div>
+  <div class="tip"><b>Не тесно</b>Если положить много котлет в перегретое масло, выделится сок и они пропарятся.<q>То, что коричневая корочка появляется, это не говорит о том, что они обжариваются</q></div>
+  <div class="tip"><b>Чугун и керамика</b>Чугун дольше греется и держит жар — масла нужно больше. На керамике корочка сразу «запечатывает» продукт.</div>
+  <div class="tip"><b>Брызги</b>Брызгает при любой обжарке. Плита и фартук в масле — «это не имеет никакого значения, всё потом можно убрать».</div>
+  
+</section><section class="gen">
+  
+  <h2>Духовка <em>доводит</em></h2>
+  <div class="tip"><b>Зачем</b>Чтобы сохранить сочность. Если жарить на сковороде до полной готовности, котлеты легко пересушить.</div>
+  <div class="tip"><b>Без конвекции</b>Только верх и низ, иначе котлеты будут сухими.</div>
+  <div class="tip"><b>Духовка врёт</b>Проверьте её отдельным термометром. У шефа при выставленных 180 °C было 150.<q>А не проверяли её, на сколько она брешет?</q></div>
+  <div class="tip"><b>Время — по ситуации</b>Котлеты, разложенные по одной на противне, доходят быстрее, чем сложенные в сотейнике. В духовке пересушить проще, чем на сковороде.</div>
+  <div class="tip"><b>Фольга</b>Если цвета уже хватает, любые котлеты можно накрыть фольгой.</div>
+  <div class="tip"><b>Нет духовки</b>Обжаренные котлеты переложите в глубокую посуду, налейте немного воды и доведите под крышкой. Или в аэрогриле. В микроволновке нельзя — всё пересохнет.</div>
+  
+</section><section class="gen">
+  
+  <h2>Готово? <em>Проверка</em> без ножа</h2>
+  <div class="tip"><b>Нажмите</b>Котлета упругая, не проваливается и не продавливается, вмятин не остаётся.</div>
+  <div class="tip"><b>Посмотрите на сок</b>Прозрачного сока нет. Для бифштекса — сок мутноватый, для зраз — выделившийся сок потемнел.</div>
+  <div class="tip"><b>Разрежьте одну</b>На срезе котлета не крошится и не разваливается, видно, как выделяется сок.</div>
+  <div class="tip"><b>Дайте постоять</b>Готовым котлетам 5–10 минут, бифштексу 5–7.</div>
+  <h3>Соль и перец</h3>
+  <div class="tip"><b>Лучше недосолить</b>Соль у всех разная, крупная растворяется в фарше позже мелкой. Досаливайте понемногу, пробуя.</div>
+  <div class="tip"><b>Перец</b>Количество в рецептах рассчитано на свежемолотый. Добавляйте постепенно. В классической рубленой котлете перчинка хорошо чувствуется: других специй там нет.</div>
+  
+</section></div>
+
+  
+<article class="recipe" id="r01">
+  <header class="rhero"><img loading="lazy" src="img/01-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 1</span><h2>Домашние</h2><p>Говядина со свининой, белый хлеб, лук. Базовая котлета: на ней отрабатывается вся технология.</p><div class="badges"><span class="badge">заготовка <b>100 г</b></span><span class="badge">готовая <b>70–80 г</b></span><span class="badge">духовка <b>180 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Говядина</td><td>360 г</td></tr><tr><td>Свинина</td><td>200 г</td></tr><tr><td>Лук репчатый</td><td>100 г</td></tr><tr><td>Белый хлеб (сухой вес)</td><td>120 г</td></tr><tr><td>Вода</td><td>100 г</td></tr><tr><td>Яйцо C1</td><td>1 шт (40 г)</td></tr><tr><td>Соль</td><td>10 г</td></tr><tr><td>Перец чёрный</td><td>0,6 г</td></tr><tr><td>Чеснок сухой</td><td>5–7 г</td></tr><tr><td>Сухари панировочные</td><td>40–60 г</td></tr><tr><td>Масло подсолнечное для обжарки</td><td>немного</td></tr></table><div class="note"><b>Решётка:</b> свинину и говядину — на одной, средней (отверстия 4–5 мм).<br/><b>Духовка:</b> включить на 180 °C сразу, как начали.<br/><b>Хранение:</b> сырые замороженные при −18 °C — до 3 месяцев, жареные — до 2.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/01-1.mp4" muted loop playsinline preload="none" aria-label="Фарш и хлебно-луковая масса"></video><span class="n">1</span></div><div class="tx"><h4>Фарш и хлебно-луковая масса</h4><p>Мясо пропустите через среднюю решётку. Хлеб залейте водой. Лук пробейте в блендере импульсами до пюре, добавьте замоченный хлеб вместе с водой и пробейте всё вместе в однородную массу.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-2.mp4" muted loop playsinline preload="none" aria-label="Замес и отбивание"></video><span class="n">2</span></div><div class="tx"><h4>Замес и отбивание</h4><p>К фаршу — хлебно-луковую массу, сухой чеснок, свежемолотый перец, соль и яйцо. Тщательно вымешайте и хорошо отбейте. Сначала покажется, что фарш очень жидкий. По мере смешивания он густеет и начинает держать форму.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-3.mp4" muted loop playsinline preload="none" aria-label="Отдых и формовка"></video><span class="n">3</span></div><div class="tx"><h4>Отдых и формовка</h4><p>Накройте плёнкой или пакетом и уберите в холодильник на 20–30 минут — фарш станет плотнее. Взвесьте заготовки по 100 г. Сформуйте котлеты любой формы и каждую немного отбейте об руку.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-4.mp4" muted loop playsinline preload="none" aria-label="Панировка"></video><span class="n">4</span></div><div class="tx"><h4>Панировка</h4><p>В глубокой ёмкости обваляйте котлеты в сухарях аккуратными «вбивающими» движениями, не портя форму. <span class="mute">Хотите заготовку? Часть котлет приготовьте, часть сразу после панировки заморозьте разложенными и только потом сложите в пакеты.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-5.mp4" muted loop playsinline preload="none" aria-label="Обжарка"></video><span class="n">5</span></div><div class="tx"><h4>Обжарка</h4><p>На разогретой сковороде с подсолнечным маслом обжарьте котлеты с двух сторон до золотистого цвета, по 3–4 минуты. Не кладите тесно: между котлетами 3–6 см.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-6.mp4" muted loop playsinline preload="none" aria-label="Духовка"></video><span class="n">6</span></div><div class="tx"><h4>Духовка</h4><p>Переложите котлеты в гастроёмкость, накройте фольгой и поставьте в духовку на 180 °C на 12–17 минут. Котлеты уже готовы, но для румяной корочки снимите фольгу и верните их в духовку ещё минут на 7.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-7.mp4" muted loop playsinline preload="none" aria-label="Как понять, что получилось"></video><span class="n">7</span></div><div class="tx"><h4>Как понять, что получилось</h4><p>Котлеты сочные, мягкие, упругие. При нажатии не проваливаются, видно, как выделяется сок. На срезе не крошатся. <b>«Приятного аппетита, такая красота у нас с вами получилась».</b></p></div></div></div>
+      
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Хлеба кажется много. Можно добавить шпик?</div><div class="a">Это ГОСТ. Если мясо жирнее, соотношение будет другим, а дальше по вкусу: добавьте шпик или уберите часть хлеба.</div></div><div class="qa"><div class="q">Сколько хлеб должен стоять в воде?</div><div class="a">Не имеет значения.</div></div><div class="qa"><div class="q">Можно петрушку?</div><div class="a">Можно, на консистенцию почти не влияет.</div></div><div class="qa"><div class="q">Только две решётки: крупная и паштетная.</div><div class="a">Свинину смелите на крупной, говядину на паштетной и хорошо отбейте. После холодильника фарш станет однороднее.</div></div><div class="qa"><div class="q">Как готовить замороженные котлеты?</div><div class="a">Шеф их не размораживает: обжаривает и доводит в духовке или сразу кладёт на противень в духовку на 180 °C. Ещё вариант: обжарить на среднем огне до золотистого, накрыть крышкой и довести на слабом, в конце открыть и дать цвет.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/01-hero.jpg" alt="" style="object-position:50% 55%"><figcaption><span class="kick">Готово</span>Домашние</figcaption></figure>
+</article>
+<article class="recipe" id="r02">
+  <header class="rhero"><img loading="lazy" src="img/02-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 2</span><h2>Бифштекс</h2><p>Рубленая говядина без хлеба, с жареным яйцом сверху. Классика подачи — с картофелем и луком.</p><div class="badges"><span class="badge">заготовка <b>140–150 г</b></span><span class="badge">готовый <b>~100 г</b></span><span class="badge">духовка <b>200 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Говядина: котлетное мясо, лопатка или тонкий край</td><td>570 г</td></tr><tr><td>Шпик или сало</td><td>100 г</td></tr><tr><td>Молоко</td><td>50 г</td></tr><tr><td>Соль</td><td>7–9 г</td></tr><tr><td>Перец чёрный свежемолотый</td><td>1–2 г</td></tr><tr class="sub"><td colspan="2">Для подачи</td></tr><tr><td>Яйцо</td><td>1 шт на бифштекс</td></tr></table><div class="note"><b>Решётка:</b> крупная (отверстия 6–8 мм). Нет её — мясо лучше порубить острым ножом.<br/><b>Духовка:</b> 200 °C, включить заранее.<br/><b>Противень:</b> застелить бумагой или фольгой.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/02-1.mp4" muted loop playsinline preload="none" aria-label="Крупная решётка"></video><span class="n">1</span></div><div class="tx"><h4>Крупная решётка</h4><p>Говядину (и шпик, если нужен) пропустите через крупную решётку — по помолу сразу видно крупную консистенцию. <span class="mute">Мясо, порубленное ножом, получается ещё сочнее: сочность сильно зависит от нарубки.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-2.mp4" muted loop playsinline preload="none" aria-label="Молоко, специи, отбивание"></video><span class="n">2</span></div><div class="tx"><h4>Молоко, специи, отбивание</h4><p>Сначала хорошо соедините фарш с молоком «вбивающе-протирающими» движениями. Потом соль и перец — и снова замешайте. Отбейте фарш до гладкой-гладкой консистенции. <b>Не торопитесь: отбить весь фарш нужно очень хорошо.</b> Под плёнку — и в холодильник минимум на 20–30 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-3.mp4" muted loop playsinline preload="none" aria-label="Формовка"></video><span class="n">3</span></div><div class="tx"><h4>Формовка</h4><p>Разделите фарш на заготовки по 140–150 г, приплюсните ладонью и каждую ещё раз очень хорошо отбейте, поправляя края. Бифштекс круглый и плоский, одинаковой толщины по всему диаметру: примерно 1,5–2 см в толщину и 8–10 см в диаметре. «Это не котлеты».</p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-4.mp4" muted loop playsinline preload="none" aria-label="Обжарка и духовка"></video><span class="n">4</span></div><div class="tx"><h4>Обжарка и духовка</h4><p>На разогретой сковороде с подсолнечным маслом обжарьте каждый бифштекс недолго, по 3–4 минуты с каждой стороны. Лучше по одному: иначе пустят сок и пропарятся. На противень с пергаментом — и в духовку на 200 °C на 15–20 минут: говядину нужно довести. Время зависит от толщины, диаметра и духовки.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-5.mp4" muted loop playsinline preload="none" aria-label="Яйцо в кольце"></video><span class="n">5</span></div><div class="tx"><h4>Яйцо в кольце</h4><p>Пока бифштекс в духовке, пожарьте яйцо в круглой формочке — или просто пожарьте и вырежьте кольцом. <span class="mute">На производстве берут два кольца: в большом формуют бифштекс, в маленьком жарят яйцо. Готовый бифштекс ужимается как раз до размера яйца.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-6.mp4" muted loop playsinline preload="none" aria-label="Отдых и подача"></video><span class="n">6</span></div><div class="tx"><h4>Отдых и подача</h4><p>Дайте бифштексу «отдохнуть» 5–7 минут и положите сверху яйцо. Гарнир — картофель, салат, что хочется. Сок мутноватый, сама котлета тёмная — это чистая говядина. На срезе единая сочная масса, не разваливается.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Шпик — по говядине</b>Добавлять ли шпик, решает жирность самой говядины. Свиного мяса в бифштексе нет: свинина здесь только шпик.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Яйцо сверху обязательно?</div><div class="a">Нет. Это просто классика подачи.</div></div><div class="qa"><div class="q">На разрезе рыхло. Почему?</div><div class="a">Мало отбили. Отбивать нужно и весь фарш, и каждую котлету.</div></div><div class="qa"><div class="q">Сочный, но жёсткий, хотя отбит хорошо.</div><div class="a">Дело в говядине: скорее всего, она была старовата.</div></div><div class="qa"><div class="q">Можно из свинины?</div><div class="a">Можно, но следите, чтобы мясо полностью пропеклось: сок, выделившийся в духовке, должен потемнеть. Говядину же можно оставить и с кровью, кому как нравится.</div></div><div class="qa"><div class="q">Бифштекс уменьшился. Прижать?</div><div class="a">Это нормально, прижимать ничего не нужно.</div></div><div class="qa"><div class="q">Сформовать вечером, жарить завтра?</div><div class="a">Можно: в холодильник, сначала накрыть пергаментом, потом плёнкой.</div></div><div class="qa"><div class="q">Как заморозить?</div><div class="a">Сырые — проложив пергаментом снизу и сверху, потом в пакет. Перед готовкой полностью разморозить в холодильнике прямо в бумаге. Ещё вариант: обжарить, не доводя в духовке, заморозить и после разморозки довести.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/02-hero.jpg" alt="" style="object-position:50% 38%"><figcaption><span class="kick">Готово</span>Бифштекс</figcaption></figure>
+</article>
+<article class="recipe" id="r03">
+  <header class="rhero"><img loading="lazy" src="img/03-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 3</span><h2>Зразы</h2><p>Мясной «пирожок» из нежирной свинины с начинкой из яйца и пассерованного лука.</p><div class="badges"><span class="badge">заготовка <b>180 г</b></span><span class="badge">фарш  + начинка 40–50 <b>130–140</b></span><span class="badge">духовка <b>180–200 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Свинина нежирная: окорок, орех</td><td>760 г</td></tr><tr><td>Белый хлеб, только мякиш</td><td>160 г</td></tr><tr><td>Молоко</td><td>230 г</td></tr><tr><td>Соль</td><td>6–10 г</td></tr><tr><td>Перец чёрный</td><td>5–6 г</td></tr><tr class="sub"><td colspan="2">Начинка</td></tr><tr><td>Лук репчатый</td><td>250 г</td></tr><tr><td>Яйца C1</td><td>8–10 шт</td></tr><tr><td>Масло сливочное</td><td>20–30 г</td></tr><tr><td>Масло растительное</td><td>50 г</td></tr><tr><td>Соль</td><td>3–4 г</td></tr><tr><td>Петрушка рубленая</td><td>10 г</td></tr><tr class="sub"><td colspan="2">Панировка</td></tr><tr><td>Сухари панировочные</td><td>сколько потребуется</td></tr></table><div class="note"><b>Решётка:</b> самая мелкая, «паштетная» (отверстия 2–3 мм).<br/><b>Начинка</b> должна полностью остыть — её можно сделать накануне.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/03-1.mp4" muted loop playsinline preload="none" aria-label="Фарш на молоке"></video><span class="n">1</span></div><div class="tx"><h4>Фарш на молоке</h4><p>Свинину нарежьте кусками и пропустите через паштетную решётку. Мякиш без корки залейте молоком (можно сливками 20–35% — будет жирнее). Добавьте хлеб к фаршу, посолите, поперчите, очень хорошо вымесите и отбейте. Под плёнку — в холодильник.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-2.mp4" muted loop playsinline preload="none" aria-label="Яйца и лук"></video><span class="n">2</span></div><div class="tx"><h4>Яйца и лук</h4><p>Яйца сварите вкрутую, класть в холодную воду. Нарежьте полусоломкой. Лук — средним кубиком, чтобы он чувствовался в начинке.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-3.mp4" muted loop playsinline preload="none" aria-label="Начинка"></video><span class="n">3</span></div><div class="tx"><h4>Начинка</h4><p>На сковороде растопите сливочное масло со столько же растительного. Лук — сначала на сильном огне, потом убавьте вдвое и протушите с солью до полупрозрачного, но не зажаристого. Добавьте яйца и прогрейте — не жарьте, — чтобы масло пропитало яйца. Вмешайте зелень, выложите на тарелку и <b>полностью остудите</b>.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-4.mp4" muted loop playsinline preload="none" aria-label="Лепёшка и начинка"></video><span class="n">4</span></div><div class="tx"><h4>Лепёшка и начинка</h4><p>Из фарша сделайте кружок, как для пирожка, равномерной толщины. В центр — начинку. Можно формовать на пакете, слегка смазанном маслом, чтобы фарш отставал. Шефу удобнее в руках.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-5.mp4" muted loop playsinline preload="none" aria-label="Без воздуха внутри"></video><span class="n">5</span></div><div class="tx"><h4>Без воздуха внутри</h4><p>Соедините края, как у пирожка, вдавливая начинку внутрь. <b>Главное — чтобы между начинкой и фаршем не осталось воздуха.</b> Классическая форма — приплюснутая, вытянутая, овально-прямоугольная.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-6.mp4" muted loop playsinline preload="none" aria-label="Панировка и обжарка"></video><span class="n">6</span></div><div class="tx"><h4>Панировка и обжарка</h4><p>Обваляйте в сухарях, как обычную котлету. Обжаривайте на среднем огне по 3–4 минуты с каждой стороны, с большим расстоянием между зразами, иначе они начнут вариться.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-7.mp4" muted loop playsinline preload="none" aria-label="Духовка"></video><span class="n">7</span></div><div class="tx"><h4>Духовка</h4><p>В заранее подготовленную форму, в один слой, можно вплотную. Духовка 180–200 °C, 13–15 минут — всё зависит от духовки. <b>Готовы, когда выделившийся сок потемнеет.</b></p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Мякиш без корок</b>Фарш должен быть максимально однородным и плотным.<q>От любых твёрдых кусочков может пойти трещина. По ГОСТу только белый</q></div><div class="tip"><b>Почему трескаются</b>Мясной слой тонкий, а начинки много: при нагреве белок сворачивается, мясо сжимается и не выдерживает. Ещё причина — перепад температур или слишком горячая духовка.</div><div class="tip"><b>Свободный край</b>Чтобы начинка не выскакивала, оставьте край побольше и положите его внахлёст — шов не будет тоньше остального.</div><div class="tip"><b>Только один слой</b>Нижние зразы под весом верхних могут треснуть.<q>Лучше выложить два противня, чем одно на другое</q></div><div class="tip"><b>Без яиц</b>Начинка из грибов, отварного риса, тыквы, шпината, батата, моркови или квашеной капусты. Сначала лук, к нему — начинку. Зелень можно любую или не класть совсем.</div><div class="tip"><b>Как жюльен</b>Вариант: курица с шампиньонами, тёртым сыром и ложкой сливок внутри.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">160 г булки — не много?</div><div class="a">Нет. Это ГОСТ. Кому много — положите меньше.</div></div><div class="qa"><div class="q">Можно сделать зразы крупнее?</div><div class="a">Можно. Шеф и сама делает их больше: около 180 г фарша и 40 г начинки, зраза выходит около 220 г. ГОСТ указан выше, а дальше — как нравится.</div></div><div class="qa"><div class="q">Фарш жидкий, не держит форму.</div><div class="a">Сначала проверьте, всё ли добавлено по весу. Спасти жидкий фарш можно сухарями и 30 минутами в холодильнике. Уже сформованные зразы так не спасти.</div></div><div class="qa"><div class="q">Можно с целым яйцом внутри?</div><div class="a">Шеф и сама так готовит. Если «рубашка» трескается — дело в фарше: не домешан, не отбит. Отбейте лучше, а блинчик сделайте потолще.</div></div><div class="qa"><div class="q">Заморозить?</div><div class="a">Шефу не нравится, какой становится яичная начинка после заморозки. Если всё же заморозили — не размораживайте: слегка обжарьте на не сильно разогретой сковороде и доведите в духовке чуть дольше, при более низкой температуре. «Это точно не должно быть 200 градусов».</div></div><div class="qa"><div class="q">Гарнир?</div><div class="a">Серьёзный не нужен: лёгкий салат и соленья.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/03-hero.jpg" alt="" style="object-position:50% 34%"><figcaption><span class="kick">Готово</span>Зразы</figcaption></figure>
+</article>
+<article class="recipe" id="r04">
+  <header class="rhero"><img loading="lazy" src="img/04-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 4</span><h2>Бризоль</h2><p>Тонкий мясной блинчик в яйце, свёрнутый рулетом. «Французское блюдо советского общепита».</p><div class="badges"><span class="badge">заготовка <b>130 г</b></span><span class="badge">толщина <b>3–5 мм</b></span><span class="badge">духовка <b>200 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Свинина: окорок, шея (мясо и жир 80:20)</td><td>500 г</td></tr><tr><td>Вода</td><td>50 г</td></tr><tr><td>Петрушка рубленая</td><td>20 г</td></tr><tr><td>Соль</td><td>3–5 г</td></tr><tr><td>Перец чёрный</td><td>3–4 г</td></tr><tr class="sub"><td colspan="2">Панировка</td></tr><tr><td>Яйца C1</td><td>4–5 шт (1 на бризоль)</td></tr><tr><td>Мука</td><td>150–200 г</td></tr><tr><td>Масло для обжарки</td><td>немного</td></tr></table><div class="note"><b>Решётка:</b> средняя (отверстия 4–5 мм).<br/><b>Духовка:</b> 200 °C, включить заранее.<br/><b>Подготовьте сразу:</b> муку в широкой ёмкости, миску для яиц, форму для духовки и бумажные салфетки.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/04-1.mp4" muted loop playsinline preload="none" aria-label="Фарш эластичный"></video><span class="n">1</span></div><div class="tx"><h4>Фарш эластичный</h4><p>К фаршу добавьте воду, петрушку (можно сухую зелень или не класть совсем), соль и перец. Тщательно замешайте. Отбейте <b>тщательнее, чем все предыдущие фарши</b>: масса должна стать максимально эластичной. Под плёнку — в холодильник на 20–30 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-2.mp4" muted loop playsinline preload="none" aria-label="Мясной блинчик"></video><span class="n">2</span></div><div class="tx"><h4>Мясной блинчик</h4><p>Разделите на заготовки по 130 г (вес зависит от нужного диаметра). Через пакет раскатайте ладонями блинчик толщиной 3–5 мм, не больше: его потом сворачивать. Толщина одинаковая по всему диаметру. Диаметр — не больше вашей сковороды.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-3.mp4" muted loop playsinline preload="none" aria-label="Ровные края — и в холод"></video><span class="n">3</span></div><div class="tx"><h4>Ровные края — и в холод</h4><p>Края ровняйте ребром ладони или тупой стороной ножа, подбирая их внутрь. Немного рваные — не страшно, их скроет яйцо. Сложите блинчики, переложив каждый пакетом, и уберите в холодильник минут на 15 — станут эластичными.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-4.mp4" muted loop playsinline preload="none" aria-label="Мука и яйцо"></video><span class="n">4</span></div><div class="tx"><h4>Мука и яйцо</h4><p>Обваляйте блинчик в муке, как отбивную, «вбивающими» движениями с двух сторон, лишнее стряхните. Одно яйцо — на один бризоль, взбивайте прямо перед каждым. Опустите блинчик в яйцо и чуть придавите, чтобы яйцо распределилось снизу по всей поверхности.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-5.mp4" muted loop playsinline preload="none" aria-label="Жарим с одной стороны"></video><span class="n">5</span></div><div class="tx"><h4>Жарим с одной стороны</h4><p>Сковорода разогрета, немного масла, огонь средний. Перенесите блинчик вместе с яйцом, распределите яйцо по краям. <b>Не переворачивайте.</b> Снимайте, как только края яичной массы начнут коричневеть: верх остаётся сырым.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-6.mp4" muted loop playsinline preload="none" aria-label="Рулет, пока горячий"></video><span class="n">6</span></div><div class="tx"><h4>Рулет, пока горячий</h4><p>Сразу на бумажную салфетку — масло впитается — и быстро сверните рулетиком, пока горячий, чтобы не треснул. Выложите в форму, можно близко друг к другу.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-7.mp4" muted loop playsinline preload="none" aria-label="Духовка"></video><span class="n">7</span></div><div class="tx"><h4>Духовка</h4><p>200 °C, 13–15 минут, при тонком блинчике <b>максимум 20</b>. Даже тонкий рулет в духовке увеличится в объёме. Чем тоньше мясной слой, тем лучше на срезе видна яичная прослойка.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Гарниры</b>Зелёный горошек, припущенный или консервированный. Свежий салат, запечённые овощи, солёные огурцы, рис.</div><div class="tip"><b>Квашеная капуста</b>Очень вкусно с обжаренной квашеной капустой и капелькой чеснока. К такой капусте — ещё бекон и грибы.</div><div class="tip"><b>Соусы</b>Самый простой холодный: мацони или греческий йогурт с зеленью и чесноком. Из горячих — сырный или перечный.</div><div class="tip"><b>Зелень в фарш</b>Кинза может перебить весь вкус, но если немного — можно. Вместо неё — шпинат или мелко рубленные соцветия брокколи.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Блинчик рвётся в муке или при скручивании.</div><div class="a">Обычно фарш плохо отбит или блинчики мало полежали в холодильнике. При скручивании рвётся, если жарили на очень сильном огне.</div></div><div class="qa"><div class="q">Фарш смолот на крупной решётке.</div><div class="a">Нужна гладкая масса: лучше пропустить ещё раз через мелкую. Нет возможности — часть пробейте блендером или очень хорошо отбейте.</div></div><div class="qa"><div class="q">Яйцо растекается по сковороде.</div><div class="a">Сковорода намного шире блина: сделайте блин больше или возьмите сковороду поменьше.</div></div><div class="qa"><div class="q">Прилип к форме.</div><div class="a">Не хватило масла из яичной смеси. Смажьте форму или выстелите пергаментом либо фольгой.</div></div><div class="qa"><div class="q">Нет духовки.</div><div class="a">Обжарить, свернуть и довести на сковороде под крышкой с капелькой воды.</div></div><div class="qa"><div class="q">Заготовить заранее?</div><div class="a">Сырые мясные блины — в холодильник до завтра, переложив их. Морозят тоже только блины, ровно, через пергамент; размораживают в холодильнике и лишь потом в муку и яйцо. В панировке бризоль не морозят.</div></div><div class="qa"><div class="q">Как разогреть, чтобы яйцо не размокло?</div><div class="a">На подсолнечном или сливочном масле, на среднем огне под крышкой, часто переворачивая — яйцо останется хрустящим.</div></div>
+      <div class="extra">
+<h2>С чем <em>подавать</em></h2>
+<p class="lead">Бризоль — самостоятельное блюдо.</p>
+<div class="tip">Зелёный горошек, припущенный или консервированный. Свежий салат, запечённые овощи, солёные огурцы, рис.</div>
+<div class="tip">Очень вкусно с обжаренной квашеной капустой и капелькой чеснока. К такой капусте — ещё бекон и грибы.</div>
+<div class="tip">Самый простой холодный: мацони или греческий йогурт с зеленью и чесноком. Из горячих — сырный или перечный.</div>
+<div class="tip">Кинза может перебить весь вкус, но если немного — можно. Вместо неё — шпинат или мелко рубленные соцветия брокколи.</div>
+<p class="mute" style="margin-top:3mm">«Под бокальчик пенистого — самое то».</p>
+</div>
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/04-hero.jpg" alt="" style="object-position:50% 55%"><figcaption><span class="kick">Готово</span>Бризоль</figcaption></figure>
+</article>
+<article class="recipe" id="r05">
+  <header class="rhero"><img loading="lazy" src="img/05-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 5</span><h2>Московские</h2><p>Говядина с салом и белым хлебом. Лука совсем чуть-чуть — «для душки». Своеобразный вкус им даёт именно говядина.</p><div class="badges"><span class="badge">заготовка <b>110–120 г</b></span><span class="badge">готовая <b>~80 г</b></span><span class="badge">духовка <b>190 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Говядина: лопатка, тонкий или толстый край</td><td>500 г</td></tr><tr><td>Сало</td><td>100 г</td></tr><tr><td>Белый хлеб (сухой вес)</td><td>140 г</td></tr><tr><td>Вода</td><td>20 г</td></tr><tr><td>Лук репчатый</td><td>10 г</td></tr><tr><td>Чеснок</td><td>1 зубчик или 1–2 г сухого</td></tr><tr><td>Соль</td><td>1–2 г</td></tr><tr><td>Перец чёрный</td><td>1–2 г</td></tr><tr><td>Сухари панировочные</td><td>сколько потребуется</td></tr><tr><td>Масло растительное</td><td>50 г</td></tr></table><div class="note"><b>Вода — точно 20 г.</b> Это не опечатка. Хлеб и не должен разбухать — рецепт рассчитан на то, что хлеб, лук и мясо проходят через мясорубку вместе.<br/><b>Решётка:</b> средняя (4–5 мм). <b>Духовка:</b> 190 °C.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/05-1.mp4" muted loop playsinline preload="none" aria-label="Всё через мясорубку"></video><span class="n">1</span></div><div class="tx"><h4>Всё через мясорубку</h4><p>Рецепт рассчитан на то, что хлеб, лук, чеснок и мясо с салом проходят через мясорубку вместе. Можно и как шеф: хлеб с водой, луком и чесноком пробить блендером отдельно, потом соединить с фаршем. Соль, перец. Тщательно вымешайте и перетрите. Этот фарш шеф в миске не отбивает — для подстраховки можно отбить. В холодильник на 20–30 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-2.mp4" muted loop playsinline preload="none" aria-label="Формовка: отбить в ладонях"></video><span class="n">2</span></div><div class="tx"><h4>Формовка: отбить в ладонях</h4><p>Взвесьте заготовки по 110–120 г. Каждую прокатайте в ладонях и с силой несколько раз отбейте об ладонь — это единственное отбивание, и котлета держит форму.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-3.mp4" muted loop playsinline preload="none" aria-label="Панировка"></video><span class="n">3</span></div><div class="tx"><h4>Панировка</h4><p>Обычные панировочные сухари. Вместо них можно муку, кукурузную муку или семолу.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-4.mp4" muted loop playsinline preload="none" aria-label="Обжарка — с запасом масла"></video><span class="n">4</span></div><div class="tx"><h4>Обжарка — с запасом масла</h4><p>Масла чуть больше обычного, чтобы котлеты покрылись хорошей корочкой. Расстояние между ними — чтобы жарились, а не тушились. По 3–4 минуты с каждой стороны.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-5.mp4" muted loop playsinline preload="none" aria-label="Духовка и отдых"></video><span class="n">5</span></div><div class="tx"><h4>Духовка и отдых</h4><p>190 °C, 15–20 минут. Готовы, когда прозрачного сока нет. Дайте постоять 5–10 минут. <span class="mute">Без духовки: доведите на сковороде под крышкой, добавив немного воды, 10–15 минут на среднем огне.</span></p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Сало можно заменить</b>Сливочным маслом, жирными сливками, топлёным жиром. Сливками — тем же объёмом, при необходимости ещё 30–50 г.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Хлеб с 20 г воды не пробивается в блендере.</div><div class="a">Добавьте к нему 100–200 г готового фарша и ещё 15–30 г жидкости: растопленное сливочное или топлёное масло, вытопленный жир, сливки, молоко, бульон или воду. Всё — в жидком виде. На производстве агрегаты перемелют всё, дома такие нюансы бывают.</div></div><div class="qa"><div class="q">Фарш не станет жидким от воды?</div><div class="a">Нет: здесь говядина и жир, а не курица. Он отстоится.</div></div><div class="qa"><div class="q">Фарш выходит суховатым?</div><div class="a">Значит, говядина постная — шеф в таком случае добавляет растопленный жир. Не хватает жира при замесе — около 50 г жирных сливок или растопленного сливочного масла прямо в фарш.</div></div><div class="qa"><div class="q">10 г лука — не ошибка?</div><div class="a">Не ошибка: лук и чеснок здесь только для аромата. Можно чуть больше.</div></div><div class="qa"><div class="q">Заменить говядину?</div><div class="a">Свининой или телятиной можно, но будет «немножко не то».</div></div><div class="qa"><div class="q">Потеряли форму в духовке.</div><div class="a">Возможно, из-за разницы температур. Шеф рекомендует проверить духовку термометром.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/05-hero.jpg" alt="" style="object-position:50% 55%"><figcaption><span class="kick">Готово</span>Московские</figcaption></figure>
+</article>
+<article class="recipe" id="r06">
+  <header class="rhero"><img loading="lazy" src="img/06-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 6</span><h2>Столовские</h2><p>Те самые «хлебные» котлеты. Фишка — ржаной хлеб, и его здесь столько же, сколько мяса.</p><div class="badges"><span class="badge">заготовка <b>120 г</b></span><span class="badge">духовка <b>200 °C</b></span><span class="badge">хлеб : фарш <b>1 : 1</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Свинина (шея)</td><td>500 г</td></tr><tr><td>Ржаной хлеб</td><td>500 г</td></tr><tr><td>Вода</td><td>250–300 г</td></tr><tr><td>Лук репчатый</td><td>100 г</td></tr><tr><td>Чеснок</td><td>1–2 зубчика или 2 г сухого</td></tr><tr><td>Яйцо C1</td><td>1 шт</td></tr><tr><td>Соль</td><td>2 г</td></tr><tr><td>Перец чёрный</td><td>3 г</td></tr><tr><td>Сухари панировочные</td><td>сколько потребуется</td></tr><tr><td>Масло для противня и вода</td><td>немного</td></tr></table><div class="note"><b>Решётка:</b> средняя (отверстия 4–5 мм).<br/><b>500 г хлеба — не ошибка.</b> «Нет, не ошиблась». Ржаной хлеб у всех разной текстуры, плотности и вкуса: соль и перец досаливайте по вкусу.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/06-1.mp4" muted loop playsinline preload="none" aria-label="Хлеб, лук, вода"></video><span class="n">1</span></div><div class="tx"><h4>Хлеб, лук, вода</h4><p>Хлеб залейте водой. Свежий фарш — пропустите хлеб через мясорубку вместе с мясом и луком. Размороженный — пробейте хлеб, лук и свежий чеснок блендером, вместе с оставшейся водой. Не пробивается — смело доливайте воду понемногу: всё зависит от хлеба.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-2.mp4" muted loop playsinline preload="none" aria-label="Замес"></video><span class="n">2</span></div><div class="tx"><h4>Замес</h4><p>Фарш сначала перемешайте отдельно, потом добавьте хлебную массу, яйцо, сухой чеснок, соль и перец. На этой стадии масса жидкая. Чем дольше её перемешиваете и отбиваете, тем плотнее она становится. Не жалейте времени на хороший фарш.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-3.mp4" muted loop playsinline preload="none" aria-label="Отбить и в холод"></video><span class="n">3</span></div><div class="tx"><h4>Отбить и в холод</h4><p>Отбейте, как любой другой фарш, накройте плёнкой и уберите в холодильник минимум на 20 минут. После него фарш плотный и не разваливается.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-4.mp4" muted loop playsinline preload="none" aria-label="Два противня"></video><span class="n">4</span></div><div class="tx"><h4>Два противня</h4><p>В одном панируйте, во второй — с бортиком, пусть небольшим, — выкладывайте и запекайте. Второй смажьте маслом: немного, потом будет вода.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-5.mp4" muted loop playsinline preload="none" aria-label="Формовка по 120 г"></video><span class="n">5</span></div><div class="tx"><h4>Формовка по 120 г</h4><p>Отвесьте по 120 г, сформуйте «столовскую» форму, запанируйте и выложите на противень. <b>Трещин быть не должно</b> — постарайтесь, чтобы все были ровненькие. Можно с промежутками, можно плотно, но тогда бока не зажарятся.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-6.mp4" muted loop playsinline preload="none" aria-label="Вода в противень"></video><span class="n">6</span></div><div class="tx"><h4>Вода в противень</h4><p>Налейте воды так, чтобы дно было покрыто, а котлета стояла в воде на ¼. Духовка 200 °C. Без обжарки — минимум 20 минут, с предварительной обжаркой — 10–15. Готовы, когда упругие, подрумяненные и при нажатии нет вмятин. Дайте постоять 5 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-7.mp4" muted loop playsinline preload="none" aria-label="Мокрое донышко — это правильно"></video><span class="n">7</span></div><div class="tx"><h4>Мокрое донышко — это правильно</h4><p>Нижняя часть котлеты влажная — «как мы помним, столовая». С водой котлеты пропаренные, но сверху с корочкой. <b>«Я очень надеюсь, что они… навеют вам такие же приятные воспоминания, как и мне».</b></p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Какой хлеб</b>Любой простой ржаной: дарницкий, столовый. Бородинский с зёрнышками и кориандром даст привкус специй, но это не критично.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Хлеба слишком много.</div><div class="a">Так и задумано: послевкусие «много хлеба» и должно быть. Это самые спорные котлеты книги — не всем они подходят.</div></div><div class="qa"><div class="q">Заменить ржаной на белый?</div><div class="a">Тогда это уже не столовские. Но если ржаной не едите — можно.</div></div><div class="qa"><div class="q">Вкус не как в детстве.</div><div class="a">ГОСТ в каждом регионе был адаптирован к региону.</div></div><div class="qa"><div class="q">Духовка или сковорода?</div><div class="a">В духовке они светлее, и шефу так больше нравится — «прямо как в столовой». Везде готовят по-разному: пробуйте свой способ.</div></div><div class="qa"><div class="q">Кажется, это самые простые котлеты.</div><div class="a">Многим они даются тяжело: всё зависит от продуктов, хлеб нужно подбирать.</div></div><div class="qa"><div class="q">А как ест сама шеф?</div><div class="a">Иногда холодными, с консервированным горошком.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/06-hero.jpg" alt="" style="object-position:50% 60%"><figcaption><span class="kick">Готово</span>Столовские</figcaption></figure>
+</article>
+<article class="recipe" id="r07">
+  <header class="rhero"><img loading="lazy" src="img/07-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 7</span><h2>Пожарские</h2><p>Куриный «мясной крем» со сливочным маслом в шубке из хлебных кубиков.</p><div class="badges"><span class="badge">заготовка <b>100 г</b></span><span class="badge">духовка <b>190 °C</b></span><span class="badge">решётка <b>2–3 мм</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Курица, лучше бедро</td><td>500 г</td></tr><tr><td>Белый хлеб, можно с корочкой</td><td>260 г</td></tr><tr><td>Молоко 3,5%</td><td>55 г</td></tr><tr><td>Сливки от 10% (чем жирнее, тем вкуснее)</td><td>55 г</td></tr><tr><td>Масло сливочное</td><td>100 г</td></tr><tr><td>Соль</td><td>3 г</td></tr><tr><td>Перец — по желанию</td><td>3 г</td></tr><tr class="sub"><td colspan="2">Обсыпка и смазывание</td></tr><tr><td>Белый хлеб на кубики</td><td>сколько потребуется</td></tr><tr><td>Сливочное масло (отдельно)</td><td>по весу</td></tr></table><div class="note"><b>260 г хлеба</b> идут только в фарш, кубиков берите сколько понадобится.<br/><b>Бедро</b> можно заменить филе: по ГОСТу берут грудку, шефу сочнее и вкуснее бедро.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/07-1.mp4" muted loop playsinline preload="none" aria-label="Кубики заранее"></video><span class="n">1</span></div><div class="tx"><h4>Кубики заранее</h4><p>Нарежьте белый хлеб совсем мелким кубиком или соломкой и оставьте на противне при комнатной температуре — без поджаривания, он просто высохнет. <span class="mute">Варианты: обычные сухари, крупные панко, замороженный хлеб, натёртый на крупной тёрке.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-2.mp4" muted loop playsinline preload="none" aria-label="Воздушная основа"></video><span class="n">2</span></div><div class="tx"><h4>Воздушная основа</h4><p>Курицу смелите на паштетной решётке (2–3 мм) (бедро можно с кожей, даже дважды). Хлеб залейте сливками и молоком. Секрет текстуры: в блендер к хлебу добавьте часть фарша и часть подтаявшего сливочного масла и в несколько заходов пробейте в очень густую, гладкую, вязкую массу. Через мясорубку — часть фарша прокрутите ещё раз.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-3.mp4" muted loop playsinline preload="none" aria-label="«Мясной крем»"></video><span class="n">3</span></div><div class="tx"><h4>«Мясной крем»</h4><p>Соедините с остальным фаршем и оставшимся маслом, посолите. Специи — по вкусу: сухой чеснок, сухой укроп, своя соль. Чёрный перец шеф не кладёт — будут видны крапинки; можно белый. Мешайте руками или крюками ручного миксера. Такой фарш почти не нужно отбивать — он и так эластичный. В холодильник на 20–30 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-4.mp4" muted loop playsinline preload="none" aria-label="Формовка в кубиках"></video><span class="n">4</span></div><div class="tx"><h4>Формовка в кубиках</h4><p>Фарш клейкий — смажьте перчатки растительным маслом. По 100 г, отбить в руке, сформовать (у шефа — бочонком) и сразу обвалять в кубиках. Пустоты закройте кубиками.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-5.mp4" muted loop playsinline preload="none" aria-label="Два способа"></video><span class="n">5</span></div><div class="tx"><h4>Два способа</h4><p><b>По ГОСТу:</b> обжарить по 3–4 минуты с каждой стороны, потом в духовку на 13–15 минут. <b>Как любит шеф:</b> обильно смазать кисточкой растопленным сливочным маслом и сразу в духовку — так котлеты не меняют цвет. <span class="mute">Для ровного жёлтого цвета, как в столовой, — куркума на кончике ножа в растопленном масле.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-6.mp4" muted loop playsinline preload="none" aria-label="Духовка 190 °C"></video><span class="n">6</span></div><div class="tx"><h4>Духовка 190 °C</h4><p>Сразу в духовку — 22–30 минут, до румяности хлеба. Курица готовится быстро: котлета готова, ещё пока бледная, дальше только подрумяниваем до нужного колера.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-7.mp4" muted loop playsinline preload="none" aria-label="Хрустит снаружи"></video><span class="n">7</span></div><div class="tx"><h4>Хрустит снаружи</h4><p>Если кубики внутри после духовки немного влажные — это нормально. Сухари снизу осыпаются: влага из котлеты уходит вниз. Тоже норма. <b>«Донышко поджаренное — это очень вкусно».</b></p></div></div></div>
+      
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">500 г курицы на 260 г батона — не много хлеба?</div><div class="a">Ровно столько, сколько должно быть по ГОСТу.</div></div><div class="qa"><div class="q">После блендера масса густая, батон почти не размок.</div><div class="a">Так и должно быть. Переживаете — добавьте немного сливок.</div></div><div class="qa"><div class="q">Кубики высохли полностью — не будут жёсткими?</div><div class="a">Не будут: их смягчит сливочное масло.</div></div><div class="qa"><div class="q">Крупные или мелкие кубики?</div><div class="a">Шефу больше нравятся крупные.</div></div><div class="qa"><div class="q">Заморозить?</div><div class="a">Прямо как сформовали и обваляли — сразу в морозилку, маслом не смазывать. Из морозилки не размораживать: на противень, смазать растопленным сливочным маслом — и в разогретую духовку. После заморозки они ещё сочнее.</div></div><div class="qa"><div class="q">Разогреть, чтобы хрустели?</div><div class="a">На сковороде с небольшим количеством сливочного масла, на среднем огне под крышкой.</div></div><div class="qa"><div class="q">Заменить сливки и сливочное масло?</div><div class="a">Можно, но результат будет другим.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/07-hero.jpg" alt="" style="object-position:50% 55%"><figcaption><span class="kick">Готово</span>Пожарские</figcaption></figure>
+</article>
+<article class="recipe" id="r08">
+  <header class="rhero"><img loading="lazy" src="img/08-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Рецепт 8</span><h2>По-киевски</h2><p>Куриное филе с зелёным маслом внутри, тройная панировка, фритюр. «Сложновато. Но оно того стоит!!!»</p><div class="badges"><span class="badge">фритюр <b>130–145 °C</b></span><span class="badge">духовка <b>190–200 °C</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Куриное филе с малым филе</td><td>250–300 г</td></tr><tr><td>Соль, перец чёрный</td><td>по 1–2 г</td></tr><tr class="sub"><td colspan="2">Зелёное масло</td></tr><tr><td>Масло сливочное</td><td>30 г</td></tr><tr><td>Петрушка свежая рубленая</td><td>5–10 г</td></tr><tr><td>Чеснок свежий</td><td>1 зубчик (сухой — на кончике ножа)</td></tr><tr><td>Соль</td><td>1 г</td></tr><tr class="sub"><td colspan="2">Панировка</td></tr><tr><td>Мука</td><td>30–50 г</td></tr><tr><td>Яйцо C1</td><td>1 шт</td></tr><tr><td>Сухари панировочные</td><td>сколько потребуется</td></tr><tr><td>Масло для фритюра</td><td>~2 л</td></tr></table><div class="note"><b>Без фритюра не получится</b> — в этом их особенность. Масло — специальное фритюрное или рафинированное подсолнечное.<br><span class="mute">На одну котлету — половинку куриной грудки.</span></div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/08-1.mp4" muted loop playsinline preload="none" aria-label="Зелёное масло — заранее"></video><span class="n">1</span></div><div class="tx"><h4>Зелёное масло — заранее</h4><p>Мягкое масло смешайте с чесноком, солью и петрушкой (шеф любит побольше). Разделите на части и в плёнке или пакетике скатайте «колбаски» длиной с ваше филе. В морозилку — заморозить полностью, «в камень». Можно сделать заблаговременно.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-2.mp4" muted loop playsinline preload="none" aria-label="Разделка филе"></video><span class="n">2</span></div><div class="tx"><h4>Разделка филе</h4><p>Филе берите <b>обязательно с малым филе</b>. Отрежьте малое и отложите. С большого срежьте неровности, хрящики, снимите белую плёнку. Из малого филе удалите прожилку, не повредив его: надсеките, вставьте вилку и потихоньку вытяните.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-3.mp4" muted loop playsinline preload="none" aria-label="Отбить, не торопясь"></video><span class="n">3</span></div><div class="tx"><h4>Отбить, не торопясь</h4><p>Толстую часть большого филе надрежьте «книжкой», не до конца. Отбивайте через пакет, слегка, только с одной стороны, — «не пытайтесь сразу одним движением». Малое филе — очень аккуратно и тонко. Посолите и поперчите. Белый перец — осторожно, он ароматный.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-4.mp4" muted loop playsinline preload="none" aria-label="Сборка"></video><span class="n">4</span></div><div class="tx"><h4>Сборка</h4><p>Масло — по центру большого филе, сверху малое филе, затем внахлёст вторая половина. Формуйте котлету, швы закроет панировка. Порвалось филе — «не бойтесь, ничего страшного».</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-5.mp4" muted loop playsinline preload="none" aria-label="Тройная панировка"></video><span class="n">5</span></div><div class="tx"><h4>Тройная панировка</h4><p>Мука → яйцо → мука → яйцо → сухари. Мука с яйцом — это клей: закрывайте каждый шов и придавливайте панировку к котлете. <b>Самое главное — чтобы масло внутри не вытекло.</b> Неровности не пугают: всё отлежится.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-6.mp4" muted loop playsinline preload="none" aria-label="Отдых в холоде"></video><span class="n">6</span></div><div class="tx"><h4>Отдых в холоде</h4><p>Минимум 30 минут в холодильнике. В ресторанах их подмораживают на полчаса и жарят чуть подмороженными — разницы нет, что выбрать. После холода котлета не крошится и не сыплется.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-7.mp4" muted loop playsinline preload="none" aria-label="Фритюр 130–145 °C"></video><span class="n">7</span></div><div class="tx"><h4>Фритюр 130–145 °C</h4><p>Около двух литров масла в глубокой посуде — бурлит очень сильно. Опустите котлету аккуратно, переверните, поднимите на пару секунд и опустите снова. Около минуты, всё зависит от масла. Не кладите на дно — прилипнет и будет пятно. Держите на весу шумовкой. Можно вынуть чуть раньше, чтобы не потемнела.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-8.mp4" muted loop playsinline preload="none" aria-label="Духовка на решётке"></video><span class="n">8</span></div><div class="tx"><h4>Духовка на решётке</h4><p>Котлета должна лежать на весу, на решётке, а не на плоском дне — тогда колер ровный. 190–200 °C, 9–15 минут, всё зависит от веса. Без конвекции, поглядывайте. <span class="mute">Перед духовкой смажьте сливочным маслом — будут корочка и хруст.</span></p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>С косточкой — только для красоты</b>Это ресторанная подача с папильоткой. Кость от крыла не отрезают, зачищают до чистоты, делают «кармашек». Косточка смотрит вверх, на гладкую сторону, шов — снизу. Во фритюре кость держат щипцами над маслом, чтобы не обгорела. Впервые — берите просто филе.</div><div class="tip"><b>Панко</b>Для классической киевской не подходит, хотя с ним тоже можно. Жарите оба вида — сначала котлеты в обычных сухарях, потом в панко: крошки панко пригорают и липнут.</div><div class="tip"><b>Не пропеклись</b>Скорее всего, мало отбили филе: при отбивании мышцы становятся тоньше и рыхлее, тепло легче проходит внутрь.</div><div class="tip"><b>С сыром вместо масла</b>Тёртый хорошо плавящийся сыр — моцарелла или плавленый, можно с ложкой майонеза или сырного соуса. Сформуйте брусочек, заморозьте и заверните, как масло.</div><div class="tip"><b>Бледный колер</b>Шеф советует поднять температуру фритюра, но так, чтобы масло не дымило.</div>
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Филе по 300 г, котлеты огромные и рвутся.</div><div class="a">Только подрезать или искать совсем маленькую курицу: размер решает грудка.</div></div><div class="qa"><div class="q">Слепить вечером, жарить завтра?</div><div class="a">Можно, в холодильнике. Перед жаркой проверьте, что панировка цела, и достаньте минут за 5.</div></div><div class="qa"><div class="q">Жарить из морозилки?</div><div class="a">Заморозьте в сухарях, достаньте минут за 30. Фритюр — на 10 градусов ниже, духовка — на 10–20 ниже, иначе снаружи пережарится, а внутри останется сыро.</div></div><div class="qa"><div class="q">Можно из индейки? Из фарша?</div><div class="a">Филе индейки — можно. Из фарша — один из вариантов, но классику готовят из целого филе.</div></div><div class="qa"><div class="q">Едят только тёплой?</div><div class="a">Да: внутри масло.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/08-final.jpg" alt="" style="object-position:50% 50%"><figcaption><span class="kick">Готово</span>По-киевски</figcaption></figure>
+</article>
+<article class="recipe" id="r09">
+  <header class="rhero"><img loading="lazy" src="img/09-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Бонус 1</span><h2>Тефтели а-ля итальяно</h2><p>Говяжьи тефтели с моцареллой внутри, в томатном соусе с тимьяном. Рецептом с шефом поделился итальянский шеф.</p><div class="badges"><span class="badge">тефтеля <b>50–60 г</b></span><span class="badge">внутри <b>моцарелла</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Говяжий фарш</td><td>800 г</td></tr><tr><td>Сухари</td><td>100 г</td></tr><tr><td>Молоко</td><td>100 мл</td></tr><tr><td>Лук сухой</td><td>10 г</td></tr><tr><td>Чеснок сухой</td><td>5 г</td></tr><tr><td>Масло сливочное</td><td>30 г</td></tr><tr><td>Петрушка рубленая</td><td>10–15 г</td></tr><tr><td>Моцарелла</td><td>100 г</td></tr><tr><td>Масло растительное</td><td>50 мл</td></tr><tr><td>Мука для обваливания</td><td>сколько потребуется</td></tr><tr class="sub"><td colspan="2">Соус</td></tr><tr><td>Протёртая мякоть томатов</td><td>500 г</td></tr><tr><td>Лук</td><td>50 г</td></tr><tr><td>Тимьян свежий</td><td>3–4 веточки</td></tr><tr><td>Сахар</td><td>2 ч. л.</td></tr><tr><td>Сухой чеснок</td><td>2 г</td></tr><tr><td>Вода</td><td>100–200 мл</td></tr></table><div class="note"><span class="mute">Соль и перец — по вкусу. Томатную основу можно взять любую.</span></div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/09-1.mp4" muted loop playsinline preload="none" aria-label="Плотный фарш"></video><span class="n">1</span></div><div class="tx"><h4>Плотный фарш</h4><p>К фаршу — сухой лук и чеснок (можно свежие), сливочное масло, сухари, молоко, соль, перец (шеф кладёт его много) и петрушку. Вымешайте максимально — руками или насадками миксера — и отбейте до плотной консистенции. Не бойтесь, что масса плотная: так и должно быть. В холодильник на 30 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-2.mp4" muted loop playsinline preload="none" aria-label="Сыр внутри"></video><span class="n">2</span></div><div class="tx"><h4>Сыр внутри</h4><p>Тефтели по 50–60 г (у шефа 53–55). Моцареллу нарежьте кубиками примерно 1×1 см и спрячьте по кубику в каждую. Подойдёт любой сыр, который хорошо плавится. Скатайте плотные шарики и дайте им полежать хотя бы 10 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-3.mp4" muted loop playsinline preload="none" aria-label="Мука — всё разом"></video><span class="n">3</span></div><div class="tx"><h4>Мука — всё разом</h4><p>Насыпьте в противень просеянную пшеничную муку, выложите все тефтели и обваляйте круговыми движениями противня. Быстро и удобно. <span class="mute">Мука на тефтелях потом сама загустит соус — больше ничего не нужно.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-4.mp4" muted loop playsinline preload="none" aria-label="Обжарка с тимьяном"></video><span class="n">4</span></div><div class="tx"><h4>Обжарка с тимьяном</h4><p>Масла — чтобы слегка покрыло дно. Обжаривайте, встряхивая, пока каждая тефтеля не «схватится» по кругу. Добавьте лук и несколько веточек свежего тимьяна, чуть масла. Свежий чеснок — на этом же этапе, главное не подпалить. Жарьте до прозрачности или румяности лука.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-5.mp4" muted loop playsinline preload="none" aria-label="Томаты и сахар"></video><span class="n">5</span></div><div class="tx"><h4>Томаты и сахар</h4><p>Влейте протёртые томаты и немного потушите без специй, переворачивая тефтели. Томаты кислые — обязательно сахар: соль с сахаром дают баланс. Сыпьте понемногу, пробуя. Затем сухой чеснок и вода — по густоте соуса; он всё равно загустеет, лучше подлить позже.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-6.mp4" muted loop playsinline preload="none" aria-label="Тянется сыр"></video><span class="n">6</span></div><div class="tx"><h4>Тянется сыр</h4><p>Моцарелла внутри расплавится и «поплывёт». Можно посыпать сверху сыром и запечь в духовке. Подать с пастой, пюре, запечённым картофелем. Шеф любит с крекерами.</p></div></div></div>
+      
+      <h3>Шеф <em>уточняет</em></h3><div class="qa"><div class="q">Соус из томатов в собственном соку?</div><div class="a">Можно, но при пробивании блендером добавьте полчайной ложки томатной пасты.</div></div><div class="qa"><div class="q">Нет свежего тимьяна.</div><div class="a">Можно сухой. Нет и его — лучше розмарин, но совсем чуть-чуть.</div></div><div class="qa"><div class="q">Томат нельзя.</div><div class="a">Оставьте тефтели без соуса или подайте с другим — например, с белым соусом, как у орловских. Без соуса их не ставят в духовку, а доводят на сковороде на тихом огне; к луку с тимьяном можно вместо подсолнечного взять сливочное масло и протушить.</div></div>
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/09-hero.jpg" alt="" style="object-position:50% 42%"><figcaption><span class="kick">Готово</span>Тефтели а-ля итальяно</figcaption></figure>
+</article>
+<article class="recipe" id="r10">
+  <header class="rhero"><img loading="lazy" src="img/10-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Бонус 2</span><h2>Орловские</h2><p>Говядина с грибами и зернистой горчицей, без панировки, под бешамелем. «Отдельная моя любовь».</p><div class="badges"><span class="badge">котлета <b>~120 г</b></span><span class="badge">соус <b>бешамель</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Говяжий фарш</td><td>600 г</td></tr><tr><td>Грибы свежие (сырой вес) или сухие</td><td>250 г / 100 г</td></tr><tr><td>Лук репчатый</td><td>150 г</td></tr><tr><td>Желток</td><td>2 шт</td></tr><tr><td>Горчица зернистая</td><td>1 ч. л.</td></tr><tr><td>Сухари панировочные (в фарш)</td><td>50 г</td></tr><tr><td>Сухой чеснок</td><td>4 г</td></tr><tr><td>Сухой лук</td><td>5 г</td></tr><tr><td>Петрушка рубленая — по желанию</td><td>20 г</td></tr><tr><td>Соль, перец</td><td>по вкусу</td></tr><tr class="sub"><td colspan="2">Соус бешамель</td></tr><tr><td>Мука</td><td>30 г (гуще — 50)</td></tr><tr><td>Масло сливочное</td><td>30 г (гуще — 50)</td></tr><tr><td>Молоко</td><td>500 г</td></tr><tr><td>Сыр — по желанию</td><td>150 г</td></tr></table></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/10-1.mp4" muted loop playsinline preload="none" aria-label="Грибы с луком"></video><span class="n">1</span></div><div class="tx"><h4>Грибы с луком</h4><p>Грибы — любые: шампиньоны, консервированные, сухие белые. Нарежьте средним кубиком — главное, чтобы был аромат. Лук — как удобно. Обжарьте лук на подсолнечном масле, добавьте грибы. <b>Остудите полностью.</b></p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-2.mp4" muted loop playsinline preload="none" aria-label="Фарш с горчицей"></video><span class="n">2</span></div><div class="tx"><h4>Фарш с горчицей</h4><p>К фаршу — сушёный лук и чеснок, сухари, зернистую горчицу, два желтка, петрушку, остывшие грибы, соль и перец. Тщательно перемешайте. <span class="mute">По желанию — сушёный тимьян или орегано.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-3.mp4" muted loop playsinline preload="none" aria-label="Без панировки"></video><span class="n">3</span></div><div class="tx"><h4>Без панировки</h4><p>Дайте фаршу отдохнуть, затем сформуйте котлеты по ~120 г — любой формы. Шеф делает длинненькие: вкус распределяется равномерно. Пусть немного постоят после формовки, чтобы продукты «поженились». Тёмный цвет — норма: говядина и грибы.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-4.mp4" muted loop playsinline preload="none" aria-label="Бешамель"></video><span class="n">4</span></div><div class="tx"><h4>Бешамель</h4><p>Растопите масло, вмешайте муку. Молоко вливайте понемногу, посуда повыше — будет шипеть и резко завариваться. Сначала ложкой, потом венчиком, постоянно мешая. По классике — мускатный орех и соль. Можно добавить чеддер или любой плавленый сыр для сливочного вкуса.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-5.mp4" muted loop playsinline preload="none" aria-label="Обжарка"></video><span class="n">5</span></div><div class="tx"><h4>Обжарка</h4><p>Совсем немного подсолнечного масла. Котлеты — как есть, без панировки, по 3–4 минуты с каждой стороны, переворачивая один раз. <span class="mute">Удобно взять сковороду, которая помещается в духовку.</span></p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-6.mp4" muted loop playsinline preload="none" aria-label="Под соусом"></video><span class="n">6</span></div><div class="tx"><h4>Под соусом</h4><p>Полейте каждую котлету соусом, переверните прижаренной стороной в соус и полейте сверху ещё раз. Дальше два пути: в духовку (можно посыпать сыром — будет сырная корочка) или на плите под крышкой минут 15.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-7.mp4" muted loop playsinline preload="none" aria-label="Подача"></video><span class="n">7</span></div><div class="tx"><h4>Подача</h4><p>Сверху зелень. Гарнир — запечённая цветная капуста, брокколи, спаржа: к сливочному соусу. <b>«Зёрна горчицы дают свою некую пикантность».</b></p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Бешамель заранее</b>Его можно сварить накануне: на следующий день при прогреве он хорошо расходится и становится приятной текстуры.</div><div class="tip"><b>Том ям в бешамель</b>Чайная ложка пасты том ям — и соус «заиграл другими красками»: молоко сбивает остроту, остаётся аромат.</div><div class="tip"><b>Как в ресторане</b>Там бешамель ещё процеживают через сито. Дома — по желанию.</div><div class="tip"><b>Подгорело — не беда</b>Если сыр прилип ко дну и в соусе появились коричневые крапинки — ничего страшного, шеф и сама так иногда готовит.<q>Я за честную игру. У профессионалов тоже всё бывает на кухне</q></div><div class="tip"><b>Соус к любым котлетам</b>Бешамель орловских и томатный соус тефтелей подойдут к любым котлетам из книги.</div>
+      
+      
+    </div>
+  </div>
+  <figure class="final"><img loading="lazy" src="img/10-hero.jpg" alt="" style="object-position:50% 55%"><figcaption><span class="kick">Готово</span>Орловские</figcaption></figure>
+</article>
+
+  <div id="gen"><section class="gen dark" id="diag">
+  <div class="kick">Глава 3</div>
+  <h2>Почему <em>не получилось</em></h2>
+  <p class="mute">Причины и что делать — шеф рекомендует.</p>
+  <table class="diag">
+    <tr><td>Рассыпается на срезе, рыхлая</td><td>Фарш плохо отбит и неоднороден или в нём многовато жидкости. Отбивайте и весь фарш, и каждую котлету, держите в холодильнике дольше.</td></tr>
+    <tr><td>Разваливается при жарке</td><td>Сковорода прогрета слабо — котлеты пропариваются. Или наоборот: много котлет в перегретом масле. Мало жира на постное мясо. Хлеб тоже везде разный.</td></tr>
+    <tr><td>Лопается на сковороде</td><td>Внутри остался воздух — фарш плохо отбит. Или масло слишком горячее: корочка схватилась сразу и не выпускает воздух.</td></tr>
+    <tr><td>Лопается в духовке</td><td>Резкий перепад температуры: из холодильника — в горячую духовку, или духовка горячее, чем показывает.</td></tr>
+    <tr><td>Фарш жидкий</td><td>Проверьте вес продуктов. Частая причина — сок тёртого лука.</td></tr>
+    <tr><td>Суховато</td><td>Не хватает жира в фарше. Включена конвекция. Разогревали в микроволновке.</td></tr>
+    <tr><td>«Пузатые»</td><td>Неравномерно приплюснули: края тоньше середины. Плюс горячее масло и духовка.</td></tr>
+    <tr><td>Сильно липнет к рукам</td><td>Много жира в фарше, чаще в покупном.</td></tr>
+  </table>
+  
+</section><section class="gen">
+  
+  <h2>Ровные котлеты: <em>лайфхак</em></h2>
+  <div class="tip"><b>Кольцо из консервной банки</b>Пузатые котлеты выравнивают дощечкой, скалкой через пергамент или пакет — или кольцом из банки от кильки в томате, у которой вырезаны дно и крышка.</div>
+  <div class="tip"><b>Коричневая — ещё не обжаренная</b>Корочка появилась, а котлеты пропарились? Значит, их было слишком много в перегретом масле.</div>
+  <div class="tip"><b>Духовка с характером</b>Котлеты треснули — скорее всего, в духовке было горячее, чем нужно. Проверьте её термометром.</div>
+  <div class="tip"><b>Котлеты из чистого мяса</b>Без яиц и хлеба котлета разваливается по трём причинам: мало жира на постное мясо, много котлет в перегретом масле, плохо отбитый фарш.</div>
+  <div class="tip"><b>Холодный разрез обманывает</b>Котлеты, разрезанные холодными, выглядят суше, чем есть.</div>
+  
+</section><header class="rhero genhero" id="freeze"><img loading="lazy" src="img/gen/фарш-брикет-01-50.jpg" alt=""><div class="cap">
+    <span class="kick">Глава 4</span>
+    <h2>Заготовки <em>впрок</em> и разогрев</h2>
+    <p class="lead">Плоские брикеты фарша с подписью — так шеф хранит весь фарш.</p>
+  </div></header><section class="gen">
+  
+  <h2>Морозилка — <em>правильно</em></h2>
+  <div class="tip"><b>Брикеты фарша</b>Хорошо перемешайте фарш, разложите по пакетам для заморозки примерно по 500 г и разгладьте плоским брикетом. Всё в морозилке маркируйте стикером.</div>
+  <div class="tip"><b>Котлеты — после панировки</b>Разложите на доске и заморозьте. В вакуум или пакеты — только после заморозки.</div>
+  <div class="tip"><b>Можно фарш с хлебом</b>Для дома — заморозить сразу готовый фарш, потом только сформовать.</div>
+  <div class="tip"><b>Сроки при −18 °C</b>Сырые полуфабрикаты — 3 месяца, жареные — 2. Если в морозилке теплее, срок короче.</div>
+  <div class="tip"><b>Размораживать в холодильнике</b>За ночь, в ёмкости. Не при комнатной температуре: на размороженном мясе быстро размножаются бактерии.</div>
+  <div class="tip"><b>До завтра в холодильнике</b>Сформованные котлеты — при +3…+5 °C, переложив пергаментом, а не плёнкой: «пергамент хотя бы как-то дышит».</div>
+  
+</section><section class="gen">
+  
+  <h2>Из морозилки <em>и разогрев</em></h2>
+  <table class="diag">
+    <tr><td>Домашние</td><td>Не размораживать: обжарить и в духовку или сразу на противень в духовку 180 °C.</td></tr>
+    <tr><td>Бифштекс</td><td>Полностью разморозить в холодильнике, прямо в бумаге.</td></tr>
+    <tr><td>Бризоль</td><td>Морозят только мясные блины, в панировке — нет.</td></tr>
+    <tr><td>Зразы</td><td>Не размораживать, обжарить на несильном огне, духовка ниже и дольше.</td></tr>
+    <tr><td>Пожарские</td><td>Не размораживать: маслом сверху — и в разогретую духовку.</td></tr>
+    <tr><td>Киевская</td><td>Достать за 30 мин, фритюр на 10 °C ниже, духовка на 10–20 °C ниже.</td></tr>
+  </table>
+  <h3>Разогрев готовых</h3>
+  <div class="tip"><b>Под крышкой с водичкой</b>В сотейнике или на сковороде, на несильном огне, переворачивая. В конце можно дать цвет.</div>
+  <div class="tip"><b>Не в микроволновке</b>Она сушит в любом случае, крышка не помогает. Готовые замороженные котлеты — разморозить в холодильнике, потом прогреть в духовке или на сковороде.<q>В микроволновке ни в коем случае!!!</q></div>
+  
+</section><section class="gen" id="swap">
+  <div class="kick">Глава 5</div>
+  <h2>Замены <em>и варианты</em></h2>
+  <p class="mute">Любая замена мяса меняет вкус. Делайте её на свою ответственность.</p>
+  <div class="tip"><b>Без свинины</b>Лучше всего бедро индейки: оно более красное. Шпик тогда заменяют говяжьим жиром — он «более правильный для индейки». Бедро индейки подойдёт и для зраз, и для бризоля.</div>
+  <div class="tip"><b>Курица</b>Филе можно заменить бедром один к одному. Курица сочнее и менее плотная, чем индейка.</div>
+  <div class="tip"><b>Телятина</b>Можно вместо свинины.</div>
+  <div class="tip"><b>Баранина</b>Мякоть задней ноги или лопатки, на 500 г мяса — 100 г бараньего, можно курдючного, жира.</div>
+  <div class="tip"><b>Дичь</b>Лося, кабана, марала шеф не вымачивает, а сначала морозит минимум неделю и добавляет жирную свинину или шпик. Технология — как у домашних.</div>
+  <div class="tip"><b>Сало → сливки</b>100 г сала можно заменить жирными сливками того же объёма, при необходимости ещё 30–50 г. С говядиной — сразу 150 г.</div>
+  
+</section><section class="gen">
+  
+  <div class="tip"><b>Готовность</b>Всё мясо, кроме говядины и баранины, доводят до полной готовности.</div>
+  <div class="tip"><b>Солёное сало</b>Можно: смойте соль с поверхности, а фарш не солите и пробуйте.</div>
+  <div class="tip"><b>Без хлеба</b>Картофель на самой мелкой тёрке, хорошо отжатый.</div>
+  <div class="tip"><b>Сухари вместо хлеба</b>Возьмите сначала половину веса, замочите, взвесьте и при необходимости добавьте.</div>
+  <div class="tip"><b>Без духовки</b>На сковороде под крышкой с водой или в аэрогриле — для шефа он «моё спасение!!!».</div>
+  <div class="tip"><b>Постные котлеты</b>Шеф делает их из чечевицы, фасоли, киноа, грибов и нута.</div>
+  <div class="tip"><b>Мята в фарше</b>К мяте немного кинзы и молотого пажитника — будет «огонь».</div>
+  <div class="tip"><b>Сухой чеснок дома</b>Зубчик режут на 3–4 части, сушат на пергаменте при 30–50 °C минимум 6 часов (или в дегидраторе) и мелют в кофемолке.</div>
+  
+</section><section class="gen" id="garn">
+  <div class="kick">Приложение</div>
+  <h2>С чем <em>подавать</em></h2>
+  <p class="mute">Шеф рекомендует.</p>
+  <table class="diag">
+    <tr><td>Бифштекс</td><td>Картофель и лук — классика. Или салат.</td></tr>
+    <tr><td>Зразы</td><td>Серьёзный гарнир не нужен: лёгкий салат и соленья.</td></tr>
+    <tr><td>Бризоль</td><td>Зелёный горошек, свежий салат, запечённые овощи, солёные огурцы, рис, обжаренная квашеная капуста.</td></tr>
+    <tr><td>Столовские</td><td>Шеф ест их иногда холодными, с консервированным горошком.</td></tr>
+    <tr><td>Тефтели</td><td>Паста, пюре, запечённый картофель, крекеры.</td></tr>
+    <tr><td>Орловские</td><td>Запечённая цветная капуста, брокколи, спаржа.</td></tr>
+  </table>
+  <div class="tip"><b>Соусы к любым котлетам</b>Томатный соус тефтелей и бешамель орловских подойдут к любым котлетам книги. Самый простой холодный — мацони или греческий йогурт с зеленью и чесноком.</div>
+  
+</section><section class="gen">
+  
+  <h2>Подливка <em>на ру</em></h2>
+  <div class="tip"><b>Ру</b>Сливочное масло и мука в равных долях, например по 50 г. Прогревайте на несильном огне: чем дольше, тем темнее будет подлива.</div>
+  <div class="tip"><b>Чем развести</b>Молоком — получится бешамель. Овощным или мясным бульоном, водой — подлива.</div>
+  <div class="tip"><b>Красная подлива</b>В ру сначала обжарьте пол чайной ложки томатной пасты, потом понемногу вливайте жидкость.</div>
+  <div class="tip"><b>Ру — отдельно</b>Его готовят в отдельной посуде, а не сыплют муку в жареный лук.</div>
+  <h3>Квашеная капуста</h3>
+  <div class="tip"><b>Промывать или нет</b>Очень кислую или бочковую — промыть. Покупную в банке можно не промывать, лучше брать без клюквы.</div>
+  <div class="tip"><b>К бризолю</b>Обжарить с капелькой чеснока, можно добавить бекон и грибы.</div>
+  
+</section><section class="gen">
+  
+  <h2>Крупы <em>и макароны</em></h2>
+  <div class="tip"><b>Перловка с грибами</b>Крупу отварите. Отдельно на сливочном масле обжарьте лук и мелко нарезанные грибы — главное, не маринованные. Соедините, добавьте немного свежего чеснока и укроп.</div>
+  <div class="tip"><b>Рис с корочкой</b>Отварной рис обжарьте на сухой горячей сковороде до корочки, соедините с жареными луком и грибами. Можно вмешать яйцо — «это тоже очень вкусно».</div>
+  <div class="tip"><b>Макароны по-флотски</b>Мясо смелите на крупной или средней решётке. Фарш обжарьте отдельно и выньте. На оставшемся соке пассеруйте лук до прозрачности, верните фарш, посолите, поперчите. Можно добавить ложку сливочного масла или вытопленного жира.<q>В тот сок вы добавляете лук</q></div>
+  
+</section><header class="rhero genhero"><img loading="lazy" src="img/gen/зразы-12-34.jpg" alt=""><div class="cap">
+    <img class="sign" src="img/logo.png" alt="HoolyFood Academy">
+    <h2>Приятного <em>аппетита</em></h2>
+    <p class="lead">«Порадуйте себя и своих близких».</p>
+    <div class="badges"><span class="badge">Шеф <b>Татьяна Травникова</b></span></div>
+  </div></header></div>
+
+  <footer>Шеф Татьяна Травникова · HoolyFood Academy<br>Приятного аппетита!</footer>
+</main>
+<div class="fab"><a href="#toc">Содержание</a></div>
+
+<script>
+// ролики грузятся и играют, только когда шаг на экране — экономит трафик и батарею
+const io = new IntersectionObserver(es => es.forEach(e => {
+  const v = e.target;
+  if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else v.pause();
+}), { rootMargin: "200px 0px", threshold: .2 });
+document.querySelectorAll("video[data-src]").forEach(v => io.observe(v));
+// «Готово» на телефоне: лента разрезов стартует со средней карточки
+document.querySelectorAll(".cuts").forEach(c => { if (c.scrollWidth > c.clientWidth) { const m = c.children[1]; c.scrollLeft = m.offsetLeft - (c.clientWidth - m.clientWidth) / 2; } });
+// офлайн: книга кешируется по мере просмотра (работает на сайте по https)
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+<a href="../" class="to-shelf" style="position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;background:#141110;color:#f6f1ea;text-decoration:none;font:600 12px Oswald,'Arial Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border-radius:24px;box-shadow:0 6px 20px #0006">← Полка</a>
+</body>
+</html>

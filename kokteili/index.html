@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ru">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Коктейли — живая книга</title>
+<meta name="theme-color" content="#1b120c">
+
+<link rel="icon" href="img/logo.png">
+<link rel="apple-touch-icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* Живая книга: тёмный «переплёт» + кремовые страницы; шаг = живая миниатюра + текст; на ноутбуке ингредиенты слева, шаги сеткой. */
+:root{
+  --wood:#1b120c; --page:#f6f1ea; --card:#fffdf9; --ink:#141110; --red:#e8452a; --gold:#d9a441; --mute:#8a7f76; --line:#e4dbcf;
+  --display:"Oswald","Arial Narrow",sans-serif; --body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:#5b3d28 #1b120c}
+body{margin:0;background:var(--wood);color:var(--ink);font:16px/1.5 var(--body)}
+.book{max-width:1180px;margin:0 auto;background:var(--page)}
+h1,h2,h3,h4{font-family:var(--display);text-transform:uppercase;margin:0;line-height:1.03;text-wrap:balance}
+h3{font-size:24px;margin:26px 0 12px} h3 em{font-style:normal;color:var(--red)}
+.kick{display:block;font:600 12px var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+/* обложка */
+.cover{position:relative;color:var(--page);background:var(--wood)}
+.cover video.cv{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.cover video.cv-w{display:none}
+.cover .ct{position:absolute;inset:0;padding:28px 20px;background:linear-gradient(180deg,#120c09f0 0%,#120c09d9 45%,#120c0900 72%)}
+.cover img.logo{height:44px;width:auto;aspect-ratio:auto}
+.cover h1{font-size:56px;margin:14px 0 8px;background:linear-gradient(180deg,#f6dc9a,#d9a441 45%,#a8742a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .tom{display:inline-block;margin:0 0 10px;padding:3px 12px 4px;font:600 15px var(--display);letter-spacing:.38em;text-transform:uppercase;color:#e8c46a;border-top:1px solid #e8c46a99;border-bottom:1px solid #e8c46a99}
+.cover .sub{color:#f1e3c8;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 18px;margin-top:18px;max-width:330px}
+.stats div{border-left:3px solid var(--gold);padding-left:9px;font-size:13px;color:#f1e3c8;line-height:1.15}
+.stats b{display:block;font:700 26px var(--display);color:#e8c46a}
+.by{position:absolute;left:20px;bottom:22px;font:600 12px var(--display);letter-spacing:.14em;text-transform:uppercase;color:#e8c46a;border:1px solid #e8c46a88;border-radius:8px;padding:6px 10px}
+.by span{display:block;font-size:10px;opacity:.8}
+/* шеф */
+.chef{display:grid;grid-template-columns:1fr;gap:0;background:var(--page)}
+.chef img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%}
+.chef .tx{padding:22px 20px}
+.chef h2{font-size:34px} .chef h2 em{font-style:normal;color:var(--red)}
+ul.dots{list-style:none;padding:0;margin:14px 0}
+ul.dots li{position:relative;padding-left:18px;margin:6px 0}
+ul.dots li:before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+/* оглавление */
+.toc{padding:22px 20px;background:var(--card)}
+.toc h2{font-size:30px;margin-bottom:10px}
+.toc ol{list-style:none;padding:0;margin:0;columns:1}
+.toc a{display:block;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600}
+.toc .o{display:block;font:600 10px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.toc a:focus-visible,.toc a:hover{color:var(--red)}
+/* рецепт */
+.recipe{border-top:10px solid var(--wood)}
+.rhero{position:relative;background:var(--wood);color:var(--page)}
+.rhero img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.rhero .cap{position:absolute;inset:auto 0 0 0;padding:90px 20px 22px;background:linear-gradient(180deg,#1b120c00,#1b120ce6 55%,#1b120c)}
+.rhero h2{font-size:40px;margin:6px 0 10px;color:var(--page)}
+.rhero p{margin:0 0 12px;color:#efe6da;font-size:15px}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.badge{border:1px solid #f6f1ea55;border-radius:8px;padding:5px 9px;font:600 12px var(--display);color:var(--page)}
+.badge b{color:var(--gold)}
+.cols{padding:4px 20px 10px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child{text-align:right;font-weight:800;padding-left:10px;font-variant-numeric:tabular-nums}
+td{overflow-wrap:break-word} .toc li{break-inside:avoid}
+table.tools td:last-child{text-align:left;font-weight:400;font-size:14px;color:var(--mute)} table.tools td:first-child{font-weight:700;width:38%}
+tr.sub td{font:700 11px var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--red);border:0;padding-top:16px;text-align:left}
+.note{background:var(--ink);color:var(--page);border-radius:12px;padding:12px 14px;margin-top:14px;font-size:14px}
+.srow{display:grid;grid-template-columns:38% 1fr;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.clip{position:relative;border-radius:12px;overflow:hidden;background:#2a1a10}
+.clip video{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.noclip{aspect-ratio:3/4}
+.clip .n{position:absolute;left:8px;top:8px;background:var(--red);color:#fff;font:700 15px var(--display);padding:2px 8px;border-radius:7px}
+.srow .tx{min-width:0} .srow h4{font-size:18px;margin-bottom:4px} .srow p{margin:0;font-size:15px}
+.tip{border-left:5px solid var(--red);background:var(--card);border-radius:0 10px 10px 0;padding:11px 13px;margin-bottom:10px}
+.tip b{display:block;font:700 16px var(--display);text-transform:uppercase;margin-bottom:3px}
+.tip q{display:block;font-style:italic;color:#5b524c;margin-top:5px;quotes:"«" "»"}
+.qa{margin-bottom:14px}.qa .q{font-weight:800}.qa .a{color:#3d3733}
+.final{position:relative;margin:0}
+.final img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.final figcaption{position:absolute;inset:auto 0 0 0;padding:60px 20px 18px;background:linear-gradient(180deg,#1b120c00,#1b120cdd 60%);color:var(--page);font:700 26px var(--display);text-transform:uppercase}
+/* готово: живые разрезы */
+.done{background:var(--wood);color:var(--page);padding:22px 0 26px;text-align:center}
+.done .kick,.done h3{padding:0 20px} .done h3{font-size:28px;margin:6px 0 14px;color:var(--page)}
+.cuts{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 15vw;scrollbar-width:none}
+.cuts::-webkit-scrollbar{display:none}
+.cuts .clip{flex:0 0 70vw;scroll-snap-align:center}
+/* общие главы */
+.gen{padding:4px 20px 16px;border-top:10px solid var(--wood)}
+.gen h2{font-size:30px;margin:18px 0 12px} .gen h2 em{font-style:normal;color:var(--red)}
+.gen .kick{color:var(--red)}
+.gen table.diag td:first-child{font-weight:800;width:34%}
+.gen.dark,.gen:has(.diag){background:var(--card)}
+footer{padding:26px 20px 40px;text-align:center;color:var(--mute);font-size:13px;background:var(--page)}
+/* кнопки «наверх» и «содержание» */
+.fab{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;z-index:5}
+.fab a{background:var(--ink);color:var(--page);text-decoration:none;font:600 12px var(--display);letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border-radius:24px;box-shadow:0 6px 20px #0006}
+@media (min-width:900px){
+  .cover .tom{font-size:20px}
+  body{padding-block:28px}
+  .book{border-radius:18px;overflow:hidden;box-shadow:0 30px 80px #000a}
+  .cover video.cv{aspect-ratio:16/9} .cover video.cv-n{display:none} .cover video.cv-w{display:block}
+  .cover .ct{padding:56px 60px;background:linear-gradient(90deg,#120c09f2 0%,#120c09cc 38%,#120c0900 62%)}
+  .cover h1{font-size:88px}
+  .stats{grid-template-columns:repeat(3,auto);gap:14px 40px;max-width:420px;justify-content:start}
+  .stats b{font-size:36px}
+  .by{left:60px;bottom:44px}
+  .chef{grid-template-columns:420px 1fr}
+  .chef img{height:100%;aspect-ratio:auto}
+  .chef .tx{padding:48px 52px;align-self:center}
+  .toc{padding:40px 52px} .toc ol{columns:2;column-gap:48px}
+  .rhero{display:grid;grid-template-columns:1.1fr 1fr}
+  .rhero img{aspect-ratio:auto;height:100%;max-height:520px}
+  .rhero .cap{position:static;padding:48px 44px;display:flex;flex-direction:column;justify-content:center;background:var(--wood)}
+  .rhero h2{font-size:56px}
+  .cols{display:grid;grid-template-columns:330px 1fr;gap:34px;padding:10px 40px 24px}
+  .stick{position:sticky;top:18px}
+  .mainc{min-width:0}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .srow{grid-template-columns:1fr;gap:10px;border:0;padding:0;align-content:start}
+  .final img{aspect-ratio:21/9;object-position:50% 62%}
+  .gen{padding:10px 52px 26px}
+  .done{padding:34px 40px 40px}
+  .done .kick,.done h3{padding:0} .done h3{font-size:36px}
+  .cuts{display:flex;justify-content:center;gap:18px;overflow:visible;padding:0;max-width:980px;margin:0 auto} .cuts .clip{flex:0 0 calc((100% - 36px)/3)}
+}
+@media (max-width:899px){
+  .rhero .cap{position:static;padding:18px 20px 22px;background:var(--wood)}  .cover video.cv{aspect-ratio:3/4.6;object-position:50% 100%}
+  .cover .ct{background:linear-gradient(180deg,#120c09 0%,#120c09ee 34%,#120c0900 50%)!important}
+  .cover .ct{background:linear-gradient(180deg,#120c09f2 0%,#120c09cc 30%,#120c0900 46%)}
+  .cover .stats{position:absolute;left:20px;right:20px;bottom:74px;max-width:none;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px;border-radius:12px;background:#120c09b8;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .cover .stats div{font-size:11px;padding-left:7px}
+  .cover .stats b{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.chef.nochef{grid-template-columns:1fr}
+</style>
+</head>
+<body>
+<main class="book">
+  <section class="cover" id="top">
+    <video class="cv cv-n" src="img/cover.mp4" poster="img/cover.jpg" autoplay muted loop playsinline></video><video class="cv cv-w" src="img/cover-wide.mp4" poster="img/cover-wide.jpg" autoplay muted loop playsinline preload="none"></video>
+    <div class="ct">
+      <img class="logo" src="img/logo.png" alt="HoolyFood Academy">
+      <h1>Коктейли</h1>
+      <div class="sub">классика и безалкогольные · живая книга</div>
+      <div class="stats"><div><b>14</b>рецептов</div><div><b>87</b>живых шагов</div><div><b>39</b>советов шефа</div></div>
+    </div>
+    <div class="by">Леонид Жарков<span>14 рецептов к праздничному столу</span></div>
+  </section>
+
+  <section class="chef nochef">
+    <div class="tx">
+      <span class="kick" style="color:var(--red)">О книге</span>
+      <h2>Леонид <em>Жарков</em></h2>
+      <p>Шесть классических коктейлей и шесть безалкогольных — чтобы за праздничным столом было что налить каждому. Мохито, Кровавая Мэри, Космополитен, Пина колада, Беллини, Бэзил смэш, а рядом клубнично-базиликовый панч, огуречный тоник, безалкогольный глинтвейн и Коко Джамбо. Начинаем с барного набора и сахарного сиропа, без которых не обходится почти ни один рецепт. Каждое движение показано руками шефа: сколько налить, как встряхнуть, чем украсить.</p>
+      <p style="color:var(--mute);font-size:14px">В каждом шаге — живой фрагмент: смотрите, как это делается руками.</p>
+    </div>
+  </section>
+
+  <nav class="toc" id="toc">
+    <h2>Что <em style="font-style:normal;color:var(--red)">внутри</em></h2>
+    <ol><li><a href="#r01"><span class="o">Основа бара</span>Барный набор</a></li><li><a href="#r02"><span class="o">Основа бара</span>Сахарный сироп</a></li><li><a href="#r03"><span class="o">Безалкогольный</span>Клубнично-базиликовый панч</a></li><li><a href="#r04"><span class="o">Коктейль</span>Мохито</a></li><li><a href="#r05"><span class="o">Безалкогольный</span>Грушевый пудинг</a></li><li><a href="#r06"><span class="o">Коктейль</span>Кровавая Мэри</a></li><li><a href="#r07"><span class="o">Безалкогольный</span>Огуречный тоник</a></li><li><a href="#r08"><span class="o">Коктейль</span>Космополитен</a></li><li><a href="#r09"><span class="o">Безалкогольный</span>Безалкогольный глинтвейн</a></li><li><a href="#r10"><span class="o">Коктейль</span>Пина колада</a></li><li><a href="#r11"><span class="o">Коктейль</span>Беллини</a></li><li><a href="#r12"><span class="o">Безалкогольный</span>Клубничный мохито</a></li><li><a href="#r13"><span class="o">Коктейль</span>Бэзил смэш</a></li><li><a href="#r14"><span class="o">Безалкогольный</span>Коко Джамбо</a></li></ol>
+  </nav>
+
+  
+<article class="recipe" id="r01">
+  <header class="rhero"><img loading="lazy" src="img/01-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Основа бара</span><h2>Барный набор</h2><p>Домашнему бару хватит пяти-шести простых инструментов. С ними коктейль отмеряется точно, взбивается быстро и наливается в бокал без косточек, льда и листьев. Ниже — что это за инструменты и как ими пользоваться.</p><div class="badges"></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Инстру<em>менты</em></h3><table class="tools"><tr><td>Джиггер</td><td>мерный стаканчик с двух сторон: точно отмерить сиропы, соки и крепкое</td></tr><tr><td>Мадлер</td><td>толкушка: размять в бокале фрукты, ягоды, огурец</td></tr><tr><td>Сквизер</td><td>пресс для цитрусовых: выжать сок из половинки лимона или лайма</td></tr><tr><td>Классический шейкер</td><td>взбить коктейль со льдом; в крышку уже встроено сито</td></tr><tr><td>Бостон-шейкер</td><td>два стакана, вставленные друг в друга; без сита</td></tr><tr><td>Стрейнер</td><td>ситечко на пружине: процедить коктейль из бостон-шейкера</td></tr><tr><td>Сито</td><td>дополнительно процедить, чтобы в бокал не попало лишнее</td></tr><tr><td>Барная ложка</td><td>длинная ложка: аккуратно перемешать коктейль прямо в бокале</td></tr></table></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/01-1.mp4" muted loop playsinline preload="none" aria-label="Джиггер"></video><span class="n">1</span></div><div class="tx"><h4>Джиггер</h4><p>Отмерять ингредиенты джиггером: внутри него нанесены деления, у двух чаш разный объём (у шефа большая сторона — до 50 мл, малая — до 30 мл).</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-2.mp4" muted loop playsinline preload="none" aria-label="Мадлер"></video><span class="n">2</span></div><div class="tx"><h4>Мадлер</h4><p>Мадлером давить ингредиенты прямо в бокале, чтобы они отдали сок и аромат.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-3.mp4" muted loop playsinline preload="none" aria-label="Сквизер"></video><span class="n">3</span></div><div class="tx"><h4>Сквизер</h4><p>Положить половинку цитруса в сквизер срезом вниз, закрыть и надавить — сок стечёт в бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-4.mp4" muted loop playsinline preload="none" aria-label="Классический шейкер"></video><span class="n">4</span></div><div class="tx"><h4>Классический шейкер</h4><p>У классического шейкера в крышку встроено сито: закрыть, взбить и наливать прямо через крышку.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-5.mp4" muted loop playsinline preload="none" aria-label="Стрейнер и бостон"></video><span class="n">5</span></div><div class="tx"><h4>Стрейнер и бостон</h4><p>Бостон-шейкер накрывается стаканом и сита не имеет. Чтобы процедить коктейль, накрыть шейкер стрейнером и аккуратно слить напиток в бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/01-6.mp4" muted loop playsinline preload="none" aria-label="Шейкер в сборе"></video><span class="n">6</span></div><div class="tx"><h4>Шейкер в сборе</h4><p>Собрать классический шейкер: стакан, крышка с ситом и колпачок сверху.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Цитрус — срезом вниз</b>Если положить половинку в сквизер срезом вверх, при нажатии сок брызнет в лицо.<q>Если вы положите наоборот, то при закрытии весь сок полетит вам в глаза.</q></div><div class="tip"><b>Дома хватит классического шейкера</b>Сито в нём уже встроено, отдельный стрейнер не нужен.<q>Поэтому можно не заморачиваться.</q></div><div class="tip"><b>Джиггер — ради пропорций</b>Мерный стаканчик нужен, чтобы быстро и точно отмерять ингредиенты: от пропорций зависит вкус коктейля.<q>Для того, чтобы быстро и удобно отмерять ингредиенты.</q></div>
+      
+    </div>
+  </div>
+  
+</article>
+<article class="recipe" id="r02">
+  <header class="rhero"><img loading="lazy" src="img/02-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Основа бара</span><h2>Сахарный сироп</h2><p>Простой сироп — основа почти всех коктейлей в этой книге, и алкогольных, и безалкогольных. Сахар в нём уже растворён, поэтому он ровно смешивается с соком и льдом. Готовится за пару минут.</p><div class="badges"><span class="badge">пропорция <b>1 : 2</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Сахар белый</td><td>1 часть</td></tr><tr><td>Кипяток</td><td>2 части</td></tr></table><div class="note">Небольшой сотейник и ложка.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/02-1.mp4" muted loop playsinline preload="none" aria-label="Отмерить сахар"></video><span class="n">1</span></div><div class="tx"><h4>Отмерить сахар</h4><p>Отмерить одну часть белого сахара и высыпать в сотейник.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-2.mp4" muted loop playsinline preload="none" aria-label="Влить кипяток"></video><span class="n">2</span></div><div class="tx"><h4>Влить кипяток</h4><p>Влить две части кипятка.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/02-3.mp4" muted loop playsinline preload="none" aria-label="Размешать"></video><span class="n">3</span></div><div class="tx"><h4>Размешать</h4><p>Хорошо перемешать до полного растворения сахара. По желанию сироп можно прогреть.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Греть — по желанию</b>На кипятке сахар растворяется и без нагрева; прогреть сироп можно, но не обязательно.<q>Можно прогреть, можно этого не делать, здесь решать только вам самим.</q></div><div class="tip"><b>Один сироп на все коктейли</b>Варят заранее и берут и для алкогольных, и для безалкогольных напитков.<q>Он нам понадобится как для алкогольных, так и для безалкогольных коктейлей.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Сахарный сироп</h3><div class="cuts"><div class="clip"><video data-src="clips/02-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/02-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r03">
+  <header class="rhero"><img loading="lazy" src="img/03-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Клубнично-базиликовый панч</h2><p>Сладкая клубника, свежий базилик, лимонная кислинка и пузырьки газировки. Простой летний вкус, который отлично работает и зимой на праздничном столе: клубнику можно взять замороженную.</p><div class="badges"><span class="badge">бокал <b>хайбол</b></span><span class="badge">метод <b>мадлер + билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Клубника свежая (можно замороженную)</td><td>100 г</td></tr><tr><td>Базилик</td><td>5–6 листиков</td></tr><tr><td>Сок лимона или лайма</td><td>20 мл</td></tr><tr><td>Сахарный сироп (рецепт в этой книге)</td><td>20 мл</td></tr><tr><td>Газировка</td><td>долить</td></tr><tr><td>Лёд</td><td>по желанию</td></tr></table><div class="note">Высокий бокал, мадлер, сквизер, джиггер, барная ложка.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/03-1.mp4" muted loop playsinline preload="none" aria-label="Клубника и базилик"></video><span class="n">1</span></div><div class="tx"><h4>Клубника и базилик</h4><p>Положить в бокал примерно половину клубники и пару листиков базилика.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-2.mp4" muted loop playsinline preload="none" aria-label="Сироп"></video><span class="n">2</span></div><div class="tx"><h4>Сироп</h4><p>Влить 20 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-3.mp4" muted loop playsinline preload="none" aria-label="Размять"></video><span class="n">3</span></div><div class="tx"><h4>Размять</h4><p>Мадлером слегка размять клубнику с базиликом, не переусердствуя.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-4.mp4" muted loop playsinline preload="none" aria-label="Лимонный сок"></video><span class="n">4</span></div><div class="tx"><h4>Лимонный сок</h4><p>Выжать в бокал 20 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-5.mp4" muted loop playsinline preload="none" aria-label="Ещё клубника и базилик"></video><span class="n">5</span></div><div class="tx"><h4>Ещё клубника и базилик</h4><p>Добавить оставшуюся клубнику, нарезанную кусочками. Листики базилика хлопнуть между ладонями, чтобы раскрыть аромат, и опустить в бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-6.mp4" muted loop playsinline preload="none" aria-label="Лёд и газировка"></video><span class="n">6</span></div><div class="tx"><h4>Лёд и газировка</h4><p>Заполнить бокал льдом и долить газировкой.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/03-7.mp4" muted loop playsinline preload="none" aria-label="Перемешать"></video><span class="n">7</span></div><div class="tx"><h4>Перемешать</h4><p>Барной ложкой аккуратно перемешать снизу вверх.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Мять без фанатизма</b>Клубнику с базиликом только слегка разминают, чтобы они дали сок, но не превратились в кашу.<q>Главное здесь не переусердствовать.</q></div><div class="tip"><b>Пропорции решают</b>В коктейле главное — баланс сладости и кислоты. Хотите получить именно этот вкус — соблюдайте граммовки.<q>Если вы хотите, чтобы у вас получился именно тот коктейль, который заявлен, нужно соблюдать пропорции.</q></div><div class="tip"><b>Хлопок по базилику</b>Лёгкий удар по листьям раскрывает их аромат, прежде чем они попадут в напиток.<q>Можно по нему уже чуть-чуть вот так постучать, чтобы раскрыть его ароматику.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Клубнично-базиликовый панч</h3><div class="cuts"><div class="clip"><video data-src="clips/03-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/03-cut2.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/03-cut3.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r04">
+  <header class="rhero"><img loading="lazy" src="img/04-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Мохито</h2><p>Кубинская классика: лайм, много мяты, сахарный сироп, белый ром и газировка. Хороший мохито яркий — кислинка и сладость в нём чувствуются сразу и держат вкус, даже когда лёд подтаивает.</p><div class="badges"><span class="badge">бокал <b>хайбол</b></span><span class="badge">метод <b>мадлер + билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Лайм</td><td>1/2 шт</td></tr><tr><td>Сахарный сироп (рецепт в этой книге)</td><td>40 мл</td></tr><tr><td>Белый ром</td><td>50 мл</td></tr><tr><td>Мята</td><td>много</td></tr><tr><td>Лимонный сок</td><td>20 г</td></tr><tr><td>Газированная вода</td><td>долить</td></tr></table><div class="note">Высокий бокал, мадлер, сквизер, джиггер, барная ложка.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/04-1.mp4" muted loop playsinline preload="none" aria-label="Лайм в бокал"></video><span class="n">1</span></div><div class="tx"><h4>Лайм в бокал</h4><p>Половинку лайма нарезать на 4 части и положить в бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-2.mp4" muted loop playsinline preload="none" aria-label="Сироп"></video><span class="n">2</span></div><div class="tx"><h4>Сироп</h4><p>Влить 40 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-3.mp4" muted loop playsinline preload="none" aria-label="Размять лайм"></video><span class="n">3</span></div><div class="tx"><h4>Размять лайм</h4><p>Хорошо размять лайм с сиропом мадлером прямо в бокале.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-4.mp4" muted loop playsinline preload="none" aria-label="Ром"></video><span class="n">4</span></div><div class="tx"><h4>Ром</h4><p>Добавить 50 мл белого рома.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-5.mp4" muted loop playsinline preload="none" aria-label="Мята"></video><span class="n">5</span></div><div class="tx"><h4>Мята</h4><p>Взять много мяты, хлопнуть по ней ладонью, чтобы раскрыть аромат, и заполнить бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-6.mp4" muted loop playsinline preload="none" aria-label="Лимонный сок"></video><span class="n">6</span></div><div class="tx"><h4>Лимонный сок</h4><p>Выжать сверху 20 г лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/04-7.mp4" muted loop playsinline preload="none" aria-label="Газировка и перемешать"></video><span class="n">7</span></div><div class="tx"><h4>Газировка и перемешать</h4><p>Долить бокал газированной водой и барной ложкой хорошенько перемешать.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Мяты не жалеть</b>Мохито должен быть ярким: много мяты, хорошо чувствуются и кислота, и сладость.<q>Много мяты, не скупимся.</q></div><div class="tip"><b>Хлопнуть по мяте</b>Мяту не давят мадлером, а хлопают по ней ладонью: так раскрывается аромат.<q>Много мяты, и по ней нужно вот таким образом хлопнуть, чтобы раскрыть его аромат.</q></div><div class="tip"><b>Без рома</b>Для безалкогольной версии ром не добавляют, а доливают больше газировки.</div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Мохито</h3><div class="cuts"><div class="clip"><video data-src="clips/04-cut1.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r05">
+  <header class="rhero"><img loading="lazy" src="img/05-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Грушевый пудинг</h2><p>Грушевый сок с лимоном и газировкой, долька свежей груши и щепоть корицы сверху. Корица даёт пряную нотку, за которую напиток и получил «пудинговое» имя: пьётся как десерт, только лёгкий и освежающий.</p><div class="badges"><span class="badge">бокал <b>хайбол</b></span><span class="badge">метод <b>билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Сахарный сироп (рецепт в этой книге)</td><td>20 мл</td></tr><tr><td>Лимонный сок</td><td>20 мл</td></tr><tr><td>Сок груши</td><td>150 мл</td></tr><tr><td>Газированная вода</td><td>100 мл</td></tr><tr><td>Лёд</td><td>по желанию</td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Груша</td><td>долька</td></tr><tr><td>Корица молотая</td><td>по вкусу</td></tr></table><div class="note">Высокий бокал, джиггер, сквизер, барная ложка, нож, маленькое ситечко для корицы.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/05-1.mp4" muted loop playsinline preload="none" aria-label="Сироп"></video><span class="n">1</span></div><div class="tx"><h4>Сироп</h4><p>В бокал со льдом влить 20 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-2.mp4" muted loop playsinline preload="none" aria-label="Лимонный сок"></video><span class="n">2</span></div><div class="tx"><h4>Лимонный сок</h4><p>Выжать туда же 20 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-3.mp4" muted loop playsinline preload="none" aria-label="Грушевый сок"></video><span class="n">3</span></div><div class="tx"><h4>Грушевый сок</h4><p>Влить 150 мл грушевого сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-4.mp4" muted loop playsinline preload="none" aria-label="Газировка"></video><span class="n">4</span></div><div class="tx"><h4>Газировка</h4><p>Добавить 100 мл газировки.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-5.mp4" muted loop playsinline preload="none" aria-label="Перемешать"></video><span class="n">5</span></div><div class="tx"><h4>Перемешать</h4><p>Барной ложкой аккуратно перемешать снизу вверх.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-6.mp4" muted loop playsinline preload="none" aria-label="Долька груши"></video><span class="n">6</span></div><div class="tx"><h4>Долька груши</h4><p>Половинку груши разрезать на четвертинки и вырезать высокую аккуратную дольку под высокий стакан, удалить семенную коробку.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/05-7.mp4" muted loop playsinline preload="none" aria-label="Груша и корица"></video><span class="n">7</span></div><div class="tx"><h4>Груша и корица</h4><p>Поставить дольку груши в бокал и присыпать сверху молотой корицей.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Холодный бокал</b>Лёд кладут в стакан заранее, чтобы он хорошо охладился: коктейли подают охлаждёнными.<q>Как всегда коктейли должны быть охлажденными.</q></div><div class="tip"><b>Долька под бокал</b>Для высокого стакана и дольку режут длинную, чтобы она красиво выглядывала над краем.<q>Так как стакан у меня высокий, хочу дольку сделать тоже повыше.</q></div><div class="tip"><b>Корицу — по вкусу</b>Корица добавляет пряность; её количество каждый выбирает сам.<q>Количество корицы варьируете по собственному вкусу.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Грушевый пудинг</h3><div class="cuts"><div class="clip"><video data-src="clips/05-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/05-cut2.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/05-cut3.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r06">
+  <header class="rhero"><img loading="lazy" src="img/06-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Кровавая Мэри</h2><p>Томатный сок, лимон, вустерширский соус, пара капель табаско, соль и перец. Солёно-пряный коктейль, который больше похож на холодную закуску в бокале, а стебель сельдерея сверху — его визитная карточка.</p><div class="badges"><span class="badge">бокал <b>хайбол со льдом</b></span><span class="badge">метод <b>шейк</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Водка</td><td>50 мл</td></tr><tr><td>Томатный сок</td><td>100 мл</td></tr><tr><td>Лимонный сок</td><td>15 мл</td></tr><tr><td>Вустерширский соус</td><td>2 дэша</td></tr><tr><td>Табаско (по желанию)</td><td>1 дэш</td></tr><tr><td>Соль и чёрный перец</td><td>по вкусу</td></tr><tr><td>Лёд</td><td>для шейкера и бокала</td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Сельдерей</td><td>веточка</td></tr></table><div class="note">Шейкер, джиггер, сквизер, высокий бокал.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/06-1.mp4" muted loop playsinline preload="none" aria-label="Водка"></video><span class="n">1</span></div><div class="tx"><h4>Водка</h4><p>В шейкер со льдом влить 50 мл водки.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-2.mp4" muted loop playsinline preload="none" aria-label="Томатный сок"></video><span class="n">2</span></div><div class="tx"><h4>Томатный сок</h4><p>Добавить 100 мл томатного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-3.mp4" muted loop playsinline preload="none" aria-label="Лимон"></video><span class="n">3</span></div><div class="tx"><h4>Лимон</h4><p>Выжать 15 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-4.mp4" muted loop playsinline preload="none" aria-label="Соусы"></video><span class="n">4</span></div><div class="tx"><h4>Соусы</h4><p>Добавить 2 дэша вустерширского соуса и 1 дэш табаско.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-5.mp4" muted loop playsinline preload="none" aria-label="Соль и перец"></video><span class="n">5</span></div><div class="tx"><h4>Соль и перец</h4><p>Посолить и поперчить по вкусу.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-6.mp4" muted loop playsinline preload="none" aria-label="Шейк"></video><span class="n">6</span></div><div class="tx"><h4>Шейк</h4><p>Закрыть шейкер и хорошо взбить.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/06-7.mp4" muted loop playsinline preload="none" aria-label="Процедить в бокал"></video><span class="n">7</span></div><div class="tx"><h4>Процедить в бокал</h4><p>Процедить коктейль в бокал со льдом и украсить веточкой сельдерея.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Бокал заранее со льдом</b>Стакан, в который будут наливать коктейль, тоже должен быть хорошо охлаждён.<q>Стакан, который будем переливать, также должен быть хорошо охлажденным.</q></div><div class="tip"><b>Острота — по вкусу</b>Дэш — это пара капель; кто любит поострее, добавляет табаско больше.<q>Хотите поострее, конечно вы можете это сделать.</q></div><div class="tip"><b>Без водки</b>Безалкогольную версию делают так же, просто без водки. Взбить можно и в шейкере, и в блендере.<q>Хотим безалкогольную Мэри — делаем коктейль без водки.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Кровавая Мэри</h3><div class="cuts"><div class="clip"><video data-src="clips/06-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/06-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r07">
+  <header class="rhero"><img loading="lazy" src="img/07-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Огуречный тоник</h2><p>Свежий огурец, лимон и горьковатый тоник — очень освежающий и безумно простой напиток. Тонкие огуречные ленты в бокале и украшают, и держат свежесть, а веточка розмарина добавляет хвойную нотку.</p><div class="badges"><span class="badge">бокал <b>олд фэшн</b></span><span class="badge">метод <b>мадлер + билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Огурец</td><td>1/2 шт</td></tr><tr><td>Сахарный сироп (рецепт в этой книге)</td><td>20 мл</td></tr><tr><td>Сок лимона</td><td>20 мл</td></tr><tr><td>Тоник</td><td>долить</td></tr><tr><td>Лёд</td><td></td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Розмарин (по желанию)</td><td>маленькая веточка</td></tr></table><div class="note">Невысокий бокал, овощечистка, нож, мадлер, джиггер, сквизер, барная ложка.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/07-1.mp4" muted loop playsinline preload="none" aria-label="Огуречные ленты"></video><span class="n">1</span></div><div class="tx"><h4>Огуречные ленты</h4><p>Овощечисткой снять с половинки огурца несколько тонких длинных лент и отложить.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-2.mp4" muted loop playsinline preload="none" aria-label="Нарезать огурец"></video><span class="n">2</span></div><div class="tx"><h4>Нарезать огурец</h4><p>Оставшийся огурец нарезать произвольно и положить в стакан.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-3.mp4" muted loop playsinline preload="none" aria-label="Размять"></video><span class="n">3</span></div><div class="tx"><h4>Размять</h4><p>Немного размять огурец мадлером, чтобы он дал сок.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-4.mp4" muted loop playsinline preload="none" aria-label="Сироп"></video><span class="n">4</span></div><div class="tx"><h4>Сироп</h4><p>Добавить 20 мл сахарного сиропа и ещё раз прожать мадлером.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-5.mp4" muted loop playsinline preload="none" aria-label="Ленты в бокал"></video><span class="n">5</span></div><div class="tx"><h4>Ленты в бокал</h4><p>Опустить в стакан огуречные ленты.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-6.mp4" muted loop playsinline preload="none" aria-label="Лимонный сок"></video><span class="n">6</span></div><div class="tx"><h4>Лимонный сок</h4><p>Выжать 20 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/07-7.mp4" muted loop playsinline preload="none" aria-label="Лёд и тоник"></video><span class="n">7</span></div><div class="tx"><h4>Лёд и тоник</h4><p>Добавить лёд, залить тоником и барной ложкой перемешать снизу вверх.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Ленты — не только для красоты</b>Тонкие ломтики огурца украшают напиток и сохраняют его свежесть.<q>Они нам нужны не только чтобы оформить коктейль, но и также они будут сохранять свежесть.</q></div><div class="tip"><b>Сироп сразу к огурцу</b>Сахарный сироп добавляют к размятому огурцу сразу, чтобы огурец дал больше сока.<q>Чтобы огурец дал чуть больше сока, мы сразу же добавляем 20 миллилитров сахарного сиропа.</q></div><div class="tip"><b>Тоник — любой</b>Подойдёт тот, что нравится: классический или лимонный.<q>Тоник можете использовать тот, который вам больше всего нравится.</q></div><div class="tip"><b>Изюминка — розмарин</b>Совсем маленькая веточка розмарина добавляет напитку характер.<q>Если хотите добавить к нему изюминку, можно добавить еще небольшую веточку розмарина.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Огуречный тоник</h3><div class="cuts"><div class="clip"><video data-src="clips/07-cut1.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r08">
+  <header class="rhero"><img loading="lazy" src="img/08-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Космополитен</h2><p>Розовый коктейль в бокале на тонкой ножке: клюквенный морс, лайм и апельсиновый ликёр, сверху аромат апельсиновой цедры. Кисло-сладкий, лёгкий и очень нарядный, поэтому особенно хорош для праздников.</p><div class="badges"><span class="badge">бокал <b>купе</b></span><span class="badge">метод <b>шейк</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Водка</td><td>40 мл</td></tr><tr><td>Трипл-сек (или другой апельсиновый ликёр, например куантро)</td><td>15 мл</td></tr><tr><td>Лаймовый фреш</td><td>15 мл</td></tr><tr><td>Клюквенный морс или сок</td><td>30 мл</td></tr><tr><td>Лёд</td><td></td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Цедра апельсина</td><td></td></tr></table><div class="note">Шейкер, джиггер, сквизер, бокал-купе.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/08-1.mp4" muted loop playsinline preload="none" aria-label="Охладить бокал"></video><span class="n">1</span></div><div class="tx"><h4>Охладить бокал</h4><p>Положить в бокал лёд, чтобы он хорошо охладился.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-2.mp4" muted loop playsinline preload="none" aria-label="Трипл-сек и водка"></video><span class="n">2</span></div><div class="tx"><h4>Трипл-сек и водка</h4><p>В шейкер со льдом влить 15 мл трипл-сека и 40 мл водки.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-3.mp4" muted loop playsinline preload="none" aria-label="Клюква"></video><span class="n">3</span></div><div class="tx"><h4>Клюква</h4><p>Добавить 30 мл клюквенного морса.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-4.mp4" muted loop playsinline preload="none" aria-label="Лайм"></video><span class="n">4</span></div><div class="tx"><h4>Лайм</h4><p>Выжать 15 мл лаймового сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-5.mp4" muted loop playsinline preload="none" aria-label="Шейк"></video><span class="n">5</span></div><div class="tx"><h4>Шейк</h4><p>Плотно закрыть шейкер и сделать хороший энергичный шейк.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/08-6.mp4" muted loop playsinline preload="none" aria-label="Процедить и украсить"></video><span class="n">6</span></div><div class="tx"><h4>Процедить и украсить</h4><p>Убрать лёд из бокала, процедить туда коктейль и украсить цедрой апельсина.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Холодный бокал</b>Бокал охлаждают льдом заранее, а перед подачей лёд убирают.<q>Из рюмки убираем лед, процеживаем туда готовый коктейль.</q></div><div class="tip"><b>Без алкоголя</b>Для безалкогольной версии водку и ликёр исключают, а в готовый коктейль доливают обычной газировки.<q>Если делали безалкогольный, то доливаем обычной газировки.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Космополитен</h3><div class="cuts"><div class="clip"><video data-src="clips/08-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/08-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r09">
+  <header class="rhero"><img loading="lazy" src="img/09-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Безалкогольный глинтвейн</h2><p>Вишнёвый, яблочный и апельсиновый соки, прогретые с имбирём, бадьяном, гвоздикой, кардамоном и корицей. Согревает не хуже классического глинтвейна, а пить его можно всем за столом, и взрослым, и детям.</p><div class="badges"><span class="badge">выход <b>около 600 мл</b></span><span class="badge">настаивать <b>20 мин под крышкой</b></span><span class="badge">подача <b>горячим в кружке</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Вишнёвый сок</td><td>200 мл</td></tr><tr><td>Яблочный сок</td><td>200 мл</td></tr><tr><td>Апельсиновый сок</td><td>200 мл</td></tr><tr><td>Имбирь свежий</td><td>40 г</td></tr><tr><td>Анис звёздчатый (бадьян)</td><td>1,5 звёздочки</td></tr><tr><td>Гвоздика</td><td>4 шт</td></tr><tr><td>Кардамон</td><td>2 шт</td></tr><tr><td>Корица</td><td>2/3 палочки</td></tr><tr><td>Яблоко (по желанию)</td><td>1/2 шт</td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Апельсин</td><td>4 дольки</td></tr><tr><td>Корица</td><td>палочка</td></tr></table><div class="note">Ковшик или небольшая кастрюля с крышкой, половник, кружки.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/09-1.mp4" muted loop playsinline preload="none" aria-label="Имбирь"></video><span class="n">1</span></div><div class="tx"><h4>Имбирь</h4><p>Нарезать около 40 г свежего имбиря и положить в ковшик.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-2.mp4" muted loop playsinline preload="none" aria-label="Специи"></video><span class="n">2</span></div><div class="tx"><h4>Специи</h4><p>Добавить полторы звёздочки бадьяна, 4 гвоздики, кардамон и чуть больше половины палочки корицы.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-3.mp4" muted loop playsinline preload="none" aria-label="Яблоко"></video><span class="n">3</span></div><div class="tx"><h4>Яблоко</h4><p>По желанию добавить нарезанную половинку яблока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-4.mp4" muted loop playsinline preload="none" aria-label="Соки"></video><span class="n">4</span></div><div class="tx"><h4>Соки</h4><p>Влить по 200 мл апельсинового, яблочного и вишнёвого сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-5.mp4" muted loop playsinline preload="none" aria-label="Прогреть и настоять"></video><span class="n">5</span></div><div class="tx"><h4>Прогреть и настоять</h4><p>Прогреть на плите, не доводя до кипения, пока не пойдёт пар. Накрыть крышкой и оставить на 20 минут.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-6.mp4" muted loop playsinline preload="none" aria-label="Разлить"></video><span class="n">6</span></div><div class="tx"><h4>Разлить</h4><p>Перелить глинтвейн в кружку.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/09-7.mp4" muted loop playsinline preload="none" aria-label="Украсить"></video><span class="n">7</span></div><div class="tx"><h4>Украсить</h4><p>Положить сверху дольки апельсина и палочку корицы.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Тепло даёт имбирь</b>Именно имбирь отвечает за согревающий эффект, без которого глинтвейна нет.<q>Именно он создаст вот этот эффект тепла.</q></div><div class="tip"><b>Не кипятить</b>Соки только прогревают до пара: кипятить не нужно.<q>Не доводим до кипения, просто нужно, чтобы у нас вся эта масса хорошо разогрелась.</q></div><div class="tip"><b>Специи — в самом начале</b>Специи кладут сразу, чтобы они успели прогреться и отдать весь аромат.<q>Специи добавляем в самом начале, чтобы они могли хорошенько прогреться и передать всю свою ароматику.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Безалкогольный глинтвейн</h3><div class="cuts"><div class="clip"><video data-src="clips/09-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/09-cut2.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/09-cut3.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r10">
+  <header class="rhero"><img loading="lazy" src="img/10-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Пина колада</h2><p>Белый ром, ананасовый сок и кокос — сливочный тропический коктейль родом из Пуэрто-Рико. Сладость регулируется ложкой сахарного сиропа, а украшать можно любыми фруктами, какие есть под рукой.</p><div class="badges"><span class="badge">бокал <b>хайбол</b></span><span class="badge">метод <b>шейк</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Белый ром</td><td>50 мл</td></tr><tr><td>Кокосовое молоко (в банке)</td><td>30 мл</td></tr><tr><td>Ананасовый сок</td><td>90 мл</td></tr><tr><td>Сахарный сироп (рецепт в этой книге; по желанию)</td><td>15 мл</td></tr><tr><td>Лёд</td><td>много</td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Фрукты и ягоды</td><td>на выбор</td></tr></table><div class="note">Шейкер, джиггер, высокий бокал.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/10-1.mp4" muted loop playsinline preload="none" aria-label="Ром"></video><span class="n">1</span></div><div class="tx"><h4>Ром</h4><p>В шейкер с большим количеством льда влить 50 мл белого рома.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-2.mp4" muted loop playsinline preload="none" aria-label="Кокос"></video><span class="n">2</span></div><div class="tx"><h4>Кокос</h4><p>Добавить 30 мл кокосового молока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-3.mp4" muted loop playsinline preload="none" aria-label="Ананасовый сок"></video><span class="n">3</span></div><div class="tx"><h4>Ананасовый сок</h4><p>Влить 90 мл ананасового сока. Для более сладкого вкуса добавить 15 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-4.mp4" muted loop playsinline preload="none" aria-label="Шейк"></video><span class="n">4</span></div><div class="tx"><h4>Шейк</h4><p>Закрыть шейкер и хорошо взбить.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-5.mp4" muted loop playsinline preload="none" aria-label="Процедить"></video><span class="n">5</span></div><div class="tx"><h4>Процедить</h4><p>Процедить коктейль в бокал.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/10-6.mp4" muted loop playsinline preload="none" aria-label="Украсить"></video><span class="n">6</span></div><div class="tx"><h4>Украсить</h4><p>Украсить любыми фруктами: у шефа — ананас, кумкват и голубика.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Льда — много</b>Шейкер заполняют льдом щедро: так коктейль быстрее охлаждается.<q>В шейкер с большим количеством льда.</q></div><div class="tip"><b>Сироп — для сладкоежек</b>Сахарный сироп необязателен: его добавляют, только если любите коктейли послаще.<q>Если вдруг вы любите коктейли чуть-чуть послаще, то можно добавить 15 мл сахарного сиропа.</q></div><div class="tip"><b>Украшение — на ваш вкус</b>Подойдут любые фрукты и ягоды.<q>Украшения — это ваш выбор.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Пина колада</h3><div class="cuts"><div class="clip"><video data-src="clips/10-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/10-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r11">
+  <header class="rhero"><img loading="lazy" src="img/11-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Беллини</h2><p>Персиковое пюре и игристое вино — венецианская классика всего из двух ингредиентов. Нежный, фруктовый и очень праздничный, а пюре легко сделать из консервированных персиков.</p><div class="badges"><span class="badge">бокал <b>купе</b></span><span class="badge">метод <b>билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Персиковое пюре (или консервированный персик, пробитый блендером)</td><td>30 мл</td></tr><tr><td>Просекко</td><td>долить до краёв</td></tr><tr><td>Лёд</td><td>для охлаждения бокала</td></tr><tr class="sub"><td colspan="2">Украшение</td></tr><tr><td>Ягоды (голубика или вишня)</td><td></td></tr><tr><td>Долька консервированного персика</td><td></td></tr></table><div class="note">Бокал-купе, джиггер, блендер для пюре.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/11-1.mp4" muted loop playsinline preload="none" aria-label="Охладить бокал"></video><span class="n">1</span></div><div class="tx"><h4>Охладить бокал</h4><p>Охладить бокал льдом, затем лёд убрать.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/11-2.mp4" muted loop playsinline preload="none" aria-label="Персиковое пюре"></video><span class="n">2</span></div><div class="tx"><h4>Персиковое пюре</h4><p>Влить в бокал 30 мл персикового пюре. Его можно сделать из консервированного персика, пробив блендером с небольшим количеством жидкости до однородности.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/11-3.mp4" muted loop playsinline preload="none" aria-label="Игристое"></video><span class="n">3</span></div><div class="tx"><h4>Игристое</h4><p>Долить просекко до краёв. Не перемешивать.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/11-4.mp4" muted loop playsinline preload="none" aria-label="Украсить"></video><span class="n">4</span></div><div class="tx"><h4>Украсить</h4><p>Украсить ягодой и долькой консервированного персика.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Не мешать</b>Долив игристое, коктейль больше не трогают ложкой.<q>Перемешивать ни в коем случае нельзя.</q></div><div class="tip"><b>Без алкоголя</b>Для безалкогольного беллини игристое заменяют газированной водой.<q>Игристое заменяем на газированную воду.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Беллини</h3><div class="cuts"><div class="clip"><video data-src="clips/11-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/11-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r12">
+  <header class="rhero"><img loading="lazy" src="img/12-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Клубничный мохито</h2><p>Безалкогольный мохито с клубничным пюре: лайм, много мяты, кислинка лимона и газировка. Его любят и дети, и взрослые, а вне сезона выручает замороженная клубника.</p><div class="badges"><span class="badge">бокал <b>хайбол</b></span><span class="badge">метод <b>билд</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Лимон</td><td></td></tr><tr><td>Мята</td><td>2–3 веточки</td></tr><tr><td>Пюре клубники (или замороженные ягоды, пробитые блендером)</td><td></td></tr><tr><td>Сахарный сироп (рецепт в этой книге)</td><td></td></tr><tr><td>Содовая вода</td><td></td></tr><tr><td>Лёд</td><td></td></tr></table><div class="note">Высокий бокал, джиггер, сквизер, барная ложка.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/12-1.mp4" muted loop playsinline preload="none" aria-label="Лайм"></video><span class="n">1</span></div><div class="tx"><h4>Лайм</h4><p>Положить в бокал половинку лайма, нарезанную на четыре части.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-2.mp4" muted loop playsinline preload="none" aria-label="Сироп"></video><span class="n">2</span></div><div class="tx"><h4>Сироп</h4><p>Влить 40 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-3.mp4" muted loop playsinline preload="none" aria-label="Клубничное пюре"></video><span class="n">3</span></div><div class="tx"><h4>Клубничное пюре</h4><p>Добавить 50 г клубничного пюре.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-4.mp4" muted loop playsinline preload="none" aria-label="Лимонный сок"></video><span class="n">4</span></div><div class="tx"><h4>Лимонный сок</h4><p>Выжать 20 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-5.mp4" muted loop playsinline preload="none" aria-label="Мята"></video><span class="n">5</span></div><div class="tx"><h4>Мята</h4><p>Оборвать листья мяты, хлопнуть по ним ладонью и положить в бокал. Мадлером мяту не давить.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-6.mp4" muted loop playsinline preload="none" aria-label="Лёд и газировка"></video><span class="n">6</span></div><div class="tx"><h4>Лёд и газировка</h4><p>Заполнить бокал льдом и долить 100 мл газировки.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/12-7.mp4" muted loop playsinline preload="none" aria-label="Перемешать и украсить"></video><span class="n">7</span></div><div class="tx"><h4>Перемешать и украсить</h4><p>Барной ложкой аккуратно перемешать снизу вверх и украсить веточкой мяты.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Своя клубничная заготовка</b>Клубнику в сезон пробивают в блендере с небольшим количеством сахара и замораживают — зимой остаётся только достать пюре.<q>Я же ежегодно делаю вот такие заготовки из клубники.</q></div><div class="tip"><b>Яркая кислинка</b>Мохито должен быть ярко кисло-сладким: тогда вкус не изменится, даже когда лёд подтает.<q>Даже после того как добавим лед и он будет подтаивать, вкус мохито меняться не будет.</q></div><div class="tip"><b>Мяту не мять</b>Мяту не давят мадлером, а только хлопают по ней — и не жалеют.<q>Мадлером мяту мы не проминали, это важно.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Клубничный мохито</h3><div class="cuts"><div class="clip"><video data-src="clips/12-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/12-cut2.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/12-cut3.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r13">
+  <header class="rhero"><img loading="lazy" src="img/13-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Коктейль</span><h2>Бэзил смэш</h2><p>Джин, свежий лимон, сахарный сироп и горсть зелёного базилика, взбитые в шейкере до яркого травяного цвета. Свежий, кисло-сладкий и очень ароматный — современная классика, придуманная в Гамбурге.</p><div class="badges"><span class="badge">бокал <b>олд фэшн со льдом</b></span><span class="badge">метод <b>шейк</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Джин</td><td></td></tr><tr><td>Лимон</td><td></td></tr><tr><td>Сахарный сироп (рецепт в этой книге)</td><td></td></tr><tr><td>Листья свежего базилика</td><td>6–8 шт</td></tr><tr><td>Лёд</td><td></td></tr></table><div class="note">Шейкер, джиггер, невысокий бокал.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/13-1.mp4" muted loop playsinline preload="none" aria-label="Охладить бокал"></video><span class="n">1</span></div><div class="tx"><h4>Охладить бокал</h4><p>Хорошо охладить бокал льдом.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/13-2.mp4" muted loop playsinline preload="none" aria-label="Базилик в шейкер"></video><span class="n">2</span></div><div class="tx"><h4>Базилик в шейкер</h4><p>В шейкер со льдом положить листья зелёного базилика.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/13-3.mp4" muted loop playsinline preload="none" aria-label="Лимонный фреш"></video><span class="n">3</span></div><div class="tx"><h4>Лимонный фреш</h4><p>Добавить 25 мл свежего лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/13-4.mp4" muted loop playsinline preload="none" aria-label="Джин и сироп"></video><span class="n">4</span></div><div class="tx"><h4>Джин и сироп</h4><p>Влить 50 мл джина и 15 мл сахарного сиропа.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/13-5.mp4" muted loop playsinline preload="none" aria-label="Шейк"></video><span class="n">5</span></div><div class="tx"><h4>Шейк</h4><p>Закрыть шейкер и хорошо взбить.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/13-6.mp4" muted loop playsinline preload="none" aria-label="Процедить и украсить"></video><span class="n">6</span></div><div class="tx"><h4>Процедить и украсить</h4><p>Процедить коктейль в бокал со льдом и украсить листиком базилика.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Базилик — главное</b>Свежий зелёный базилик взбивают прямо со льдом: он даёт и цвет, и аромат.<q>5-6 листиков зеленого базилика, это важно.</q></div><div class="tip"><b>Без джина</b>Для безалкогольной версии джин исключают и доливают газировки.<q>Если безалкогольный, не забываем добавить газировки.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Бэзил смэш</h3><div class="cuts"><div class="clip"><video data-src="clips/13-cut1.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+<article class="recipe" id="r14">
+  <header class="rhero"><img loading="lazy" src="img/14-hero.jpg" alt="">
+    <div class="cap"><span class="kick">Безалкогольный</span><h2>Коко Джамбо</h2><p>Манго, апельсин и персик, кислинка лимона и неожиданный базилик, а сверху — нежная пенка из белка. Сахара в нём нет совсем: сладости хватает в соках. Яркий тропический напиток для всей семьи.</p><div class="badges"><span class="badge">бокал <b>купе</b></span><span class="badge">метод <b>шейк</b></span></div></div></header>
+  <div class="cols">
+    <aside class="side"><div class="stick"><h3>Ингре<em>диенты</em></h3><table><tr><td>Пюре манго (или свежий или консервированный манго, измельчённый блендером)</td><td>50 мл</td></tr><tr><td>Сок апельсиновый</td><td>50 мл</td></tr><tr><td>Сок персиковый</td><td>50 мл</td></tr><tr><td>Сок лимона</td><td>30 мл</td></tr><tr><td>Базилик зелёный</td><td>4–5 листиков</td></tr><tr><td>Белок (по желанию)</td><td>1 шт</td></tr><tr><td>Лёд</td><td>много</td></tr></table><div class="note">Шейкер (можно блендер), джиггер, сквизер, бокал-купе.</div></div></aside>
+    <div class="mainc">
+      <h3>Как <em>готовить</em></h3><div class="steps"><div class="srow"><div class="clip"><video data-src="clips/14-1.mp4" muted loop playsinline preload="none" aria-label="Манго"></video><span class="n">1</span></div><div class="tx"><h4>Манго</h4><p>Отправить в шейкер пюре манго.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-2.mp4" muted loop playsinline preload="none" aria-label="Соки"></video><span class="n">2</span></div><div class="tx"><h4>Соки</h4><p>Добавить по 50 мл апельсинового и персикового сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-3.mp4" muted loop playsinline preload="none" aria-label="Лимон"></video><span class="n">3</span></div><div class="tx"><h4>Лимон</h4><p>Выжать 30 мл лимонного сока.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-4.mp4" muted loop playsinline preload="none" aria-label="Базилик"></video><span class="n">4</span></div><div class="tx"><h4>Базилик</h4><p>Положить 4–5 листиков зелёного базилика.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-5.mp4" muted loop playsinline preload="none" aria-label="Белок"></video><span class="n">5</span></div><div class="tx"><h4>Белок</h4><p>По желанию добавить один белок.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-6.mp4" muted loop playsinline preload="none" aria-label="Лёд и шейк"></video><span class="n">6</span></div><div class="tx"><h4>Лёд и шейк</h4><p>Насыпать в шейкер много льда, плотно закрыть и как следует взбить, чтобы белок дал пенку.</p></div></div><div class="srow"><div class="clip"><video data-src="clips/14-7.mp4" muted loop playsinline preload="none" aria-label="Процедить"></video><span class="n">7</span></div><div class="tx"><h4>Процедить</h4><p>Аккуратно процедить коктейль в бокал.</p></div></div></div>
+      <h3>Секреты <em>шефа</em></h3><div class="tip"><b>Сахар не нужен</b>Сладости соков достаточно, сироп в этот коктейль не добавляют.<q>Сахара добавлять сюда не нужно, его вполне достаточно содержится в соке.</q></div><div class="tip"><b>Базилик — изюминка</b>Несколько листиков базилика дают тропическим сокам свежую травяную ноту.<q>Изюминкой этого коктейля будут листики зеленого базилика.</q></div><div class="tip"><b>Пенка — от белка и шейка</b>Белок взбивают со льдом долго и энергично, иначе пенки не будет. Без шейкера подойдёт блендер, но в шейкере интереснее.<q>Для того чтобы белок у нас образовал вкусную пенку.</q></div>
+      
+    </div>
+  </div>
+  <section class="done"><span class="kick">Готово</span><h3>Коко Джамбо</h3><div class="cuts"><div class="clip"><video data-src="clips/14-cut1.mp4" muted loop playsinline preload="none"></video></div><div class="clip"><video data-src="clips/14-cut2.mp4" muted loop playsinline preload="none"></video></div></div></section>
+</article>
+
+  <div id="gen"></div>
+
+  <footer>Леонид Жарков · HoolyFood Academy<br>Хорошего праздника!</footer>
+</main>
+<div class="fab"><a href="#toc">Содержание</a></div>
+
+<script>
+// ролики грузятся и играют, только когда шаг на экране — экономит трафик и батарею
+const io = new IntersectionObserver(es => es.forEach(e => {
+  const v = e.target;
+  if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else v.pause();
+}), { rootMargin: "200px 0px", threshold: .2 });
+document.querySelectorAll("video[data-src]").forEach(v => io.observe(v));
+// «Готово» на телефоне: лента разрезов стартует со средней карточки
+document.querySelectorAll(".cuts").forEach(c => { if (c.scrollWidth > c.clientWidth) { const m = c.children[1]; c.scrollLeft = m.offsetLeft - (c.clientWidth - m.clientWidth) / 2; } });
+// офлайн: книга кешируется по мере просмотра (работает на сайте по https)
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+<a href="../" class="to-shelf" style="position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;background:#141110;color:#f6f1ea;text-decoration:none;font:600 12px Oswald,'Arial Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border-radius:24px;box-shadow:0 6px 20px #0006">← Полка</a>
+</body>
+</html>
