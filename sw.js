@@ -45,6 +45,9 @@ self.addEventListener("fetch", e => {
     return;
   }
   if (req.mode === "navigate") {   // страницы: сначала сеть (свежая версия), без сети — кеш
+    const book = new URL(url).pathname.match(/\/([a-z-]+)\/(index\.html)?$/);   // открыли книгу с интернетом — её видео тихо докачиваются
+    if (book && self.registration.scope !== new URL(url).href) e.waitUntil(fetch("files.json").then(r => r.json())
+      .then(F => F[book[1]] && save(F[book[1]].video, book[1])).catch(() => {}));
     e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(C).then(c => c.put(url, cp)); return r; })
       .catch(async () => (await caches.match(url, { ignoreSearch: true })) || caches.match(url.replace(/\/?$/, "/index.html")) || caches.match("index.html")));
     return;
