@@ -22,9 +22,11 @@ async function missing(urls) { const c = await caches.open(C); let n = 0; for (c
 // одна очередь на всё: сначала тексты и фото, потом видео книг по очереди; общий счётчик и счётчик каждой книги
 let running = null;
 async function all(jobs, dry) {
+  // что уже в телефоне — одним списком (сотни отдельных c.match на iPhone занимают секунды и задерживают открытие книги)
   const c = await caches.open(C); const books = {}; let done = 0, total = 0; const todo = [];
+  const have = new Set((await c.keys()).map(r => r.url));
   for (const j of jobs) { let d = 0;
-    for (const u of j.urls) { if (await c.match(u)) d++; else todo.push([j.tag, u]); }
+    for (const u of j.urls) { if (have.has(new URL(u, self.registration.scope).href)) d++; else todo.push([j.tag, u]); }
     books[j.tag] = [d, j.urls.length]; done += d; total += j.urls.length; }
   const report = () => { const b = { ...books }; delete b.lite; tell({ type: "all", done, total, books: b }); };
   report(); if (dry) return;
@@ -62,12 +64,13 @@ self.addEventListener("fetch", e => {
     })());
     return;
   }
-  if (req.mode === "navigate") {   // страницы: сначала сеть (свежая версия), без сети — кеш
-    const book = new URL(url).pathname.match(/\/([a-z-]+)\/(index\.html)?$/);   // открыли книгу с интернетом — её видео тихо докачиваются
-    if (book && self.registration.scope !== new URL(url).href) e.waitUntil(fetch("files.json").then(r => r.json())
-      .then(F => F[book[1]] && save(F[book[1]].video, book[1])).catch(() => {}));
-    e.respondWith(fetch(req).then(r => { const cp = r.clone(); caches.open(C).then(c => c.put(url, cp)); return r; })
-      .catch(async () => (await caches.match(url, { ignoreSearch: true })) || caches.match(url.replace(/\/?$/, "/index.html")) || caches.match("index.html")));
+  if (req.mode === "navigate") {   // страницы: сразу из телефона, если есть (не ждём сеть, пока качаются видео); свежую версию тянем в фоне
+    const fresh = fetch(req).then(r => { if (r.ok) { const cp = r.clone(); caches.open(C).then(c => c.put(url, cp)); } return r; });
+    e.respondWith((async () => {
+      const hit = (await caches.match(url, { ignoreSearch: true })) || (await caches.match(url.replace(/\/?$/, "/index.html")));
+      if (hit) { e.waitUntil(fresh.catch(() => {})); return hit; }
+      try { return await fresh; } catch (_) { return (await caches.match("index.html")) || Response.error(); }
+    })());
     return;
   }
   e.respondWith(caches.match(url).then(hit => hit || fetch(req).then(r => {   // остальное: кеш, иначе сеть (шрифты тоже, в т.ч. «непрозрачные»)
