@@ -19,8 +19,25 @@ async function save(urls, tag) {   // качаем по очереди, сооб
   }
 }
 async function missing(urls) { const c = await caches.open(C); let n = 0; for (const u of urls) if (!(await c.match(u))) n++; return n; }
+// одна очередь на всё: сначала тексты и фото, потом видео книг по очереди; общий счётчик и счётчик каждой книги
+let running = null;
+async function all(jobs, dry) {
+  const c = await caches.open(C); const books = {}; let done = 0, total = 0; const todo = [];
+  for (const j of jobs) { let d = 0;
+    for (const u of j.urls) { if (await c.match(u)) d++; else todo.push([j.tag, u]); }
+    books[j.tag] = [d, j.urls.length]; done += d; total += j.urls.length; }
+  const report = () => { const b = { ...books }; delete b.lite; tell({ type: "all", done, total, books: b }); };
+  report(); if (dry) return;
+  let n = 0;
+  for (const [tag, u] of todo) {
+    try { const r = await fetch(u); if (r.ok) { await c.put(u, r); done++; books[tag][0]++; } } catch (_) {}
+    if (++n % 4 === 0) report();
+  }
+  report();
+}
 self.addEventListener("message", e => {
   const m = e.data || {};
+  if (m.type === "all") e.waitUntil(running && !m.dry ? running.then(() => all(m.jobs, true)) : (m.dry ? all(m.jobs, true) : (running = all(m.jobs).finally(() => { running = null; }))));
   if (m.type === "lite") e.waitUntil(save(m.urls, "lite"));
   if (m.type === "video") e.waitUntil(save(m.urls, m.slug));
   if (m.type === "status") e.waitUntil((async () => { const out = {}; for (const [s, u] of Object.entries(m.books)) out[s] = await missing(u); tell({ type: "status", missing: out }); })());

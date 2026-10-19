@@ -39,7 +39,17 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
 .card{display:flex;flex-direction:column;gap:8px}
 .dl{border:1px solid #e8c46a55;border-radius:20px;padding:8px 10px;background:transparent;color:#f1e3c8;font:600 11px var(--display);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .dl.ok{border-color:transparent;color:var(--gold);cursor:default}
-.net{margin:0 0 16px;font-size:13px;color:var(--mute)}
+.prog{margin:0 0 18px;padding:14px 16px;border-radius:14px;background:#2a1d14;border:1px solid #e8c46a55}
+.prog[hidden]{display:none}
+.pt{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font:600 15px var(--body);color:#f1e3c8}
+.pt b{font:700 34px/1 var(--display);color:var(--gold)}
+.bar{height:10px;border-radius:6px;background:#141110;overflow:hidden;margin:10px 0 8px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#d9a441,#f6dc9a);transition:width .4s}
+#psub{margin:0;font-size:12px;color:var(--mute)}
+.prog.done{border-color:#e8c46a99}
+.prog.done .bar{display:none}
+.st{font:600 11px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);min-height:16px;padding-left:2px}
+.st.ok{color:var(--gold)}
 .add button,.go{margin-top:10px;border:0;border-radius:24px;padding:10px 16px;background:var(--red);color:#fff;font:600 13px var(--display);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
 .sheet{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:20;background:#2a1d14;border:1px solid #e8c46a66;border-radius:18px;padding:16px 16px 12px;box-shadow:0 -10px 40px #000c;animation:up .35s ease-out}
 .sheet[hidden]{display:none}
@@ -70,8 +80,8 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
   <header><img src="img/logo.png" alt="HoolyFood Academy"></header>
   <h1>Моя полка</h1>
   <p class="sub">Живые книги шефов: в каждом шаге видео, как это делается руками</p>
-  <p class="net" id="net"></p>
-  <div class="grid"><div class="card"><a class="book" href="kotlety/"><img src="img/kotlety.jpg" alt="" loading="lazy"><div class="cap"><h2>Котлеты по ГОСТу</h2><div class="who">Шеф Татьяна Травникова</div><span class="n">10 рецептов</span></div></a><button class="dl" data-slug="kotlety">Сохранить видео · 27 МБ</button></div><div class="card"><a class="book" href="lenivaya/"><img src="img/lenivaya.jpg" alt="" loading="lazy"><div class="cap"><h2>Ленивая хозяйка. Том 1</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">20 рецептов</span></div></a><button class="dl" data-slug="lenivaya">Сохранить видео · 32 МБ</button></div><div class="card"><a class="book" href="rulety/"><img src="img/rulety.jpg" alt="" loading="lazy"><div class="cap"><h2>Мясные рулеты</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">9 рецептов</span></div></a><button class="dl" data-slug="rulety">Сохранить видео · 34 МБ</button></div><div class="card"><a class="book" href="novyi-god/"><img src="img/novyi-god.jpg" alt="" loading="lazy"><div class="cap"><h2>Новогодний стол</h2><div class="who">Команда шефов ХулиФуда</div><span class="n">16 рецептов</span></div></a><button class="dl" data-slug="novyi-god">Сохранить видео · 54 МБ</button></div><div class="card"><a class="book" href="kokteili/"><img src="img/kokteili.jpg" alt="" loading="lazy"><div class="cap"><h2>Коктейли</h2><div class="who">Леонид Жарков</div><span class="n">14 рецептов</span></div></a><button class="dl" data-slug="kokteili">Сохранить видео · 22 МБ</button></div><div class="card"><a class="book" href="rozhdestvo/"><img src="img/rozhdestvo.jpg" alt="" loading="lazy"><div class="cap"><h2>Традиционная рождественская выпечка</h2><div class="who">Елена Уилкинсон · Ольга Андреева</div><span class="n">15 рецептов</span></div></a><button class="dl" data-slug="rozhdestvo">Сохранить видео · 48 МБ</button></div></div>
+  <div class="prog" id="prog" hidden><div class="pt"><span id="ptxt">Сохраняю книги в телефон</span><b id="pct">0%</b></div><div class="bar"><i id="pbar"></i></div><p id="psub">Один раз с интернетом — потом книги и видео работают без него</p></div>
+  <div class="grid"><div class="card"><a class="book" href="kotlety/"><img src="img/kotlety.jpg" alt="" loading="lazy"><div class="cap"><h2>Котлеты по ГОСТу</h2><div class="who">Шеф Татьяна Травникова</div><span class="n">10 рецептов</span></div></a><div class="st" data-slug="kotlety"></div></div><div class="card"><a class="book" href="lenivaya/"><img src="img/lenivaya.jpg" alt="" loading="lazy"><div class="cap"><h2>Ленивая хозяйка. Том 1</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">20 рецептов</span></div></a><div class="st" data-slug="lenivaya"></div></div><div class="card"><a class="book" href="rulety/"><img src="img/rulety.jpg" alt="" loading="lazy"><div class="cap"><h2>Мясные рулеты</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">9 рецептов</span></div></a><div class="st" data-slug="rulety"></div></div><div class="card"><a class="book" href="novyi-god/"><img src="img/novyi-god.jpg" alt="" loading="lazy"><div class="cap"><h2>Новогодний стол</h2><div class="who">Команда шефов ХулиФуда</div><span class="n">16 рецептов</span></div></a><div class="st" data-slug="novyi-god"></div></div><div class="card"><a class="book" href="kokteili/"><img src="img/kokteili.jpg" alt="" loading="lazy"><div class="cap"><h2>Коктейли</h2><div class="who">Леонид Жарков</div><span class="n">14 рецептов</span></div></a><div class="st" data-slug="kokteili"></div></div><div class="card"><a class="book" href="rozhdestvo/"><img src="img/rozhdestvo.jpg" alt="" loading="lazy"><div class="cap"><h2>Традиционная рождественская выпечка</h2><div class="who">Елена Уилкинсон · Ольга Андреева</div><span class="n">15 рецептов</span></div></a><div class="st" data-slug="rozhdestvo"></div></div></div>
   <div class="add" id="add">
     <b>Одна полка — один значок.</b> Добавьте её на экран телефона: все книги будут здесь, новые появятся сами.
     <div><button id="showhow">Как добавить</button></div>
@@ -91,7 +101,8 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
 <script>
 const UA = navigator.userAgent;
 const IOS = /iphone|ipad|ipod/i.test(UA) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-const INAPP = /Instagram|FBAN|FBAV|Telegram|VKClient|OKApp|Line\/|WhatsApp|YandexSearch/i.test(UA);
+const INAPP = /Instagram|FBAN|FBAV|Telegram|VKClient|OKApp|Line\/|WhatsApp|YandexSearch/i.test(UA) || (/iphone|ipad|ipod/i.test(UA) && !/Safari\//.test(UA));
+const FROM_APP = location.hash === "#safari";   // пришли по кнопке «Открыть в Safari» — уже в Safari, кнопку не показываем
 const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
 const sheet = document.getElementById("sheet"), steps = document.getElementById("steps");
 const SHARE = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
@@ -100,7 +111,7 @@ let ev = null;
 // из встроенного окна Телеграма/Инстаграма значок не ставится; эти ссылки открывают страницу в настоящем браузере:
 // iPhone — схема x-safari-https:// (iOS 17+), Android — intent:// с пакетом Chrome
 const HERE = location.href.split("#")[0];
-const SAFARI = "x-safari-" + HERE, CHROME = "intent://" + HERE.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+const SAFARI = "x-safari-" + HERE + "#safari", CHROME = "intent://" + HERE.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
 const OPEN = IOS ? `<a class="go" href="${SAFARI}">Открыть в Safari</a>` : `<a class="go" href="${CHROME}">Открыть в Chrome</a>`;
 function render() {
   if (INAPP) steps.innerHTML = `<p class="tip2" style="margin:0 0 8px;font-size:14px;color:#f1e3c8">Вы открыли ссылку внутри приложения — отсюда значок не ставится. Откройте полку в ${IOS ? "Safari" : "Chrome"}, там появится подсказка:</p>${OPEN}
@@ -109,7 +120,7 @@ function render() {
       <li><span class="k">${SHARE}</span><span class="t">Нажмите «Поделиться» внизу экрана<small>на новых iPhone сначала «⋯» внизу справа</small></span></li>
       <li><span class="k">${PLUS}</span><span class="t">Пролистайте и выберите «На экран Домой»</span></li>
       <li><span class="k">✓</span><span class="t">Нажмите «Добавить» вверху справа</span></li></ol>
-      <p class="tip2">Нет пункта «На экран Домой»? Значит, ссылка открыта в Телеграме или другом приложении:</p>${OPEN.replace('class="go"', 'class="go alt"')}`;
+      ${FROM_APP ? '' : `<p class="tip2">Нет пункта «На экран Домой»? Значит, ссылка открыта в Телеграме или другом приложении:</p>${OPEN.replace('class="go"', 'class="go alt"')}`}`;
   else if (ev) steps.innerHTML = `<button class="go" id="go">Добавить на экран</button>`;
   else steps.innerHTML = `<ol>
       <li><span class="k">⋮</span><span class="t">Нажмите меню браузера вверху справа</span></li>
@@ -125,28 +136,25 @@ addEventListener("beforeinstallprompt", e => { e.preventDefault(); ev = e; if (!
 addEventListener("appinstalled", () => { sheet.hidden = true; });
 if (standalone) document.getElementById("add").style.display = "none";
 else if (!seen && matchMedia("(max-width:900px)").matches) setTimeout(open, 1200);
-// офлайн: при первом открытии с интернетом полка сама сохраняет тексты и фото всех книг; видео — по кнопке на карточке
-const net = document.getElementById("net");
+// офлайн: при открытии с интернетом полка сама сохраняет всё — сначала тексты и фото, потом видео книг по очереди
+const prog = document.getElementById("prog"), pct = document.getElementById("pct"), pbar = document.getElementById("pbar"), ptxt = document.getElementById("ptxt"), psub = document.getElementById("psub");
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) (async () => {
   await navigator.serviceWorker.register("sw.js");
   const sw = (await navigator.serviceWorker.ready).active;
   let F = {}; try { F = await (await fetch("files.json")).json(); } catch (_) { return; }
-  const thumbs = Object.keys(F).map(s => `img/${s}.jpg`);
-  const lite = thumbs.concat(...Object.values(F).map(b => b.lite));
-  const videos = Object.fromEntries(Object.entries(F).map(([s, b]) => [s, b.video]));
+  const jobs = [{ tag: "lite", urls: Object.keys(F).map(s => `img/${s}.jpg`).concat(...Object.values(F).map(b => b.lite)) }]
+    .concat(Object.entries(F).map(([s, b]) => ({ tag: s, urls: b.video })));
   navigator.serviceWorker.addEventListener("message", ({ data: m }) => {
-    if (m.type === "progress" && m.tag === "lite") net.textContent = m.done < m.total ? `Сохраняю книги для чтения без интернета… ${Math.round(100 * m.done / m.total)}%` : "Книги сохранены: читаются и без интернета";
-    if (m.type === "progress" && m.tag !== "lite") { const b = document.querySelector(`.dl[data-slug="${m.tag}"]`);
-      if (b) { b.textContent = m.done < m.total ? `Сохраняю видео ${m.done} из ${m.total}` : "✓ Видео сохранены"; b.classList.toggle("ok", m.done === m.total); } }
-    if (m.type === "status") for (const [s, k] of Object.entries(m.missing)) if (!k) { const b = document.querySelector(`.dl[data-slug="${s}"]`); if (b) { b.textContent = "✓ Видео сохранены"; b.classList.add("ok"); } }
+    if (m.type !== "all") return;
+    const p = m.total ? Math.floor(100 * m.done / m.total) : 100, full = m.done >= m.total;
+    prog.hidden = false; prog.classList.toggle("done", full);
+    pct.textContent = full ? "✓" : p + "%"; pbar.style.width = p + "%";
+    ptxt.textContent = full ? "Все книги в телефоне" : (navigator.onLine ? "Сохраняю книги в телефон" : "Без интернета — сохранено " + p + "%");
+    psub.textContent = full ? "Читаются и показывают видео без интернета" : "Один раз с интернетом — потом книги и видео работают без него";
+    for (const [s, [d, n]] of Object.entries(m.books || {})) { const st = document.querySelector(`.st[data-slug="${s}"]`);
+      if (st) { st.textContent = d >= n ? "✓ В телефоне" : (d ? "Загружается " + Math.floor(100 * d / n) + "%" : "Ждёт загрузки"); st.classList.toggle("ok", d >= n); } }
   });
-  if (navigator.onLine) sw.postMessage({ type: "lite", urls: lite });
-  sw.postMessage({ type: "status", books: videos });
-  document.querySelectorAll(".dl").forEach(b => b.onclick = () => {
-    if (b.classList.contains("ok")) return;
-    if (!navigator.onLine) { b.textContent = "Нужен интернет"; return; }
-    b.textContent = "Сохраняю видео…"; sw.postMessage({ type: "video", slug: b.dataset.slug, urls: videos[b.dataset.slug] });
-  });
+  sw.postMessage({ type: "all", jobs, dry: !navigator.onLine });
 })().catch(() => {});
 </script>
 </body>
