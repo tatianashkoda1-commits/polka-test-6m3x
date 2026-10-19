@@ -483,7 +483,7 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: "200px 0px", threshold: .2 });
 document.querySelectorAll("video[data-src]").forEach(v => io.observe(v));
 // офлайн: книга кешируется по мере просмотра (работает на сайте по https)
-if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+// офлайн ведёт сервис-воркер полки
 </script>
 <a href="../" class="to-shelf" style="position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;background:#141110;color:#f6f1ea;text-decoration:none;font:600 12px Oswald,'Arial Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border-radius:24px;box-shadow:0 6px 20px #0006">← Полка</a>
 </body>
