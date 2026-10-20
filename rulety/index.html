@@ -26,7 +26,8 @@ h3{font-size:24px;margin:26px 0 12px} h3 em{font-style:normal;color:var(--red)}
 .kick{display:block;font:600 12px var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
 /* обложка */
 .cover{position:relative;color:var(--page);background:var(--wood)}
-.cover picture img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.cover .cv{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.cover .cv-w{display:none}
 .cover .ct{position:absolute;inset:0;padding:28px 20px;background:linear-gradient(180deg,#120c09f0 0%,#120c09d9 45%,#120c0900 72%)}
 .cover img.logo{height:44px;width:auto;aspect-ratio:auto}
 .cover h1{font-size:56px;margin:14px 0 8px;background:linear-gradient(180deg,#f6dc9a,#d9a441 45%,#a8742a);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -101,7 +102,7 @@ footer{padding:26px 20px 40px;text-align:center;color:var(--mute);font-size:13px
   .cover .tom{font-size:20px}
   body{padding-block:28px}
   .book{border-radius:18px;overflow:hidden;box-shadow:0 30px 80px #000a}
-  .cover picture img{aspect-ratio:16/9}
+  .cover .cv{aspect-ratio:16/9} .cover .cv-n{display:none} .cover .cv-w{display:block}
   .cover .ct{padding:56px 60px;background:linear-gradient(90deg,#120c09f2 0%,#120c09cc 38%,#120c0900 62%)}
   .cover h1{font-size:88px}
   .stats{grid-template-columns:repeat(2,auto);gap:14px 40px;max-width:420px;justify-content:start}
@@ -128,7 +129,7 @@ footer{padding:26px 20px 40px;text-align:center;color:var(--mute);font-size:13px
 }
 @media (max-width:899px){
   .rhero .cap{position:static;padding:18px 20px 22px;background:var(--wood)}
-  .cover picture img{aspect-ratio:3/4.6;object-position:50% 100%}
+  .cover .cv{aspect-ratio:3/4.6;object-position:50% 100%}
   .cover .ct{background:linear-gradient(180deg,#120c09 0%,#120c09ee 34%,#120c0900 50%)!important}
   .cover .ct{background:linear-gradient(180deg,#120c09f2 0%,#120c09cc 30%,#120c0900 46%)}
   .cover .stats{position:absolute;left:20px;right:20px;bottom:74px;max-width:none;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 12px;border-radius:12px;background:#120c09b8;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -142,7 +143,7 @@ footer{padding:26px 20px 40px;text-align:center;color:var(--mute);font-size:13px
 <body>
 <main class="book">
   <section class="cover" id="top">
-    <picture><source media="(min-width:900px)" srcset="img/cover-wide.jpg"><img src="img/cover.jpg" alt=""></picture>
+    <video class="cv cv-n" src="img/cover.mp4" poster="img/cover.jpg" autoplay muted loop playsinline></video><video class="cv cv-w" src="img/cover-wide.mp4" poster="img/cover-wide.jpg" autoplay muted loop playsinline preload="none"></video>
     <div class="ct">
       <img class="logo" src="img/logo.png" alt="HoolyFood Academy">
       <h1>Мясные<br>рулеты</h1>
