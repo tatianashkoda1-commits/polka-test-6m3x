@@ -2,7 +2,7 @@
 // 1) установка — сама полка; 2) по команде полки — «лёгкие» файлы всех книг (тексты, фото);
 // 3) по кнопке — видео книги; 4) всё, что открывалось, тоже остаётся. Запросы видео кусками (Range, так делает Safari)
 //    отдаются из кеша нарезкой 206 — иначе на iPhone видео офлайн не играет.
-const C = "polka-v2";
+const C = "polka-v3";  // v3 20.10: новая обложка «Ленивой», мягкое затемнение, «Шеф(ы)» — старый кеш сносится
 const SHELF = ["./", "index.html", "manifest.webmanifest", "files.json", "img/icon-192.png", "img/icon-512.png", "img/logo.png"];
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(SHELF))); });
 self.addEventListener("activate", e => e.waitUntil((async () => {
