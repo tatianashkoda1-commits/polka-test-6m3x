@@ -73,6 +73,8 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
 @media (min-width:700px){.grid{grid-template-columns:repeat(3,1fr);gap:22px} h1{font-size:56px} .book h2{font-size:24px}}
 @media (min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}
 @media (prefers-reduced-motion:reduce){.book{transition:none}}
+@media (min-width:900px) and (pointer:fine){.sheet{left:auto;right:28px;bottom:28px;width:400px}}
+.sheet .kbd{display:inline-block;padding:1px 7px;border:1px solid #e8c46a66;border-radius:6px;font:600 13px var(--body);color:var(--gold);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -80,10 +82,10 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
   <header><img src="img/logo.png" alt="HoolyFood Academy"></header>
   <h1>Моя полка</h1>
   <p class="sub">Живые книги шефов: в каждом шаге видео, как это делается руками</p>
-  <div class="prog" id="prog" hidden><div class="pt"><span id="ptxt">Сохраняю книги в телефон</span><b id="pct">0%</b></div><div class="bar"><i id="pbar"></i></div><p id="psub">Один раз с интернетом — потом книги и видео работают без него</p></div>
+  <div class="prog" id="prog" hidden><div class="pt"><span id="ptxt">Сохраняю книги</span><b id="pct">0%</b></div><div class="bar"><i id="pbar"></i></div><p id="psub">Один раз с интернетом — потом книги и видео работают без него</p></div>
   <div class="grid"><div class="card"><a class="book" href="kotlety/"><img src="img/kotlety.jpg" alt="" loading="lazy"><div class="cap"><h2>Котлеты по ГОСТу</h2><div class="who">Шеф Татьяна Травникова</div><span class="n">10 рецептов</span></div></a><div class="st" data-slug="kotlety"></div></div><div class="card"><a class="book" href="lenivaya/"><img src="img/lenivaya.jpg" alt="" loading="lazy"><div class="cap"><h2>Ленивая хозяйка. Том 1</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">20 рецептов</span></div></a><div class="st" data-slug="lenivaya"></div></div><div class="card"><a class="book" href="rulety/"><img src="img/rulety.jpg" alt="" loading="lazy"><div class="cap"><h2>Мясные рулеты</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">9 рецептов</span></div></a><div class="st" data-slug="rulety"></div></div><div class="card"><a class="book" href="novyi-god/"><img src="img/novyi-god.jpg" alt="" loading="lazy"><div class="cap"><h2>Новогодний стол</h2><div class="who">Команда шефов ХулиФуда</div><span class="n">16 рецептов</span></div></a><div class="st" data-slug="novyi-god"></div></div><div class="card"><a class="book" href="kokteili/"><img src="img/kokteili.jpg" alt="" loading="lazy"><div class="cap"><h2>Коктейли</h2><div class="who">Шеф Леонид Жарков</div><span class="n">14 рецептов</span></div></a><div class="st" data-slug="kokteili"></div></div><div class="card"><a class="book" href="rozhdestvo/"><img src="img/rozhdestvo.jpg" alt="" loading="lazy"><div class="cap"><h2>Традиционная рождественская выпечка</h2><div class="who">Шефы Елена Уилкинсон · Ольга Андреева</div><span class="n">15 рецептов</span></div></a><div class="st" data-slug="rozhdestvo"></div></div><div class="card"><a class="book" href="vyalenoe/"><img src="img/vyalenoe.jpg" alt="" loading="lazy"><div class="cap"><h2>Вяленое мясо цельным куском</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">8 рецептов</span></div></a><div class="st" data-slug="vyalenoe"></div></div><div class="card"><a class="book" href="syrovyalenye/"><img src="img/syrovyalenye.jpg" alt="" loading="lazy"><div class="cap"><h2>Сыровяленые колбасы и сушёный фарш</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">8 рецептов</span></div></a><div class="st" data-slug="syrovyalenye"></div></div><div class="card"><a class="book" href="varenye/"><img src="img/varenye.jpg" alt="" loading="lazy"><div class="cap"><h2>Варёные колбасы и ветчины</h2><div class="who">Шеф Татьяна Шкода</div><span class="n">14 рецептов</span></div></a><div class="st" data-slug="varenye"></div></div></div>
   <div class="add" id="add">
-    <b>Одна полка — один значок.</b> Добавьте её на экран телефона: все книги будут здесь, новые появятся сами.
+    <b>Одна полка — один значок.</b> <span id="addtxt">Добавьте её на экран телефона: все книги будут здесь, новые появятся сами.</span>
     <div><button id="showhow">Как добавить</button></div>
   </div>
   <p class="proto">Прототип полки</p>
@@ -93,7 +95,7 @@ h1{font:700 40px/1 var(--display);text-transform:uppercase;margin:0 0 4px;backgr
 <div class="sheet" id="sheet" hidden>
   <div class="sh">
     <img src="img/icon-192.png" alt="" class="ic">
-    <div><b>Мои книги</b><span>Значок на экране телефона — книги в один тап, и без интернета</span></div>
+    <div><b>Мои книги</b><span id="shtxt">Значок на экране телефона — книги в один тап, и без интернета</span></div>
   </div>
   <div id="steps"></div>
   <button class="later" id="later">Позже</button>
@@ -113,6 +115,16 @@ let ev = null;
 const HERE = location.href.split("#")[0];
 const SAFARI = "x-safari-" + HERE + "#safari", CHROME = "intent://" + HERE.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
 const OPEN = IOS ? `<a class="go" href="${SAFARI}">Открыть в Safari</a>` : `<a class="go" href="${CHROME}">Открыть в Chrome</a>`;
+// ноутбук/компьютер (26.10): своя подсказка — кнопка «Установить» (Chrome, Edge, Яндекс), Mac Safari — «Файл → Добавить в Dock», Firefox — честно «откройте в Chrome»
+const DESK = !IOS && !/Android|Mobi/i.test(UA);
+const FIREFOX = /Firefox\//.test(UA), EDGE = /Edg\//.test(UA), YA = /YaBrowser/.test(UA);
+const MAC_SAFARI = /Macintosh/.test(UA) && /Safari\//.test(UA) && !/Chrome|Chromium|Edg|YaBrowser|Firefox|OPR/.test(UA);
+const INST = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e8c46a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M12 7v5M9.5 9.5 12 12l2.5-2.5"/></svg>';
+if (DESK) {
+  document.getElementById("shtxt").textContent = FIREFOX ? "Значок на компьютер ставится из Chrome, Edge или Яндекс Браузера" : "Значок на компьютере — полка в один клик и без интернета";
+  document.getElementById("addtxt").textContent = "Установите её на компьютер: все книги будут здесь, новые появятся сами.";
+  document.getElementById("showhow").textContent = "Как установить";
+}
 function render() {
   if (INAPP) steps.innerHTML = `<p class="tip2" style="margin:0 0 8px;font-size:14px;color:#f1e3c8">Вы открыли ссылку внутри приложения — отсюда значок не ставится. Откройте полку в ${IOS ? "Safari" : "Chrome"}, там появится подсказка:</p>${OPEN}
       <p class="tip2">Не открылось? Нажмите «⋯» в углу экрана → «Открыть в ${IOS ? "Safari" : "браузере"}».</p>`;
@@ -121,21 +133,34 @@ function render() {
       <li><span class="k">${PLUS}</span><span class="t">Пролистайте и выберите «На экран Домой»</span></li>
       <li><span class="k">✓</span><span class="t">Нажмите «Добавить» вверху справа</span></li></ol>
       ${FROM_APP ? '' : `<p class="tip2">Нет пункта «На экран Домой»? Значит, ссылка открыта в Телеграме или другом приложении:</p>${OPEN.replace('class="go"', 'class="go alt"')}`}`;
-  else if (ev) steps.innerHTML = `<button class="go" id="go">Добавить на экран</button>`;
+  else if (DESK && MAC_SAFARI) steps.innerHTML = `<ol>
+      <li><span class="k">1</span><span class="t">В меню вверху экрана нажмите <span class="kbd">Файл</span></span></li>
+      <li><span class="k">2</span><span class="t">Выберите <span class="kbd">Добавить в Dock…</span></span></li>
+      <li><span class="k">✓</span><span class="t">Нажмите <span class="kbd">Добавить</span> — значок полки появится в Dock<small>Нет такого пункта? Нужна macOS 14 Sonoma или новее — или откройте полку в Chrome</small></span></li></ol>`;
+  else if (DESK && FIREFOX) steps.innerHTML = `<p class="tip2" style="margin:0 0 8px;font-size:14px;color:#f1e3c8">Firefox не умеет ставить значок на рабочий стол. Откройте эту страницу в Chrome, Edge или Яндекс Браузере — там будет кнопка «Установить». Книги без интернета сохраняются и здесь.</p>
+      <button class="go" id="copy">Скопировать ссылку</button>`;
+  else if (ev) steps.innerHTML = `<button class="go" id="go">${DESK ? "Установить на компьютер" : "Добавить на экран"}</button>
+      ${DESK ? '<p class="tip2" style="text-align:center">Появится значок полки — открывается в один клик, отдельным окном</p>' : ''}`;
+  else if (DESK) steps.innerHTML = `<ol>
+      <li><span class="k">${INST}</span><span class="t">Справа в адресной строке нажмите значок «Установить»</span></li>
+      <li><span class="k">✓</span><span class="t">Подтвердите — <span class="kbd">Установить</span></span></li></ol>
+      <p class="tip2">Нет значка? ${EDGE ? "Меню «…» → «Приложения» → «Установить этот сайт как приложение»" : YA ? "Меню ☰ вверху справа → пункт «Установить» или «Создать ярлык»" : "Меню ⋮ → «Трансляция, сохранение и отправка» → «Установить страницу как приложение»"}.</p>`;
   else steps.innerHTML = `<ol>
       <li><span class="k">⋮</span><span class="t">Нажмите меню браузера вверху справа</span></li>
       <li><span class="k">${PLUS}</span><span class="t">Выберите «Добавить на главный экран» или «Установить»</span></li></ol>`;
   const go = document.getElementById("go");
-  if (go) go.onclick = async () => { ev.prompt(); const r = await ev.userChoice; ev = null; if (r.outcome === "accepted") sheet.hidden = true; };
+  if (go) go.onclick = async () => { ev.prompt(); const r = await ev.userChoice; ev = null; if (r.outcome === "accepted") { sheet.hidden = true; document.getElementById("add").style.display = "none"; } else render(); };
+  const cp = document.getElementById("copy");
+  if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(HERE); cp.textContent = "Ссылка скопирована ✓"; } catch (_) { prompt("Скопируйте ссылку:", HERE); } };
 }
 function open() { render(); sheet.hidden = false; }
 let seen = false; try { seen = localStorage.getItem("polka-sheet") === "1"; } catch (_) {}
 document.getElementById("later").onclick = () => { sheet.hidden = true; try { localStorage.setItem("polka-sheet", "1"); } catch (_) {} };
 document.getElementById("showhow").onclick = open;
 addEventListener("beforeinstallprompt", e => { e.preventDefault(); ev = e; if (!sheet.hidden) render(); });
-addEventListener("appinstalled", () => { sheet.hidden = true; });
+addEventListener("appinstalled", () => { sheet.hidden = true; document.getElementById("add").style.display = "none"; });
 if (standalone) document.getElementById("add").style.display = "none";
-else if (!seen && matchMedia("(max-width:900px)").matches) setTimeout(open, 1200);
+else if (!seen) setTimeout(open, 1200);   // и на телефоне, и на компьютере
 // офлайн: при открытии с интернетом полка сама сохраняет всё — сначала тексты и фото, потом видео книг по очереди
 const prog = document.getElementById("prog"), pct = document.getElementById("pct"), pbar = document.getElementById("pbar"), ptxt = document.getElementById("ptxt"), psub = document.getElementById("psub");
 if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) (async () => {
@@ -158,10 +183,10 @@ if ("serviceWorker" in navigator && (location.protocol === "https:" || location.
     const p = m.total ? Math.floor(100 * m.done / m.total) : 100; full = m.done >= m.total;
     prog.hidden = false; prog.classList.toggle("done", full);
     pct.textContent = full ? "✓" : p + "%"; pbar.style.width = p + "%";
-    ptxt.textContent = full ? "Все книги в телефоне" : (navigator.onLine ? "Сохраняю книги в телефон" : "Без интернета — сохранено " + p + "%");
+    ptxt.textContent = full ? "Все книги сохранены" : (navigator.onLine ? "Сохраняю книги" : "Без интернета — сохранено " + p + "%");
     psub.textContent = full ? "Читаются и показывают видео без интернета" : "Один раз с интернетом — потом книги и видео работают без него";
     for (const [s, [d, n]] of Object.entries(m.books || {})) { const st = document.querySelector(`.st[data-slug="${s}"]`);
-      if (st) { st.textContent = d >= n ? "✓ В телефоне" : (d ? "Загружается " + Math.floor(100 * d / n) + "%" : "Ждёт загрузки"); st.classList.toggle("ok", d >= n); } }
+      if (st) { st.textContent = d >= n ? "✓ Сохранена" : (d ? "Загружается " + Math.floor(100 * d / n) + "%" : "Ждёт загрузки"); st.classList.toggle("ok", d >= n); } }
   });
   sw.postMessage({ type: "all", jobs, dry: !navigator.onLine });
 })().catch(() => {});
