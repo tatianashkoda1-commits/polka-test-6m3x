@@ -33,7 +33,7 @@ async function all(jobs, dry) {
   // 6 загрузок одновременно: файлов сотни, мелких — медленно не из-за объёма, а из-за ожидания ответа на каждый
   let n = 0, i = 0;
   const worker = async () => { while (i < todo.length) { const [tag, u] = todo[i++];
-    try { const r = await fetch(u); if (r.ok) { await c.put(u, r); done++; books[tag][0]++; } } catch (_) {}
+    try { const r = await fetch(u, { signal: AbortSignal.timeout(180000) }); if (r.ok) { await c.put(u, r); done++; books[tag][0]++; } } catch (_) {}   // подвисший файл (3 мин) не держит очередь: докачается при следующем заходе
     if (++n % 6 === 0) report(); } };
   await Promise.all(Array.from({ length: 6 }, worker));
   report();

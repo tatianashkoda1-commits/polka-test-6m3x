@@ -144,9 +144,18 @@ if ("serviceWorker" in navigator && (location.protocol === "https:" || location.
   let F = {}; try { F = await (await fetch("files.json")).json(); } catch (_) { return; }
   const jobs = [{ tag: "lite", urls: Object.keys(F).map(s => `img/${s}.jpg`).concat(...Object.values(F).map(b => b.lite)) }]
     .concat(Object.entries(F).map(([s, b]) => ({ tag: s, urls: b.video })));
+  // браузер обрывает фоновую загрузку примерно через 5 минут (26.10: полка 330 МБ вставала на половине) —
+  // если 15 с нет вестей, просим продолжить: уже сохранённое не качается заново
+  let last = Date.now(), full = false;
+  setInterval(async () => {
+    if (full || !navigator.onLine || Date.now() - last < 15000) return;
+    last = Date.now(); const r = await navigator.serviceWorker.getRegistration();
+    if (r && r.active) r.active.postMessage({ type: "all", jobs });
+  }, 5000);
   navigator.serviceWorker.addEventListener("message", ({ data: m }) => {
     if (m.type !== "all") return;
-    const p = m.total ? Math.floor(100 * m.done / m.total) : 100, full = m.done >= m.total;
+    last = Date.now();
+    const p = m.total ? Math.floor(100 * m.done / m.total) : 100; full = m.done >= m.total;
     prog.hidden = false; prog.classList.toggle("done", full);
     pct.textContent = full ? "✓" : p + "%"; pbar.style.width = p + "%";
     ptxt.textContent = full ? "Все книги в телефоне" : (navigator.onLine ? "Сохраняю книги в телефон" : "Без интернета — сохранено " + p + "%");
